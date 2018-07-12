@@ -41,14 +41,37 @@ renderLiveMatches() {
    return (
      <View
      key={i}
-      style={{ flex: 1}}
+     style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', marginTop: 20}}
      >
-      <Text>
-        {awayTeamName}
-      </Text>
-      <Text>
-        {homeTeamName}
-      </Text>
+     <View
+      style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10 }}
+     >
+        <Text
+         style={{fontSize: 15, fontWeight: 'bold'}}
+        >
+          {awayTeamName}
+        </Text>
+        <Text
+        style={{fontSize: 15, fontWeight: 'bold'}}
+
+        >
+          {awayTeamScore}
+        </Text>
+     </View>
+      <View
+      style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10  }}
+      >
+        <Text
+        style={{fontSize: 15, fontWeight: 'bold'}}
+        >
+          {homeTeamName}
+        </Text>
+        <Text
+        style={{fontSize: 15, fontWeight: 'bold'}}
+        >
+          {homeTeamScore}
+        </Text>
+      </View>
      </View>
    )
  })
@@ -68,7 +91,7 @@ renderLiveMatches() {
      }else {
        return (
          <View
-          style={{ flex: 1}}
+          style={{ flex: 1, marginTop: 10}}
          >
           <ScrollView
            style={{ flex: 1 }}
