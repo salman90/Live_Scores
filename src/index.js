@@ -1,35 +1,33 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, ActivityIndicator } from 'react-native'
 import axios from 'axios'
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
+import LiveScores from './screens/LiveScores';
+import Calendar from './screens/Calendar';
+import Sports from './screens/Sports';
+import GameDetails from './screens/GameDetails';
+import Auth from './screens/Auth';
+import firebase from 'firebase'
+
+
 
 const API_KEY = '8uevyeqyb38gms9t8qmbtj5w'
 
 class App extends Component {
-state = {
-  games: []
-}
-async componentWillMount(){
+  componentWillMount(){
+    ///////
+    const config = {
+    apiKey: "AIzaSyB0rXZX-LXn0iw07K4SrWWndTP3hus1sFc",
+    authDomain: "live-scores-b9be5.firebaseapp.com",
+    databaseURL: "https://live-scores-b9be5.firebaseio.com",
+    projectId: "live-scores-b9be5",
+    storageBucket: "live-scores-b9be5.appspot.com",
+    messagingSenderId: "697331398802"
+  };
 
-const data = await axios.get('http://api.sportradar.us/mlb/trial/v6.5/en/games/2018/07/11/boxscore.json?api_key=8uevyeqyb38gms9t8qmbtj5w'
-).then(res => {
- const games = res.data.league.games
-
- // games.map((game, i) => {
-   this.setState({ games: games  })
-   // const homeTeamName = game.game.home.name
-   // const awayTeamName = game.game.away.name
-   // const homeTeamScore = game.game.home.runs
-   // const awayTeamScore = game.game.away.runs
-   // const todayMatches = homeTeamName + ’ vs ' + awayTeamName + ” “+homeTeamScore + ' - ' + awayTeamScore
-   // console.log(todayMatches)
-
-
- // })
-
-})
-// console.log(this.state.games)
-
-}
+     firebase.initializeApp(config);
+     //////////////////
+  }
 
 renderLiveMatches() {
  const { games } = this.state
@@ -77,30 +75,22 @@ renderLiveMatches() {
  })
 }
 
- render(){
-   // console.log(this.state.games)
-     if(this.state.games.length === 0) {
-       return (
-         <View
-          style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}
-         >
-            <ActivityIndicator size="large" color="#0000ff" />
-         </View>
-       )
 
-     }else {
-       return (
-         <View
-          style={{ flex: 1, marginTop: 10}}
-         >
-          <ScrollView
-           style={{ flex: 1 }}
-          >
-            {this.renderLiveMatches()}
-          </ScrollView>
-         </View>
-       )
-     }
+ render(){
+   const TabNavigator = createBottomTabNavigator({
+     livescores: {
+        screen: createStackNavigator({
+          livescores: { screen:  LiveScores },
+          gameDetails: { screen: GameDetails }
+        })
+      },
+     sports: { screen: Sports },
+     calendar: {screen: Calendar }
+   })
+   // console.log(this.state.games)
+   return (
+     <Auth />
+   )
  }
 }
 
