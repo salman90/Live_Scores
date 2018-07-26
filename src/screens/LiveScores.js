@@ -14,7 +14,7 @@ class LiveScores extends Component {
     games: []
   }
 
-  async componentWillMount() {
+  async componentDidMount() {
     const date = moment().format('YYYY/MM/DD')
     const API_KEY = '8uevyeqyb38gms9t8qmbtj5w'
 

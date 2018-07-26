@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, ScrollView, ActivityIndicator } from 'react-native'
 import axios from 'axios'
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
+import store from './store'
+import { Provider } from 'react-redux'
 import LiveScores from './screens/LiveScores';
 import Calendar from './screens/Calendar';
 import Sports from './screens/Sports';
@@ -29,71 +31,45 @@ class App extends Component {
      //////////////////
   }
 
-renderLiveMatches() {
- const { games } = this.state
- return games.map((game, i) => {
-   const homeTeamName = game.game.home.name
-   const awayTeamName = game.game.away.name
-   const homeTeamScore = game.game.home.runs
-   const awayTeamScore = game.game.away.runs
-   return (
-     <View
-     key={i}
-     style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', marginTop: 20}}
-     >
-     <View
-      style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10 }}
-     >
-        <Text
-         style={{fontSize: 15, fontWeight: 'bold'}}
-        >
-          {awayTeamName}
-        </Text>
-        <Text
-        style={{fontSize: 15, fontWeight: 'bold'}}
 
-        >
-          {awayTeamScore}
-        </Text>
-     </View>
-      <View
-      style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10  }}
-      >
-        <Text
-        style={{fontSize: 15, fontWeight: 'bold'}}
-        >
-          {homeTeamName}
-        </Text>
-        <Text
-        style={{fontSize: 15, fontWeight: 'bold'}}
-        >
-          {homeTeamScore}
-        </Text>
-      </View>
-     </View>
-   )
- })
-}
 
 
  render(){
-   const TabNavigator = createBottomTabNavigator({
-     livescores: {
-        screen: createStackNavigator({
-          livescores: { screen:  LiveScores },
-          gameDetails: { screen: GameDetails }
-        })
-      },
-     sports: { screen: Sports },
-     calendar: {screen: Calendar }
+   const stackNaveForLiveScores = createStackNavigator({
+     livescores: { screen:  LiveScores },
+     gameDetails: { screen: GameDetails }
+
    })
-   // console.log(this.state.games)
+
+   const mainTabNav = createBottomTabNavigator({
+      livescores: {
+        screen: stackNaveForLiveScores
+      },
+      sports: { screen: Sports },
+      calendar: {screen: Calendar }
+   })
+
+
+   const TabNavigator = createBottomTabNavigator({
+     auth: { screen: Auth},
+     main: {
+       screen: mainTabNav
+     },
+   },{
+     lazy: true,
+      swipeEnabled: false,
+      navigationOptions: {
+          tabBarVisible: false
+      },
+   })
+
    return (
-     <Auth />
+     <Provider store={store}>
+       <TabNavigator />
+     </Provider>
    )
  }
 }
-
 
 
 export default App;
