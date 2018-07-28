@@ -15,14 +15,14 @@ class Auth extends Component {
   componentDidMount(){
     // const
     this.props.logInUser(() => {
-      this.props.navigation.navigate('livescores')
+      this.props.navigation.navigate('sports')
     })
   }
 
   signUp = () => {
     const { email, password } = this.props
     this.props.signInWithEmail(email, password, () => {
-      this.props.navigation.navigate('livescores')
+      this.props.navigation.navigate('sports')
     })
   }
 

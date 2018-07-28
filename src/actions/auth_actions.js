@@ -24,7 +24,6 @@ export const updatePassword = (pass) => {
 }
 
 export const signInWithEmail = (email, password, callback) => async dispatch => {
-  console.log('in function')
   dispatch({ type: SIGNING_IN_USER })
   firebase.auth().signInWithEmailAndPassword(email, password)
    .then((user) => {

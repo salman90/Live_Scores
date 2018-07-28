@@ -15,12 +15,13 @@ class LiveScores extends Component {
   }
 
   async componentDidMount() {
+
     const date = moment().format('YYYY/MM/DD')
     const API_KEY = '8uevyeqyb38gms9t8qmbtj5w'
 
     const data = await axios.get(`http://api.sportradar.us/mlb/trial/v6.5/en/games/${date}/boxscore.json?api_key=${API_KEY}`
     ).then(res => {
-      console.log(res)
+      // console.log(res)
      const games = res.data.league.games
 
      // console.log(res.data.league)
@@ -39,6 +40,7 @@ class LiveScores extends Component {
   renderLiveMatches() {
    const { games } = this.state
    return games.map((game, i) => {
+     // console.log(game)
      const homeTeamName = game.game.home.name
      const awayTeamName = game.game.away.name
      const homeTeamScore = game.game.home.runs

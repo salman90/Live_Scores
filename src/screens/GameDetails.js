@@ -5,7 +5,7 @@ class GameDetails extends Component {
   componentDidMount() {
     const params = this.props.navigation.state.params
     const match = params.game.game
-    console.log(params)
+    // console.log(params)
   }
   render(){
     return(

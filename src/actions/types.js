@@ -5,3 +5,6 @@ export const CREATED_USER_SUCCESSFULLY_IN_AUTH  = 'created_user_successfully_in_
 export const LOGED_IN_SUCCESSFULLY = 'loged_in_successfully';
 export const SIGN_IN_FAILD = 'sing_in_faild';
 export const SIGNING_IN_USER = 'singing_in_user';
+export const FETCHED_BASSBALL_MATCHES = 'fetched_bassball_matches';
+export const FETCHED_FOOTBALL_MATCHES = 'fetched_football_matches';
+export const FETCHED_NBA_MATCHES = 'fetched_nba_matches';
