@@ -9,8 +9,12 @@ import Calendar from './screens/Calendar';
 import Sports from './screens/Sports';
 import GameDetails from './screens/GameDetails';
 import FootballScores from './screens/FootballScores';
-import BassBallScores from './screens/BassBallScores'
-import NBAScores from './screens/NBAScores'
+import BassBallScores from './screens/BassBallScores';
+import NBAScores from './screens/NBAScores';
+import MatchDetailsForBassball from './screens/MatchDetailsForBassball';
+import NBAMatchDetails  from './screens/NBAMatchDetails';
+import MatchDetailsForFootball from './screens/MatchDetailsForFootball';
+import FootballNews from './screens/FootballNews'
 import Auth from './screens/Auth';
 import firebase from 'firebase';
 
@@ -38,12 +42,16 @@ class App extends Component {
 
 
  render(){
+   const  stackNavFootball = createStackNavigator({
+     FootballScores: {screen: FootballScores},
+     MatchDetailsForFootball: {screen: MatchDetailsForFootball}
+   })
    const tabNavForFootball = createBottomTabNavigator({
      FootballScores: {
-       screen: FootballScores
+       screen: stackNavFootball
      },
-     sports: {
-       screen: Sports
+     footballnews: {
+       screen: FootballNews
      },
      calendar: {
        screen: Calendar
@@ -61,9 +69,18 @@ class App extends Component {
      },
    })
 
-   const tabNavForBassBall = createBottomTabNavigator({
+   const StackNavForBassBall = createStackNavigator({
      BassBallScores: {
        screen: BassBallScores
+     },
+     MatchDetailsBassball: {
+       screen: MatchDetailsForBassball
+     },
+   })
+
+   const tabNavForBassBall = createBottomTabNavigator({
+     BassBallScores: {
+       screen: StackNavForBassBall
      },
      sports: {
        screen: Sports
@@ -73,10 +90,15 @@ class App extends Component {
      },
    })
 
-   const stackNaveForLiveScores = createStackNavigator({
+   const stackNavForLiveScores = createStackNavigator({
      livescores: { screen:  LiveScores },
      gameDetails: { screen: GameDetails }
 
+   })
+
+   const stackNavforNBA = createStackNavigator({
+     NBAScores: {screen: NBAScores},
+     NBAMatchDetails: {screen: NBAMatchDetails}
    })
 
 
@@ -85,7 +107,7 @@ class App extends Component {
        screen: tabNavForFootball
      },
      NBAScores: {
-       screen: tabNavForNBA
+       screen: stackNavforNBA
      },
      BassBallScores: {
        screen: tabNavForBassBall

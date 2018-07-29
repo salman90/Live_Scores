@@ -1,6 +1,6 @@
 import moment from 'moment';
 import axios from 'axios';
-import { FETCHED_FOOTBALL_MATCHES, New_Type } from './types'
+import { FETCHED_FOOTBALL_MATCHES, GAME_INFO_FOOTBALL } from './types'
 
 export const getTodaysMatchesForFootball = () => async dispatch => {
   const API_KEY = 'eh7pgue3fj5gc8a57rsqux9c'
@@ -48,5 +48,17 @@ export const getTodaysMatchesForFootball = () => async dispatch => {
      })
      dispatch({ type: FETCHED_FOOTBALL_MATCHES, payload: games })
    })
+}
 
+export const getMatchDetails = (game,callback) => async dispatch => {
+  const API_KEY = 'eh7pgue3fj5gc8a57rsqux9c'
+  const gameUid = game.matchId
+  console.log(game.matchId)
+  const url = `https://api.sportradar.us/soccer-xt3/eu/en/matches/${gameUid}/lineups.json?api_key=eh7pgue3fj5gc8a57rsqux9c`
+  axios.get(url)
+   .then((res) => {
+     let matchEvent =  res.data
+       console.log(matchEvent)
+   })
+  callback()
 }

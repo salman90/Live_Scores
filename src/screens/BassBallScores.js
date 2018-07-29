@@ -14,6 +14,13 @@ class BassBallScores extends Component {
     // console.log(this.props.bassballGames)
   }
 
+  renderMatchDetail(game) {
+    // console.log(game.game.id)
+    this.props.getMachInfo(game, () => {
+      this.props.navigation.navigate('MatchDetailsBassball')
+    })
+  }
+
   renderLiveMatches() {
     const { bassballGames } = this.props
     return bassballGames.map((game, i) => {
@@ -21,9 +28,11 @@ class BassBallScores extends Component {
       const awayTeamName = game.game.away.name
       const homeTeamScore = game.game.home.runs
       const awayTeamScore = game.game.away.runs
+      const gameStatus =  game.game.status
       return (
         <TouchableWithoutFeedback
           key={i}
+          onPress={this.renderMatchDetail.bind(this, game)}
         >
           <View
           key={i}
@@ -31,6 +40,9 @@ class BassBallScores extends Component {
           >
             <Card
             >
+              <View>
+                 <Text>{gameStatus}</Text>
+              </View>
               <View
                style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10 }}
               >

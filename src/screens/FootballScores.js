@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView , TouchableHighlight} from 'react-native';
 import { Button, List, ListItem, Card  } from 'react-native-elements';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
@@ -11,27 +11,43 @@ class FootballScores extends Component {
     this.props.getTodaysMatchesForFootball()
   }
 
+  renderFootballDetails(game){
+    // console.log(game.matchId)
+    this.props.getMatchDetails(game, () =>{
+      this.props.navigation.navigate('MatchDetailsForFootball')
+    })
+  }
+
   renderFootBallGames() {
     const { footballGames } = this.props
+
     return footballGames.map((game, i) => {
       const awayTeamName =  game.awayTeam.name
       const homeTeamName = game.homeTeam.name
       const awayTeamScore = game.matchStatus.away_score
       const homeTeamScore = game.matchStatus.home_score
       const tournamentName = game.tournamentInfo.name
-      console.log(awayTeamName, 'awayTeam')
-      console.log(homeTeamName, 'homeTeamName')
-      console.log(awayTeamScore, 'awayTeamScore')
-      console.log(homeTeamScore, 'homeTeamScore')
-      console.log(tournamentName, 'tournamentNam')
+      const matchStatus = game.matchStatus.status
+      const matchTime = game.matchTime
+      // game.sort(matchTime)
+      // console.log(game)
+      // console.log(matchTime)
+      // console.log(matchStatus)
+      // console.log(game)
       return (
         <View
         key={i}
         style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', marginTop: 20}}
         >
+        <TouchableHighlight
+         onPress={this.renderFootballDetails.bind(this, game)}
+        >
           <Card
           title={tournamentName}
           >
+           <View>
+            <Text>{matchStatus}</Text>
+           </View>
             <View
              style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10 }}
             >
@@ -62,6 +78,7 @@ class FootballScores extends Component {
               </Text>
             </View>
           </Card>
+          </TouchableHighlight>
         </View>
       )
     })

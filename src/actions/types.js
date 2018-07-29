@@ -8,3 +8,7 @@ export const SIGNING_IN_USER = 'singing_in_user';
 export const FETCHED_BASSBALL_MATCHES = 'fetched_bassball_matches';
 export const FETCHED_FOOTBALL_MATCHES = 'fetched_football_matches';
 export const FETCHED_NBA_MATCHES = 'fetched_nba_matches';
+export const GAME_INFO_FOOTBALL = 'game_info_football';
+export const HOME_TEAM_INFO_FOR_NBA = 'home_team_info_for_nba';
+export const AWAY_TEAM_INFO_FOR_NBA = 'away_team_info_for_nba';
+export const NBA_GAME_DATA = 'nba_game_data';
