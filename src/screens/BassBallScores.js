@@ -10,7 +10,7 @@ import axios from 'axios';
 
 class BassBallScores extends Component {
   componentWillMount(){
-    this.props.getTodaysMatches()
+    // this.props.getTodaysMatches()
     // console.log(this.props.bassballGames)
   }
 

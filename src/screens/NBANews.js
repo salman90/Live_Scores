@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text, ActivityIndicator, FlatList} from 'react-native';
+import { View, Text, ActivityIndicator, FlatList, TouchableHighlight } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
@@ -30,13 +30,18 @@ class NBANews extends Component {
       <List
        style={{ flex: 1 }}
       >
+
         <FlatList
         data={this.props.nbaArticles}
         renderItem={ ({ item }) => (
-          <ListItem
-            title={item.title}
-            avatar={{uri: item.urlToImage}}
-          />
+          <TouchableHighlight
+           onPress={() => this.props.navigation.navigate('NBAArticleDetails', item)}
+          >
+            <ListItem
+              title={item.title}
+              avatar={{uri: item.urlToImage}}
+            />
+          </TouchableHighlight>
         )
 
         }

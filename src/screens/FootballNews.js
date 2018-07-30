@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, ScrollView, ActivityIndicator, FlatList  } from 'react-native';
+import { View, Text, ScrollView, ActivityIndicator, FlatList, TouchableHighlight } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux'
 import * as actions from '../actions'
@@ -14,7 +14,7 @@ class FootballNews extends Component {
   _keyExtractor = (item, index) => item.title
 
   render(){
-    console.log(this.props.footballArticles)
+    // console.log(this.props.footballArticles)
     if(this.props.footballArticles.length === 0) {
       return (
         <View
@@ -34,10 +34,14 @@ class FootballNews extends Component {
        data={this.props.footballArticles}
        keyExtractor={this._keyExtractor}
        renderItem={ ({ item }) => (
-        <ListItem
-          title={item.title}
-          avatar={{uri: item.urlToImage}}
-        />
+        <TouchableHighlight
+         onPress={() => this.props.navigation.navigate('footballArticleDetails', item)}
+        >
+          <ListItem
+            title={item.title}
+            avatar={{uri: item.urlToImage}}
+          />
+        </TouchableHighlight>
        )
        }
        />

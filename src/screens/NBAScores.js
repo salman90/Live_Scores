@@ -7,7 +7,7 @@ import * as actions from '../actions';
 
 class NBAScores extends Component {
   componentDidMount() {
-    this.props.renderNBAMatches()
+    // this.props.renderNBAMatches()
   }
 
   onMatchPress(game){

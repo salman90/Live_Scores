@@ -18,6 +18,9 @@ import MatchDetailsForFootball from './screens/MatchDetailsForFootball';
 import NBANews from './screens/NBANews'
 import FootballNews from './screens/FootballNews'
 import BassballNews from './screens/BassballNews'
+import footballArticleDetails from './screens/footballArticleDetails'
+import NBAArticleDetails from './screens/NBAArticleDetails'
+import BassballArticleDetails from './screens/BassballArticleDetails'
 import Auth from './screens/Auth';
 import firebase from 'firebase';
 
@@ -52,12 +55,16 @@ class App extends Component {
        title: `Live Scores`,
      })
    })
+   const stackNavForFootballNews = createStackNavigator({
+     FootballNews: {screen: FootballNews},
+     footballArticleDetails: {screen: footballArticleDetails}
+   })
    const tabNavForFootball = createBottomTabNavigator({
      FootballScores: {
        screen: stackNavFootball
      },
      footballnews: {
-       screen: FootballNews
+       screen: stackNavForFootballNews
      },
      calendar: {
        screen: Calendar
@@ -88,7 +95,10 @@ class App extends Component {
      })
 
    })
-
+   const stackNavForNBANews = createStackNavigator({
+     NBANews: {screen: NBANews},
+     NBAArticleDetails: {screen: NBAArticleDetails}
+   })
    const stackNavforNBA = createStackNavigator({
      NBAScores: {screen: NBAScores},
      NBAMatchDetails: {screen: NBAMatchDetails}
@@ -99,7 +109,7 @@ class App extends Component {
        screen: stackNavforNBA
      },
      NBANews: {
-       screen: NBANews
+       screen: stackNavForNBANews
      },
      calendar: {
        screen: Calendar
@@ -138,13 +148,17 @@ class App extends Component {
        screen: MatchDetailsForBassball
      },
    })
+   const StackNavForBassballNews = createStackNavigator({
+     BassballNews: {screen: BassballNews},
+     BassballArticleDetails: {screen: BassballArticleDetails}
+   })
 
    const tabNavForBassBall = createBottomTabNavigator({
      BassBallScores: {
        screen: StackNavForBassBall
      },
      BassballNews: {
-       screen: BassballNews
+       screen: StackNavForBassballNews
      },
      calendar: {
        screen: Calendar
@@ -201,23 +215,9 @@ class App extends Component {
      navigationOptions: ({navigation}) => ({
        drawerIcon: ({ focused, tintColor }) => {
          const { routeName } = navigation.state;
-         console.log(navigation)
        }
      })
    })
-
-   const mainTabNav = createBottomTabNavigator({
-      livescores: {
-        screen: LiveScores
-      },
-      sports: {
-        screen:  Sports
-      },
-      calendar: {
-        screen: Calendar
-      }
-   })
-
 
    const TabNavigator = createBottomTabNavigator({
      auth: { screen: Auth},
