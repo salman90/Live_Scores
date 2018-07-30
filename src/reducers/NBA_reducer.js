@@ -2,13 +2,16 @@ import {
   FETCHED_NBA_MATCHES,
   HOME_TEAM_INFO_FOR_NBA,
   AWAY_TEAM_INFO_FOR_NBA,
-  NBA_GAME_DATA } from '../actions/types';
+  NBA_GAME_DATA,
+  NBA_ARTICLES
+} from '../actions/types';
 
 const INITIAL_STATE = {
   NBAGames: [],
   homeTeam: [],
   awayTeam: [],
-  gameData: {}
+  gameData: {},
+  nbaArticles: [],
 }
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -22,6 +25,8 @@ export default (state = INITIAL_STATE, action) => {
      return { ...state, awayTeam: action.payload}
     case NBA_GAME_DATA:
      return { ...state, gameData: action.payload }
+    case NBA_ARTICLES:
+     return {...state, nbaArticles: action.payload }
     default:
      return state
   }

@@ -84,6 +84,10 @@ class BassBallScores extends Component {
          <View
           style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}
          >
+         <Button
+            title='open nav'
+            onPress={() => this.props.navigation.openDrawer() }
+         />
            <Text>No Matches</Text>
          </View>
        )

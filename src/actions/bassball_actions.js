@@ -1,6 +1,6 @@
 import moment from 'moment';
 import axios from 'axios';
-import { FETCHED_BASSBALL_MATCHES } from './types'
+import { FETCHED_BASSBALL_MATCHES, MLB_ARTICLES } from './types'
 
 
 export const getTodaysMatches = () => async dispatch => {
@@ -25,4 +25,17 @@ export const getMachInfo = (game, callback) => async dispatch => {
   //    console.log(res.data)
   //  })
   // callback()
+}
+
+export const getBassballNews = () => async dispatch => {
+  const NEWS_API_KEY = 'f654a5a963d34b4eba103c5948c43fd5'
+  const lang = 'en'
+  const startingDate = '2018-07-28'
+  const endDate = moment().format('YYYY/MM/DD')
+  const URL =`https://newsapi.org/v2/everything?language=en&q=MLB&page=1&from=${startingDate}&to=${endDate}&sortBy=popularity&apiKey=${NEWS_API_KEY}`
+    axios.get(URL)
+     .then((res) => {
+       const articles = res.data.articles
+       dispatch({ type: MLB_ARTICLES, payload: articles })
+     })
 }

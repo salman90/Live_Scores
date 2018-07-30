@@ -3,7 +3,8 @@ import {
   FETCHED_NBA_MATCHES,
   HOME_TEAM_INFO_FOR_NBA,
   AWAY_TEAM_INFO_FOR_NBA,
-  NBA_GAME_DATA
+  NBA_GAME_DATA,
+  NBA_ARTICLES
 } from './types';
 
 import moment from 'moment';
@@ -16,6 +17,7 @@ export const renderNBAMatches = () => async dispatch => {
   axios.get(url)
    .then(res => {
      const matches = res.data.games
+     // console.log(game)
      dispatch({ type: FETCHED_NBA_MATCHES, payload: matches })
    })
 }
@@ -75,3 +77,19 @@ export const showMatchDetails = (game, callback) => async dispatch => {
 // export const showMatchDetails = (game, callback) => async dispatch => {
 //   console.log(game.id)
 // }
+
+
+export const renderNBANews = () => async dispatch => {
+  const NEWS_API_KEY = 'f654a5a963d34b4eba103c5948c43fd5'
+  const url  = `https://newsapi.org/v2/top-headlines?sources=bbc-sport&q=Wayne&apiKey=${NEWS_API_KEY}`
+  const lang = 'en'
+  const startingDate = '2018-07-28'
+  const endDate = moment().format('YYYY/MM/DD')
+  const url2 = `https://newsapi.org/v2/everything?language=en&q=NBA&page=1&from=${startingDate}&to=${endDate}&sortBy=popularity&apiKey=${NEWS_API_KEY}`
+  // const url3 = `https://newsapi.org/v2/everything?q=farah-najjar&apiKey=${NEWS_API_KEY}`
+  axios.get(url2)
+   .then((res) => {
+        const articles = res.data.articles
+        dispatch({ type: NBA_ARTICLES, payload: articles })
+   })
+}

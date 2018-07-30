@@ -1,6 +1,6 @@
 import moment from 'moment';
 import axios from 'axios';
-import { FETCHED_FOOTBALL_MATCHES, GAME_INFO_FOOTBALL } from './types'
+import { FETCHED_FOOTBALL_MATCHES, GAME_INFO_FOOTBALL, FETCHED_FOOTBALL_ARTICLES } from './types'
 
 export const getTodaysMatchesForFootball = () => async dispatch => {
   const API_KEY = 'eh7pgue3fj5gc8a57rsqux9c'
@@ -11,10 +11,8 @@ export const getTodaysMatchesForFootball = () => async dispatch => {
    .then(res => {
      const results = res.data.results
      let games = []
-     // console.log(results)
      results.map((game, i) => {
-       // console.log(game.sport_event.competitors[0])
-       // console.log(game.sport_event.competitors[1])
+
        let tournamentInfo = game.sport_event.tournament
        let matchId = game.sport_event.id
        let matchTime = game.sport_event.scheduled
@@ -53,12 +51,28 @@ export const getTodaysMatchesForFootball = () => async dispatch => {
 export const getMatchDetails = (game,callback) => async dispatch => {
   const API_KEY = 'eh7pgue3fj5gc8a57rsqux9c'
   const gameUid = game.matchId
-  console.log(game.matchId)
-  const url = `https://api.sportradar.us/soccer-xt3/eu/en/matches/${gameUid}/lineups.json?api_key=eh7pgue3fj5gc8a57rsqux9c`
+  // console.log(game)
+  // console.log(game.matchId)
+  const url = `https://api.sportradar.us/soccer-xt3/eu/en/matches/${gameUid}/summary.json?api_key=eh7pgue3fj5gc8a57rsqux9c`
   axios.get(url)
    .then((res) => {
      let matchEvent =  res.data
-       console.log(matchEvent)
+       // console.log(matchEvent)
    })
   callback()
+}
+
+
+export const getFootballNews = () => async dispatch => {
+  const NEWS_API_KEY = 'f654a5a963d34b4eba103c5948c43fd5'
+  const lang = 'en'
+  const startingDate = '2018-07-28'
+  const endDate = moment().format('YYYY/MM/DD')
+  const URL = `https://newsapi.org/v2/everything?language=en&q=la-liga&serie-A&english-premier-league&page=1&from=${startingDate}&to=${endDate}&sortBy=popularity&apiKey=${NEWS_API_KEY}`
+    axios.get(URL)
+     .then((res) =>{
+        const europeanFootballNews =  res.data.articles
+        // console.log(europeanFootballNews)
+        dispatch({ type: FETCHED_FOOTBALL_ARTICLES, payload: europeanFootballNews })
+     })
 }

@@ -7,6 +7,10 @@ import * as actions from '../actions';
 
 
 class FootballScores extends Component {
+
+
+
+
   componentDidMount(){
     this.props.getTodaysMatchesForFootball()
   }
@@ -30,7 +34,7 @@ class FootballScores extends Component {
       const matchStatus = game.matchStatus.status
       const matchTime = game.matchTime
       // game.sort(matchTime)
-      // console.log(game)
+      console.log(game)
       // console.log(matchTime)
       // console.log(matchStatus)
       // console.log(game)
