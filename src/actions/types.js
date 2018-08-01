@@ -15,3 +15,6 @@ export const NBA_GAME_DATA = 'nba_game_data';
 export const NBA_ARTICLES = 'nba_articles';
 export const MLB_ARTICLES = 'mlb_articles';
 export const FETCHED_FOOTBALL_ARTICLES = 'fetched_football_articles';
+export const BASSBALL_MATCH_DETAILS = 'bassball_match_details';
+export const SCORING_RESULTS_FOR_AWAY_TEAM = 'scoring_results_for_away_team';
+export const SCORING_RESULTS_FOR_HOME_TEAM = 'scoring_results_for_home_team';

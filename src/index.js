@@ -15,12 +15,12 @@ import NBAScores from './screens/NBAScores';
 import MatchDetailsForBassball from './screens/MatchDetailsForBassball';
 import NBAMatchDetails  from './screens/NBAMatchDetails';
 import MatchDetailsForFootball from './screens/MatchDetailsForFootball';
-import NBANews from './screens/NBANews'
-import FootballNews from './screens/FootballNews'
-import BassballNews from './screens/BassballNews'
-import footballArticleDetails from './screens/footballArticleDetails'
-import NBAArticleDetails from './screens/NBAArticleDetails'
-import BassballArticleDetails from './screens/BassballArticleDetails'
+import NBANews from './screens/NBANews';
+import FootballNews from './screens/FootballNews';
+import BassballNews from './screens/BassballNews';
+import footballArticleDetails from './screens/footballArticleDetails';
+import NBAArticleDetails from './screens/NBAArticleDetails';
+import BassballArticleDetails from './screens/BassballArticleDetails';
 import Auth from './screens/Auth';
 import firebase from 'firebase';
 
@@ -151,6 +151,10 @@ class App extends Component {
    const StackNavForBassballNews = createStackNavigator({
      BassballNews: {screen: BassballNews},
      BassballArticleDetails: {screen: BassballArticleDetails}
+   }, {
+     cardStyle: {
+       backgroundColor: '#000'
+     },
    })
 
    const tabNavForBassBall = createBottomTabNavigator({
@@ -165,6 +169,11 @@ class App extends Component {
      },
    }, {
      navigationOptions: ({ navigation }) => ({
+       tabBarOptions: {
+         style: {
+           backgroundColor: '#ab372b'
+         },
+       },
        tabBarIcon: ({ focused, tintColor }) => {
          const { routeName } = navigation.state;
          if(routeName === 'BassBallScores'){
@@ -202,15 +211,16 @@ class App extends Component {
 
 
    const drowerNav = createDrawerNavigator({
+     BassBallScores: {
+       screen: tabNavForBassBall
+     },
      FootballScores: {
        screen: tabNavForFootball
      },
      NBAScores: {
        screen: tabNavForNBA
      },
-     BassBallScores: {
-       screen: tabNavForBassBall
-     },
+
    }, {
      navigationOptions: ({navigation}) => ({
        drawerIcon: ({ focused, tintColor }) => {

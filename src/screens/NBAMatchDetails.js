@@ -46,10 +46,6 @@ class NBAMatchDetails extends Component {
       <View
        style={{ flex: 1, marginTop: 10}}
        >
-        <Button
-          title='drower Nav'
-          onPress={() => this.props.navigation.openDrawer()}
-        />
         <View
          style={{flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}
         >

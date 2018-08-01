@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {View, Text, ActivityIndicator, ScrollView, TouchableWithoutFeedback } from 'react-native';
-import { Button, Card } from 'react-native-elements';
+import { Button, Card, Icon } from 'react-native-elements';
+import DateScroller from '../components/dateScroller';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import moment from 'moment';
@@ -9,8 +10,30 @@ import axios from 'axios';
 
 
 class BassBallScores extends Component {
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Live Scores',
+
+      headerStyle: {
+            backgroundColor: '#ab372b',
+        },
+         headerLeft: (
+           <Icon
+           type='font-awesome'
+            onPress={() => navigation.openDrawer()}
+            name='bars'
+            size={30}
+            containerStyle={{ marginLeft: 5}}
+           />
+         )
+    };
+  }
+
+
   componentWillMount(){
-    // this.props.getTodaysMatches()
+    const date = moment().format('YYYY/MM/DD')
+    this.props.getTodaysMatches(date)
     // console.log(this.props.bassballGames)
   }
 
@@ -29,6 +52,9 @@ class BassBallScores extends Component {
       const homeTeamScore = game.game.home.runs
       const awayTeamScore = game.game.away.runs
       const gameStatus =  game.game.status
+      const gameDate = game.game.scheduled
+      const gameDateFormat = moment(gameDate).format("hh:mm a")
+      // console.log(gameDateFormat)
       return (
         <TouchableWithoutFeedback
           key={i}
@@ -39,10 +65,17 @@ class BassBallScores extends Component {
           style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', marginTop: 20}}
           >
             <Card
+             title={'MLB'}
+             titleStyle={{ color: '#000'}}
+             containerStyle={{ backgroundColor: '#fff',
+             borderColor: '#000', borderWidth: 2, borderRadius: 2  }}
             >
-              <View>
-                 <Text>{gameStatus}</Text>
-              </View>
+            <View>
+              {gameStatus == 'scheduled' ? <Text>{gameDateFormat}</Text> : null}
+              {gameStatus == 'inprogress'? <Text>{gameStatus}</Text>: null}
+              {gameStatus == 'closed'? <Text>{gameStatus}</Text>: null}
+            </View>
+
               <View
                style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10 }}
               >
@@ -84,22 +117,16 @@ class BassBallScores extends Component {
          <View
           style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}
          >
-         <Button
-            title='open nav'
-            onPress={() => this.props.navigation.openDrawer() }
-         />
+
            <Text>No Matches</Text>
          </View>
        )
      }
     return(
       <View
-      style={{ flex: 1, marginTop: 10}}
+      style={{ flex: 1, backgroundColor: '#ab372b'}}
       >
-        <Button
-           title='openDrawer'
-           onPress={() => this.props.navigation.openDrawer()}
-        />
+        <DateScroller />
         <ScrollView
          style={{ flex: 1 }}
         >

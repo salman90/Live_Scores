@@ -2,9 +2,9 @@ import moment from 'moment';
 import axios from 'axios';
 import { FETCHED_FOOTBALL_MATCHES, GAME_INFO_FOOTBALL, FETCHED_FOOTBALL_ARTICLES } from './types'
 
-export const getTodaysMatchesForFootball = () => async dispatch => {
+export const getTodaysMatchesForFootball = (date) => async dispatch => {
   const API_KEY = 'eh7pgue3fj5gc8a57rsqux9c'
-  const date = '2017-04-02'
+  // const date = '2017-04-02'
   const TodaysDate = moment().format('YYYY/MM/DD')
   const url = `https://api.sportradar.us/soccer-xt3/eu/en/schedules/${date}/results.json?api_key=${API_KEY}`
   axios.get(url)
@@ -46,6 +46,9 @@ export const getTodaysMatchesForFootball = () => async dispatch => {
      })
      dispatch({ type: FETCHED_FOOTBALL_MATCHES, payload: games })
    })
+   .catch((error) => {
+     console.log(error)
+   })
 }
 
 export const getMatchDetails = (game,callback) => async dispatch => {
@@ -53,7 +56,7 @@ export const getMatchDetails = (game,callback) => async dispatch => {
   const gameUid = game.matchId
   // console.log(game)
   // console.log(game.matchId)
-  const url = `https://api.sportradar.us/soccer-xt3/eu/en/matches/${gameUid}/summary.json?api_key=eh7pgue3fj5gc8a57rsqux9c`
+  const url = `https://api.sportradar.us/soccer-xt3/eu/en/matches/${gameUid}/summary.json?api_key=${API_KEY}`
   axios.get(url)
    .then((res) => {
      let matchEvent =  res.data
@@ -66,8 +69,9 @@ export const getMatchDetails = (game,callback) => async dispatch => {
 export const getFootballNews = () => async dispatch => {
   const NEWS_API_KEY = 'f654a5a963d34b4eba103c5948c43fd5'
   const lang = 'en'
-  const startingDate = '2018-07-28'
-  const endDate = moment().format('YYYY/MM/DD')
+  // const startingDate = '2018-07-28'
+  const endDate = moment().format('YYYY-MM-DD')
+  const startingDate = moment().add(-1, 'days').format('YYYY-MM-DD')
   const URL = `https://newsapi.org/v2/everything?language=en&q=la-liga&serie-A&english-premier-league&page=1&from=${startingDate}&to=${endDate}&sortBy=popularity&apiKey=${NEWS_API_KEY}`
     axios.get(URL)
      .then((res) =>{
@@ -75,4 +79,8 @@ export const getFootballNews = () => async dispatch => {
         // console.log(europeanFootballNews)
         dispatch({ type: FETCHED_FOOTBALL_ARTICLES, payload: europeanFootballNews })
      })
+}
+
+export const updateDate = (date) => async dispatch => {
+  console.log(date)
 }

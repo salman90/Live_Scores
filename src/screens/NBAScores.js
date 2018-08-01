@@ -1,13 +1,29 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, TouchableHighlight } from 'react-native';
-import { Button, Card } from 'react-native-elements';
+import { Button, Card, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 
 class NBAScores extends Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Live Scores',
+         headerLeft: (
+           <Icon
+           type='font-awesome'
+            onPress={() => navigation.openDrawer()}
+            name='bars'
+            size={30}
+            containerStyle={{ marginLeft: 5}}
+           />
+         )
+    };
+  }
+
+
   componentDidMount() {
-    // this.props.renderNBAMatches()
+    this.props.renderNBAMatches()
   }
 
   onMatchPress(game){
@@ -81,10 +97,6 @@ class NBAScores extends Component {
           style={{ alignItems: 'center', justifyContent: 'center', flex:1 }}
         >
           <Text>No Matches</Text>
-          <Button
-          title='openDrawer'
-          onPress={() => this.props.navigation.openDrawer()}
-          />
         </View>
       )
     }
@@ -92,10 +104,6 @@ class NBAScores extends Component {
       <View
        style={{ flex: 1}}
       >
-       <Button
-         title='openDrawer'
-         onPress={() => this.props.navigation.openDrawer()}
-       />
        <ScrollView
         style={{ flex: 1, marginTop: 10}}
        >

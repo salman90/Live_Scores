@@ -28,7 +28,7 @@ class FootballNews extends Component {
     }
     return (
       <List
-        style={{ flex: 1 }}
+        style={{ flex: 1, backgroundColor: '#fff' }}
       >
        <FlatList
        data={this.props.footballArticles}
@@ -39,7 +39,8 @@ class FootballNews extends Component {
         >
           <ListItem
             title={item.title}
-            avatar={{uri: item.urlToImage}}
+            avatar={size="medium",{uri: item.urlToImage}}
+            subtitle={item.publishedAt}
           />
         </TouchableHighlight>
        )

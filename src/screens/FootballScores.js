@@ -1,14 +1,46 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView , TouchableHighlight} from 'react-native';
-import { Button, List, ListItem, Card  } from 'react-native-elements';
+import { Button, List, ListItem, Card, Icon  } from 'react-native-elements';
+import DateScroller from '../components/dateScroller';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import moment from 'moment'
 
 
 
 class FootballScores extends Component {
+  static navigationOptions = ({ navigation }) => {
+
+    return {
+
+      headerTitleContainerStyle: {
+        backgroundColor: '#000'
+      },
+      headerTransparent: true,
+      title: 'Live Scores',
+      headerBackground: 'balck',
+      backgroundColor: '#000',
+      cardStyle: {
+        backgroundColor: '#000'
+      },
+      headerStyle: {
+            backgroundColor: 'black',
+        },
+      headerLeft: (
+        <Icon
+        type='font-awesome'
+         onPress={() => navigation.openDrawer()}
+         name='bars'
+         size={30}
+         containerStyle={{ marginLeft: 5}}
+        />
+      )
+    }
+  }
   componentDidMount(){
-    // this.props.getTodaysMatchesForFootball()
+    // const TodaysDate = moment().format('YYYY/MM/DD')
+    const date = '2017-04-02'
+    this.props.getTodaysMatchesForFootball(date)
   }
 
   renderFootballDetails(game){
@@ -82,6 +114,10 @@ class FootballScores extends Component {
       )
     })
   }
+
+  // dateOnpress(date){
+  //   this.props.changeCurrentDate(date)
+  // }
   render(){
     // console.log(this.props.footballGames)
     if(this.props.footballGames.length === 0){
@@ -89,21 +125,15 @@ class FootballScores extends Component {
         <View
          style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}
         >
-          <Button
-            title='droerNav'
-             onPress={() => this.props.navigation.openDrawer()}
-          />
           <Text>No Matches</Text>
         </View>
       )
     }
     return(
       <View
-      style={{ flex: 1, marginTop: 10}}
+      style={{ flex: 1, backgroundColor: '#ab372b'}}
       >
-       <Button
-         title='droerNav'
-          onPress={() => this.props.navigation.openDrawer()}
+       <DateScroller
        />
        <ScrollView
          style={{ flex: 1 }}
@@ -120,6 +150,7 @@ const mapStateToProps = state => {
     footballGames: state.football.footballGames
   }
 }
+
 
 
 export default connect(mapStateToProps, actions)(FootballScores);
