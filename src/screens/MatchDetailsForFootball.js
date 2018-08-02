@@ -11,31 +11,15 @@ class MatchDetailsForFootball extends Component {
   renderAwayTeamInfo(){
     console.log('in away team ')
   }
+
+  renderMatchStages = () => {
+  }
   render(){
     return(
       <View
        style={{ flex: 1, marginTop: 10}}
        >
-        <Button
-          title='drower Nav'
-          onPress={() => this.props.navigation.openDrawer()}
-        />
-        <View
-         style={{flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}
-        >
-        <View>
-            <Button
-             title='Home Team'
-             onPress={this.renderHomeTeamInfo.bind(this)}
-            />
-        </View>
-         <View>
-            <Button
-            title='Away Team'
-            onPress={this.renderAwayTeamInfo.bind(this)}
-            />
-          </View>
-        </View>
+        {this.renderMatchStages()}
       </View>
     )
   }

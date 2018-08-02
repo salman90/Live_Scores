@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, TouchableHighlight } from 'react-native';
+import { View, Text, ScrollView, TouchableHighlight, ActivityIndicator, Alert } from 'react-native';
 import { Button, Card, Icon } from 'react-native-elements';
+import DateScrollerForNBA from '../components/dateScrollerForNBA';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import moment from 'moment';
 
 
 class NBAScores extends Component {
@@ -23,7 +25,8 @@ class NBAScores extends Component {
 
 
   componentDidMount() {
-    this.props.renderNBAMatches()
+    const date = moment().format('YYYY/MM/DD')
+    this.props.renderNBAMatches(date)
   }
 
   onMatchPress(game){
@@ -33,13 +36,21 @@ class NBAScores extends Component {
   }
   renderNBAGames(){
     const { NBAGames } = this.props
+    NBAGames.sort(function(a,b){
+      const keyA = new Date(a.scheduled)
+      const keyB = new Date(b.scheduled)
+      if(keyA < keyB) return -1;
+      if(keyA > keyB) return 1;
+      return 0
+    })
     return NBAGames.map((game, i) => {
-      // console.log(game.id)
       let awayTeamName = game.away.name
       let awayTeamScore = game.away_points
       let homeTeamName = game.home.name
       let homeTeamScore = game.home_points
       let gameStatus = game.status
+      let gameTime = game.scheduled
+      let gameTimeNewFormat = moment(game.scheduled).format('LLL')
       return (
         <View
         key={i}
@@ -52,7 +63,13 @@ class NBAScores extends Component {
           title='NBA'
           >
             <View>
-              <Text>{gameStatus}</Text>
+              {gameStatus == 'closed' || gameStatus == 'complete'? <Text>FT</Text>: null}
+              {gameStatus == 'inprogress'?
+              <View
+               style={{ width: 10, height: 10, borderRadius: 10/2, backgroundColor: 'green'}}
+              ></View>: null}
+                {gameStatus =='wdelay'? <Text>Delay</Text>: null}
+                {gameStatus == 'scheduled'? <Text>{gameTimeNewFormat}</Text>: null}
             </View>
             <View
              style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10 }}
@@ -88,15 +105,53 @@ class NBAScores extends Component {
         </View>
       )
     })
-
   }
+
+  clearError(){
+    this.props.clearErrorMessageForNBA()
+  }
+
+  renderError = () =>{
+    const { error } = this.props
+    if(error){
+      Alert.alert(
+        'Error',
+        'something went wrong',
+        [
+          {text: 'OK', onPress: this.clearError.bind(this)},
+        ]
+      )
+    }
+  }
+
   render(){
+    if(this.props.loading){
+      return (
+      <View
+       style={{ alignItems: 'center', justifyContent: 'center', flex: 1}}
+      >
+        <ActivityIndicator
+         size="large"
+         color="#0000ff"
+        />
+       </View>
+      )
+    }
     if(this.props.NBAGames.length === 0){
       return (
         <View
-          style={{ alignItems: 'center', justifyContent: 'center', flex:1 }}
+          style={{ flex:1 }}
         >
+         <View
+         >
+           <DateScrollerForNBA />
+         </View>
+         <View
+          style={{ flex:1 }}
+         >
+         {this.renderError()}
           <Text>No Matches</Text>
+         </View>
         </View>
       )
     }
@@ -104,6 +159,7 @@ class NBAScores extends Component {
       <View
        style={{ flex: 1}}
       >
+      {this.renderError()}
        <ScrollView
         style={{ flex: 1, marginTop: 10}}
        >
@@ -116,7 +172,9 @@ class NBAScores extends Component {
 
 const mapStateToProps = state => {
   return {
-    NBAGames: state.NBA.NBAGames
+    NBAGames: state.NBA.NBAGames,
+    error: state.NBA.error,
+    loading: state.NBA.loading
   }
 }
 

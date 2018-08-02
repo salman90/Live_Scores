@@ -7,18 +7,29 @@ import {
   BASSBALL_MATCH_DETAILS,
   SCORING_RESULTS_FOR_HOME_TEAM,
   SCORING_RESULTS_FOR_AWAY_TEAM,
+  ERROR_IN_FETCHING_BASSBALL_SCORES,
+  FETCHING_BASSBALL_SCORES,
+  CLEAR_ERROR_MESSAGE_FOR_BASSBALL_SCORES,
+  ERROR_IN_FETCHING_BASSBALL_NEWS,
 } from './types'
 
 
 export const getTodaysMatches = (date) => async dispatch => {
+  dispatch({ type: FETCHING_BASSBALL_SCORES})
+  // console.log(date)
   // console.log('in function')
-  // const date = '2018/07/27'
+  // const dateToday = '2018-07-27'
   const API_KEY = '8uevyeqyb38gms9t8qmbtj5w'
-  const url  = `http://api.sportradar.us/mlb/trial/v6.5/en/games/${date}/boxscore.json?api_key=${API_KEY}`
+  const API_KEY_2 = '4zgwz5dxh4qdcteb9dt63n8f'
+  const url  = `http://api.sportradar.us/mlb/trial/v6.5/en/games/${date}/boxscore.json?api_key=${API_KEY_2}`
   axios.get(url)
    .then( res => {
      const games = res.data.league.games
      dispatch({ type: FETCHED_BASSBALL_MATCHES, payload: games })
+   })
+   .catch((error) => {
+     console.log(error)
+     dispatch({ type: ERROR_IN_FETCHING_BASSBALL_SCORES, payload: error })
    })
 }
 
@@ -83,4 +94,12 @@ export const getBassballNews = () => async dispatch => {
        const articles = res.data.articles
        dispatch({ type: MLB_ARTICLES, payload: articles })
      })
+     .catch((error) => {
+       dispatch({ type: ERROR_IN_FETCHING_BASSBALL_NEWS })
+     })
+}
+
+export const clearError = () => async dispatch => {
+  // console.log('sssss')
+  dispatch({ type: CLEAR_ERROR_MESSAGE_FOR_BASSBALL_SCORES })
 }

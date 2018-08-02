@@ -71,9 +71,6 @@ class MatchDetailsForBassball extends Component {
 
     }else if(gameStatus == 'inprogress'){
       const {homeTeamScores, bassballMatchDetails, awayTeamScores } = this.props
-      console.log(bassballMatchDetails, 'bassball')
-      console.log(homeTeamScores)
-      console.log(this.props.homeTeamScores.length)
 
       // console.log(this.props.homeTeamScores)
       // if(this.props.homeTeamScores.length)
@@ -286,6 +283,44 @@ class MatchDetailsForBassball extends Component {
           </View>
         </View>
       )
+  }else {
+    return (
+      <View
+       style={{ alignItems: 'center', justifyContent: 'center', marginTop: 10, flexDirection: 'column'}}
+      >
+       <View
+       >
+        <Text>{matchTimeNewFormat}</Text>
+       </View>
+
+       <View
+        style={{ flexDirection: 'row', width: width * 0.90, marginTop: 20, alignItems: 'center', justifyContent: 'space-between' }}
+       >
+         <View
+         >
+           <Text>{awayTeamInfo.name}</Text>
+           <Text>{`(${awayTeamInfo.win} - ${awayTeamInfo.loss})`}</Text>
+         </View>
+
+         <View>
+           <Text>{homeTeamInfo.name}</Text>
+           <Text>{`(${homeTeamInfo.win} - ${homeTeamInfo.loss})`}</Text>
+         </View>
+      </View>
+      <View
+       style={{alignItems: 'center', justifyContent: 'center'}}
+      >
+        <Text>Stadium</Text>
+        <Text>{stadiumName}</Text>
+      </View>
+      <View
+       style={{alignItems: 'center', justifyContent: 'center'}}
+      >
+        <Text>City</Text>
+        <Text>{city}</Text>
+      </View>
+    </View>
+    )
   }
 }
 

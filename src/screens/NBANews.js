@@ -9,7 +9,7 @@ import * as actions from '../actions';
 
 class NBANews extends Component {
   componentWillMount(){
-    this.props.renderNBANews()
+    // this.props.renderNBANews()
   }
 
 

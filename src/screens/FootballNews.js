@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text, ScrollView, ActivityIndicator, FlatList, TouchableHighlight } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  ActivityIndicator, FlatList, TouchableHighlight, Alert } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux'
 import * as actions from '../actions'
@@ -13,6 +17,25 @@ class FootballNews extends Component {
 
   _keyExtractor = (item, index) => item.title
 
+  clearError(){
+    this.props.clearErrorInFootball()
+  }
+
+  renderError = () =>{
+    const { newsError } = this.props
+
+    if(newsError){
+      Alert.alert(
+        'Error',
+        'something went wrong',
+        [
+          {text: 'OK', onPress: this.clearError.bind(this)},
+
+        ]
+      )
+    }
+  }
+
   render(){
     // console.log(this.props.footballArticles)
     if(this.props.footballArticles.length === 0) {
@@ -20,6 +43,9 @@ class FootballNews extends Component {
         <View
          style={{ alignItems: 'center', justifyContent: 'center', flex: 1}}
         >
+
+         {this.renderError()}
+
           <ActivityIndicator
           size="large" color="#0000ff"
           />
@@ -30,7 +56,10 @@ class FootballNews extends Component {
       <List
         style={{ flex: 1, backgroundColor: '#fff' }}
       >
+      {this.renderError()}
+
        <FlatList
+
        data={this.props.footballArticles}
        keyExtractor={this._keyExtractor}
        renderItem={ ({ item }) => (
@@ -53,7 +82,8 @@ class FootballNews extends Component {
 }
 const mapStateToProps = state => {
   return {
-    footballArticles: state.football.footballArticles
+    footballArticles: state.football.footballArticles,
+    newsError: state.football.newsError
   }
 }
 

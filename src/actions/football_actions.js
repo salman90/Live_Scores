@@ -1,53 +1,63 @@
 import moment from 'moment';
 import axios from 'axios';
-import { FETCHED_FOOTBALL_MATCHES, GAME_INFO_FOOTBALL, FETCHED_FOOTBALL_ARTICLES } from './types'
+import {
+  FETCHED_FOOTBALL_MATCHES,
+  GAME_INFO_FOOTBALL,
+  FETCHED_FOOTBALL_ARTICLES,
+  FOOTBALL_MATCH_DETAILS,
+  FETCHING_FOOTBALL_SCORES,
+  CLEAR_ERROR_MESSAGE_FOR_FOOTBALL_SCORES,
+  ERROR_IN_FETCHING_FOOTBALL_SCORES,
+  ERROR_IN_FETCHING_FOOTBALL_NEWS
+ } from './types'
 
-export const getTodaysMatchesForFootball = (date) => async dispatch => {
-  const API_KEY = 'eh7pgue3fj5gc8a57rsqux9c'
-  // const date = '2017-04-02'
-  const TodaysDate = moment().format('YYYY/MM/DD')
-  const url = `https://api.sportradar.us/soccer-xt3/eu/en/schedules/${date}/results.json?api_key=${API_KEY}`
-  axios.get(url)
-   .then(res => {
-     const results = res.data.results
-     let games = []
-     results.map((game, i) => {
+ export const getTodaysMatchesForFootball = (date) => async dispatch => {
+   const API_KEY = 'eh7pgue3fj5gc8a57rsqux9c'
+   // const date = '2017-04-02'
+   const TodaysDate = moment().format('YYYY/MM/DD')
+   const url = `https://api.sportradar.us/soccer-xt3/eu/en/schedules/${date}/results.json?api_key=${API_KEY}`
+   axios.get(url)
+    .then(res => {
+      const results = res.data.results
+      let games = []
+      results.map((game, i) => {
 
-       let tournamentInfo = game.sport_event.tournament
-       let matchId = game.sport_event.id
-       let matchTime = game.sport_event.scheduled
-       let homeTeam = game.sport_event.competitors[0]
-       let awayTeam = game.sport_event.competitors[1]
-       // console.log('homeTeam', game.sport_event.competitors[0] )
-       // console.log('awayTeam', game.sport_event.competitors[1])
-       // console.log(game.sport_event.competitors)
-       let matchStatus = game.sport_event_status
-       let HalfScore = game.sport_event_status.period_scores
+        let tournamentInfo = game.sport_event.tournament
+        let matchId = game.sport_event.id
+        let matchTime = game.sport_event.scheduled
+        let homeTeam = game.sport_event.competitors[0]
+        let awayTeam = game.sport_event.competitors[1]
+        // console.log('homeTeam', game.sport_event.competitors[0] )
+        // console.log('awayTeam', game.sport_event.competitors[1])
+        // console.log(game.sport_event.competitors)
+        let matchStatus = game.sport_event_status
+        let HalfScore = game.sport_event_status.period_scores
 
-       let firstHalfScore  = null
-       let secondHalfScore = null
-        if(typeof HalfScore != 'undefined'){
-           firstHalfScore = game.sport_event_status.period_scores[0]
-           secondHalfScore = game.sport_event_status.period_scores[1]
+        let firstHalfScore  = null
+        let secondHalfScore = null
+         if(typeof HalfScore != 'undefined'){
+            firstHalfScore = game.sport_event_status.period_scores[0]
+            secondHalfScore = game.sport_event_status.period_scores[1]
+         }
+
+        let matchDetails = {
+          tournamentInfo: game.sport_event.tournament,
+           matchId: game.sport_event.id,
+           matchTime: game.sport_event.scheduled,
+           matchStatus: game.sport_event_status,
+           firstHalfScore: firstHalfScore,
+           secondHalfScore: secondHalfScore,
+           homeTeam: homeTeam,
+           awayTeam: awayTeam,
         }
-
-       let matchDetails = {
-         tournamentInfo: game.sport_event.tournament,
-          matchId: game.sport_event.id,
-          matchTime: game.sport_event.scheduled,
-          matchStatus: game.sport_event_status,
-          firstHalfScore: firstHalfScore,
-          secondHalfScore: secondHalfScore,
-          homeTeam: homeTeam,
-          awayTeam: awayTeam,
-       }
-       games.push(matchDetails)
-       // return games
-     })
-     dispatch({ type: FETCHED_FOOTBALL_MATCHES, payload: games })
-   })
+        games.push(matchDetails)
+        // return games
+      })
+      dispatch({ type: FETCHED_FOOTBALL_MATCHES, payload: games })
+    })
    .catch((error) => {
      console.log(error)
+     dispatch({ type: ERROR_IN_FETCHING_FOOTBALL_SCORES })
    })
 }
 
@@ -60,7 +70,7 @@ export const getMatchDetails = (game,callback) => async dispatch => {
   axios.get(url)
    .then((res) => {
      let matchEvent =  res.data
-       // console.log(matchEvent)
+     dispatch({ type: FOOTBALL_MATCH_DETAILS, payload: matchEvent })
    })
   callback()
 }
@@ -79,8 +89,11 @@ export const getFootballNews = () => async dispatch => {
         // console.log(europeanFootballNews)
         dispatch({ type: FETCHED_FOOTBALL_ARTICLES, payload: europeanFootballNews })
      })
+     .catch((error) => {
+       dispatch({ type: ERROR_IN_FETCHING_FOOTBALL_NEWS })
+     })
 }
 
-export const updateDate = (date) => async dispatch => {
-  console.log(date)
+export const clearErrorInFootball = () => async dispatch => {
+  dispatch({ type: CLEAR_ERROR_MESSAGE_FOR_FOOTBALL_SCORES })
 }
