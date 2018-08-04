@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView , TouchableHighlight, ActivityIndicator, Alert} from 'react-native';
+import { View, Text, ScrollView , TouchableHighlight, ActivityIndicator, Alert, Image } from 'react-native';
 import { Button, List, ListItem, Card, Icon  } from 'react-native-elements';
 import DateScroller from '../components/dateScroller';
 import { connect } from 'react-redux';
@@ -14,6 +14,9 @@ class FootballScores extends Component {
 
     return {
       title: 'Live Scores',
+      headerStyle: {
+        backgroundColor: '#fff'
+        },
       headerLeft: (
         <Icon
         type='font-awesome'
@@ -27,7 +30,7 @@ class FootballScores extends Component {
   }
   componentDidMount(){
     const TodaysDate = moment().format('YYYY-MM-DD')
-    // this.props.getTodaysMatchesForFootball(TodaysDate)
+    this.props.getTodaysMatchesForFootball(TodaysDate)
   }
 
   renderFootballDetails(game){
@@ -85,7 +88,6 @@ class FootballScores extends Component {
               </Text>
               <Text
               style={{fontSize: 15, fontWeight: 'bold'}}
-
               >
                 {awayTeamScore}
               </Text>
@@ -143,18 +145,22 @@ class FootballScores extends Component {
     if(this.props.footballGames.length === 0){
       return (
         <View
-         style={{flex: 1 }}
+         style={{flex: 1, backgroundColor: '#ab372b'}}
         >
         <View>
             <DateScrollerForFootball
             />
         </View>
-        <View
-         style={{ alignItems: 'center', justifyContent: 'center'}}
-        >
+          <View
+           style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}
+          >
           {this.renderError()}
-        </View>
-          <Text>No Matches</Text>
+            <Image
+             style={{ width: 250, height: 150}}
+             source={require('../images/logo.jpg')}
+            />
+            <Text>No Matches</Text>
+          </View>
         </View>
       )
     }

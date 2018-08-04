@@ -58,7 +58,7 @@ class DateScroller extends Component {
         >
         <View
          key={i}
-         style={{ alignItems: 'center',flexDirection: 'row', width: 70, height: 50, marginTop: 5, justifyContent: 'center', marginLeft: 5}}
+         style={{ alignItems: 'center',flexDirection: 'row', width: 70, height: 50, justifyContent: 'center', marginLeft: 5}}
         >
 
             <Text
@@ -78,7 +78,12 @@ class DateScroller extends Component {
         horizontal={true}
         >
          <View
-          style={{ width: width, marginTop : 5, flexDirection: 'row', height: 50, borderBottomWidth: 1, borderColor: '#000', backgroundColor: 'gray' }}
+          style={{ width: width,
+            flexDirection: 'row',
+            height: 50,
+            borderBottomWidth: 2,
+          borderTopWidth: 1 ,
+          borderColor: '#000', backgroundColor: 'gray', borderColor: '#000' }}
          >
          {this.renderDates()}
          </View>

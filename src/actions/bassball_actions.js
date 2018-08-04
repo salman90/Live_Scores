@@ -11,6 +11,7 @@ import {
   FETCHING_BASSBALL_SCORES,
   CLEAR_ERROR_MESSAGE_FOR_BASSBALL_SCORES,
   ERROR_IN_FETCHING_BASSBALL_NEWS,
+  NO_GAMES_THAT_DAY
 } from './types'
 
 
@@ -28,8 +29,12 @@ export const getTodaysMatches = (date) => async dispatch => {
      dispatch({ type: FETCHED_BASSBALL_MATCHES, payload: games })
    })
    .catch((error) => {
-     console.log(error)
-     dispatch({ type: ERROR_IN_FETCHING_BASSBALL_SCORES, payload: error })
+     console.log(typeof error.response.status)
+     if(typeof error.response.status === 404){
+       dispatch({ type: NO_GAMES_THAT_DAY })
+     }else {
+       dispatch({ type: ERROR_IN_FETCHING_BASSBALL_SCORES, payload: error })
+     }
    })
 }
 

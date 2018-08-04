@@ -1,0 +1,62 @@
+{
+  "sport_event":  {
+    "competitors":  [
+       {
+        "abbreviation": "RSW",
+        "country": "Belgium",
+        "country_code": "BEL",
+        "id": "sr:competitor:4859",
+        "name": "Waasland-Beveren",
+        "qualifier": "home",
+      },
+      {
+        "abbreviation": "STL",
+        "country": "Belgium",
+        "country_code": "BEL",
+        "id": "sr:competitor:2901",
+        "name": "Standard Liege",
+        "qualifier": "away",
+      },
+    ],
+    "id": "sr:match:14728445",
+    "scheduled": "2018-08-03T18:30:00+00:00",
+    "season": {
+      "end_date": "2019-05-30",
+      "id": "sr:season:54539",
+      "name": "First Division A 18/19",
+      "start_date": "2018-07-27",
+      "tournament_id": "sr:tournament:38",
+      "year": "18/19",
+    },
+    "start_time_tbd": false,
+    "tournament":  {
+      "category": {
+        "country_code": "BEL",
+        "id": "sr:category:33",
+        "name": "Belgium",
+      },
+      "id": "sr:tournament:38",
+      "name": "First Division A",
+      "sport":  {
+        "id": "sr:sport:1",
+        "name": "Soccer",
+      },
+    },
+    "tournament_round": {
+      "number": 2,
+      "type": "group",
+    },
+    "venue":{
+      "capacity": 9000,
+      "city_name": "Beveren",
+      "country_code": "BEL",
+      "country_name": "Belgium",
+      "id": "sr:venue:3036",
+      "map_coordinates": "51.214139,4.243931",
+      "name": "Freethielstadion",
+    },
+  },
+  "sport_event_status":{
+    "status": "not_started",
+  },
+}

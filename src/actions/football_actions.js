@@ -8,10 +8,17 @@ import {
   FETCHING_FOOTBALL_SCORES,
   CLEAR_ERROR_MESSAGE_FOR_FOOTBALL_SCORES,
   ERROR_IN_FETCHING_FOOTBALL_SCORES,
-  ERROR_IN_FETCHING_FOOTBALL_NEWS
+  ERROR_IN_FETCHING_FOOTBALL_NEWS,
+  FECHING_LIVE_SCORES_IN_FOOTBALL,
+  LIVE_MATCH_DETAILS,
+  NO_LIVE_MATCHES_ERROR,
+  FETCHED_LIVE_SCORES_IN_FOOTBALL_SUCCESSFULLY,
+  ERROR_FETCHING_LIVE_MATCHES,
+  NO_FOOTBALL_MATCHES_IN_THAT_DATE,
  } from './types'
 
  export const getTodaysMatchesForFootball = (date) => async dispatch => {
+   dispatch({ type: FETCHING_FOOTBALL_SCORES })
    const API_KEY = 'eh7pgue3fj5gc8a57rsqux9c'
    // const date = '2017-04-02'
    const TodaysDate = moment().format('YYYY/MM/DD')
@@ -57,7 +64,11 @@ import {
     })
    .catch((error) => {
      console.log(error)
-     dispatch({ type: ERROR_IN_FETCHING_FOOTBALL_SCORES })
+     if(error.response.status === 404){
+       dispatch({ type: NO_FOOTBALL_MATCHES_IN_THAT_DATE })
+     }else {
+       dispatch({ type: ERROR_IN_FETCHING_FOOTBALL_SCORES })
+     }
    })
 }
 
@@ -72,6 +83,7 @@ export const getMatchDetails = (game,callback) => async dispatch => {
      let matchEvent =  res.data
      dispatch({ type: FOOTBALL_MATCH_DETAILS, payload: matchEvent })
    })
+
   callback()
 }
 
@@ -96,4 +108,27 @@ export const getFootballNews = () => async dispatch => {
 
 export const clearErrorInFootball = () => async dispatch => {
   dispatch({ type: CLEAR_ERROR_MESSAGE_FOR_FOOTBALL_SCORES })
+}
+
+export const getFootballLiveScores = () => async dispatch => {
+  dispatch({ type: FECHING_LIVE_SCORES_IN_FOOTBALL })
+  const API_KEY = 'eh7pgue3fj5gc8a57rsqux9c'
+  const URL = `https://api.sportradar.us/soccer-xt3/eu/en/schedules/live/results.json?api_key=${API_KEY}`
+  axios.get(URL)
+   .then((res) => {
+     const matchInfo = res.data.results
+     dispatch({ type: FETCHED_LIVE_SCORES_IN_FOOTBALL_SUCCESSFULLY, payload: matchInfo })
+   })
+   .catch((error) => {
+     // console.log(error)
+     if(error.response.status === 404){
+       dispatch({ type: NO_LIVE_MATCHES_ERROR })
+     }
+   })
+}
+
+
+export const liveMatchDetails = (game, callback) => async dispatch => {
+  dispatch({ type: LIVE_MATCH_DETAILS, payload: game })
+  callback()
 }

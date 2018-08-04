@@ -35,9 +35,9 @@ class DateScrollerForNBA extends Component {
   }
 
   handelDatePress(date){
-    const newDate = moment(date).format('YYYY-MM-DD')
+    const newDate = moment(date).format('YYYY/MM/DD')
     // console.log(newDate)
-    this.props.getTodaysMatchesForFootball(newDate)
+    this.props.renderNBAMatches(newDate)
 
   }
 
@@ -56,7 +56,8 @@ class DateScrollerForNBA extends Component {
         >
         <View
          key={i}
-         style={{ alignItems: 'center',flexDirection: 'row', width: 70, height: 50, marginTop: 5, justifyContent: 'center', marginLeft: 5}}
+         style={{ alignItems: 'center',flexDirection: 'row', width: 70, height: 50,
+         justifyContent: 'center'}}
         >
 
             <Text
@@ -76,7 +77,7 @@ class DateScrollerForNBA extends Component {
         horizontal={true}
         >
          <View
-          style={{ width: width, marginTop : 5, flexDirection: 'row', height: 50, borderBottomWidth: 1, borderColor: '#000', backgroundColor: 'gray' }}
+          style={{ width: width, flexDirection: 'row', height: 50, borderBottomWidth: 1, borderColor: '#000', backgroundColor: 'gray' }}
          >
          {this.renderDates()}
          </View>

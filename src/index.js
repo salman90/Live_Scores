@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, ActivityIndicator } from 'react-native'
+import { View, Text, ScrollView, ActivityIndicator, Image } from 'react-native'
 import axios from 'axios'
-import { createBottomTabNavigator, createStackNavigator, createDrawerNavigator } from 'react-navigation';
+import {
+  createBottomTabNavigator,
+  createStackNavigator,
+  createDrawerNavigator,
+  DrawerItems,
+  SafeAreaView,
+} from 'react-navigation';
 import store from './store'
 import { Provider } from 'react-redux'
 import { Icon, Button  } from 'react-native-elements'
@@ -21,6 +27,9 @@ import BassballNews from './screens/BassballNews';
 import footballArticleDetails from './screens/footballArticleDetails';
 import NBAArticleDetails from './screens/NBAArticleDetails';
 import BassballArticleDetails from './screens/BassballArticleDetails';
+import FootballLiveScores from './screens/footballLiveScores';
+import BassballLiveScores from './screens/bassballLiveScores';
+import LiveFootballMatchDetails from './screens/liveFootballMatchDetails';
 import Auth from './screens/Auth';
 import firebase from 'firebase';
 
@@ -59,6 +68,10 @@ class App extends Component {
      FootballNews: {screen: FootballNews},
      footballArticleDetails: {screen: footballArticleDetails}
    })
+   const stackNavForFootballLive = createStackNavigator({
+     FootballLiveScores: {screen: FootballLiveScores},
+     LiveFootballMatchDetails: {screen: LiveFootballMatchDetails}
+   })
    const tabNavForFootball = createBottomTabNavigator({
      FootballScores: {
        screen: stackNavFootball
@@ -66,11 +79,17 @@ class App extends Component {
      footballnews: {
        screen: stackNavForFootballNews
      },
-     calendar: {
-       screen: Calendar
+     footballLiveScores: {
+       screen: stackNavForFootballLive
      },
    }, {
      navigationOptions: ({ navigation }) => ({
+       tabBarOptions: {
+         style: {
+           borderTopWidth:4,
+          borderTopColor:'#000',
+         },
+       },
        tabBarIcon: ({ focused, tintColor }) => {
          const { routeName } = navigation.state;
          if(routeName === 'FootballScores'){
@@ -90,6 +109,14 @@ class App extends Component {
              size={25}
             />
           )
+        }else if(routeName === 'footballLiveScores'){
+          return (
+            <Icon
+            name='ios-stopwatch'
+             type='ionicon'
+             size={25}
+            />
+          )
         }
        }
      })
@@ -104,6 +131,8 @@ class App extends Component {
      NBAMatchDetails: {screen: NBAMatchDetails}
    })
 
+   // const stackNavForLiveNBAMatches =
+
    const tabNavForNBA =  createBottomTabNavigator({
      NBAScores: {
        screen: stackNavforNBA
@@ -116,6 +145,13 @@ class App extends Component {
      },
    }, {
      navigationOptions: ({ navigation }) => ({
+       tabBarOptions: {
+         style: {
+           backgroundColor: '#fff',
+           borderTopWidth:4,
+          borderTopColor:'#000',
+         },
+       },
        tabBarIcon: ({ focused, tintColor }) => {
          const { routeName } = navigation.state;
          if(routeName === 'NBAScores'){
@@ -152,9 +188,6 @@ class App extends Component {
      BassballNews: {screen: BassballNews},
      BassballArticleDetails: {screen: BassballArticleDetails}
    }, {
-     cardStyle: {
-       backgroundColor: '#000'
-     },
    })
 
    const tabNavForBassBall = createBottomTabNavigator({
@@ -164,14 +197,16 @@ class App extends Component {
      BassballNews: {
        screen: StackNavForBassballNews
      },
-     calendar: {
-       screen: Calendar
+     bassballLiveScores: {
+       screen: BassballLiveScores
      },
    }, {
      navigationOptions: ({ navigation }) => ({
        tabBarOptions: {
          style: {
-           backgroundColor: '#ab372b'
+           backgroundColor: '#fff',
+           borderTopWidth:4,
+          borderTopColor:'#000',
          },
        },
        tabBarIcon: ({ focused, tintColor }) => {
@@ -189,6 +224,14 @@ class App extends Component {
              <Icon
               type='ionicon'
               name='ios-paper'
+              size={25}
+             />
+           )
+         }else if(routeName === 'bassballLiveScores'){
+           return(
+             <Icon
+              type='ionicon'
+              name='ios-stopwatch'
               size={25}
              />
            )
@@ -211,7 +254,7 @@ class App extends Component {
 
 
    const drowerNav = createDrawerNavigator({
-     BassBallScores: {
+     BassballScores: {
        screen: tabNavForBassBall
      },
      FootballScores: {
@@ -222,11 +265,14 @@ class App extends Component {
      },
 
    }, {
-     navigationOptions: ({navigation}) => ({
-       drawerIcon: ({ focused, tintColor }) => {
-         const { routeName } = navigation.state;
-       }
-     })
+     navigationOptions: (navigation) => ({
+
+     }),
+     initialRouteName: 'BassballScores',
+     contentComponent: customDrowerNav,
+     drawerOpenRoute: 'DrawerOpen',
+     drawerCloseRoute: 'DrawerClose',
+     drawerTaggleRoute: 'DrawerTaggle'
    })
 
    const TabNavigator = createBottomTabNavigator({
@@ -248,6 +294,29 @@ class App extends Component {
      </Provider>
    )
  }
+}
+
+const customDrowerNav = (props) => {
+  return (
+    <View
+     style={{ flex: 1, backgroundColor: '#ab372b'}}
+    >
+    <View
+     style={{alignItems: 'center', justifyContent: 'center', marginTop: 25}}
+    >
+     <Image
+     style={{
+       width: 220,
+       height: 120,
+     }}
+     source={require('./images/logo.jpg')}
+     />
+    </View>
+    <SafeAreaView style={{flex: 1 }} forceInset={{ top: 'always', horizontal: 'never' }}>
+        <DrawerItems {...props} />
+      </SafeAreaView>
+    </View>
+  )
 }
 
 

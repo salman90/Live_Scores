@@ -5,7 +5,7 @@ import {
   ActivityIndicator,
   ScrollView,
   TouchableWithoutFeedback,
-  Animated, Alert} from 'react-native';
+  Animated, Alert, Image } from 'react-native';
 import { Button, Card, Icon } from 'react-native-elements';
 import DateScroller from '../components/dateScroller';
 import { connect } from 'react-redux';
@@ -22,11 +22,18 @@ class BassBallScores extends Component {
   }
 
   static navigationOptions = ({ navigation }) => {
-    return {
-      title: 'Live Scores',
 
+    return {
+      drawerIcon: (
+        <Icon
+         type='ionicon'
+         name='ios-stopwatch'
+         size={25}
+        />
+      ),
+      title: 'Live Scores',
       headerStyle: {
-            backgroundColor: '#ab372b',
+            backgroundColor: '#fff',
         },
          headerLeft: (
            <Icon
@@ -43,7 +50,7 @@ class BassBallScores extends Component {
 
   componentWillMount(){
     const date = moment().format('YYYY/MM/DD')
-    // this.props.getTodaysMatches(date)
+    this.props.getTodaysMatches(date)
   }
 
   renderMatchDetail(game) {
@@ -82,7 +89,7 @@ class BassBallScores extends Component {
       const gameDate = game.game.scheduled
       const gameDateFormat = moment(gameDate).format("hh:mm a")
       // console.log(gameDateFormat)
-      console.log(gameDateFormat)
+      // console.log(gameDateFormat)
       const opacity = {
          opacity: this.state.animatednValue
       }
@@ -191,10 +198,15 @@ class BassBallScores extends Component {
            <DateScroller />
          </View>
          <View
-          style={{alignItems: 'center', justifyContent: 'center'}}
+          style={{alignItems: 'center', justifyContent: 'center', flex: 1, backgroundColor:  '#ab372b'}}
          >
+           <Image
+             style={{ width: 250, height: 150 }}
+             source={require('../images/logo.jpg')}
+           />
            <Text>No Matches</Text>
-          </View>
+
+         </View>
          </View>
        )
      }

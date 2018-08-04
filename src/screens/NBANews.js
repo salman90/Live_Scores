@@ -1,17 +1,47 @@
 import React, { Component } from 'react';
-import { View, Text, ActivityIndicator, FlatList, TouchableHighlight } from 'react-native';
+import { View, Text, ActivityIndicator, FlatList, TouchableHighlight, Alert, Image } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import moment from 'moment';
 
 
 
 
 class NBANews extends Component {
-  componentWillMount(){
-    // this.props.renderNBANews()
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Live Scores',
+      headerStyle: {
+        backgroundColor: '#fff'
+        },
+    }
   }
 
+  componentWillMount(){
+    this.props.renderNBANews()
+  }
+
+
+  clearError(){
+    this.props.clearErrorMessageForNBA()
+  }
+
+
+renderError = () => {
+  const {newsError} = this.props
+  if(newsError){
+    Alert.alert(
+      'Error',
+      newsError,
+      [
+        {text: 'OK', onPress: this.clearError.bind(this)},
+
+      ]
+    )
+  }
+}
 
   _keyExtractor = (item, index) => item.title;
   render(){
@@ -20,6 +50,7 @@ class NBANews extends Component {
         <View
          style={{ alignItems: 'center', justifyContent: 'center', flex:1 }}
         >
+        {this.renderError()}
           <ActivityIndicator
            size="large" color="#0000ff"
           />
@@ -27,9 +58,10 @@ class NBANews extends Component {
       )
     }
     return (
-      <List
+      <View
        style={{ flex: 1 }}
       >
+      {this.renderError()}
 
         <FlatList
         data={this.props.nbaArticles}
@@ -37,24 +69,48 @@ class NBANews extends Component {
           <TouchableHighlight
            onPress={() => this.props.navigation.navigate('NBAArticleDetails', item)}
           >
-            <ListItem
-              title={item.title}
-              avatar={{uri: item.urlToImage}}
-            />
+            <View
+             style={{ flexDirection: 'row', borderBottomWidth: 2, borderTopColor: 'gray' }}
+            >
+              <View>
+                <Image
+                  source={{ uri: item.urlToImage }}
+                  style={{ width: 100, height: 50, margin: 4 }}
+                />
+              </View>
+              <View>
+                 <View>
+                   <Text
+                    numberOfLines={1}
+                    style={{ flex: 1, justifyContent: 'center'}}
+                   >
+                   {item.title.substr(0, 30)}...
+                   </Text>
+                 </View>
+                 <View>
+                   <Text
+                    style={{ fontSize: 10, color: 'gray'}}
+                   >
+                    {item.publishedAt}
+                   </Text>
+                 </View>
+              </View>
+            </View>
           </TouchableHighlight>
         )
 
         }
         keyExtractor={this._keyExtractor}
          />
-      </List>
+      </View>
     )
   }
 }
 
 const mapStateToProps = state => {
   return {
-    nbaArticles: state.NBA.nbaArticles
+    nbaArticles: state.NBA.nbaArticles,
+    newsError: state.NBA.newsError
   }
 }
 

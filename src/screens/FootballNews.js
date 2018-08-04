@@ -3,14 +3,24 @@ import {
   View,
   Text,
   ScrollView,
-  ActivityIndicator, FlatList, TouchableHighlight, Alert } from 'react-native';
+  ActivityIndicator,
+  FlatList, TouchableHighlight, Alert, Image } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import { connect } from 'react-redux'
 import * as actions from '../actions'
 import { Button } from 'react-native-elements';
+import moment from 'moment';
 
 
 class FootballNews extends Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Live Scores',
+      headerStyle: {
+        backgroundColor: '#fff'
+        }
+    }
+  }
   componentDidMount() {
     this.props.getFootballNews()
   }
@@ -53,7 +63,7 @@ class FootballNews extends Component {
       )
     }
     return (
-      <List
+      <View
         style={{ flex: 1, backgroundColor: '#fff' }}
       >
       {this.renderError()}
@@ -66,17 +76,37 @@ class FootballNews extends Component {
         <TouchableHighlight
          onPress={() => this.props.navigation.navigate('footballArticleDetails', item)}
         >
-          <ListItem
-            title={item.title}
-            avatar={size="medium",{uri: item.urlToImage}}
-            subtitle={item.publishedAt}
-          />
+          <View
+           style={{ flexDirection: 'row', borderWidth: 2, borderTopColor: 'gray' }}
+          >
+           <View>
+             <Image
+                source={{ uri: item.urlToImage }}
+                style={{ width: 100, height: 50, margin: 4 }}
+             />
+           </View>
+           <View>
+             <View>
+               <Text
+                numberOfLines={1}
+                style={{ flex: 1, justifyContent: 'center' }}
+               >{item.title.substr(0, 30)}...
+               </Text>
+             </View>
+             <View>
+                <Text
+                 style={{ fontSize: 10 , color: 'gray'}}
+                >{moment(item.publishedAt).format('LLL')}
+                </Text>
+             </View>
+            </View>
+          </View>
         </TouchableHighlight>
        )
        }
        />
 
-      </List>
+      </View>
     )
   }
 }

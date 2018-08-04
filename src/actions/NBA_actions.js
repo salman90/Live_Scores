@@ -8,6 +8,8 @@ import {
   NBA_ARTICLES,
   ERROR_IN_SENDING_REQUEST,
   CLEAR_ERROR_MESSAGE_FOR_NBA,
+  ERROR_IN_FETCHING_NBA_NEWS,
+  No_NBA_MATCHES
 } from './types';
 
 import moment from 'moment';
@@ -15,9 +17,10 @@ import moment from 'moment';
 export const renderNBAMatches = (date) => async dispatch => {
   dispatch({ type: FETCHING_NBA_SCORES })
   const API_KEY = 'vnvs88e983qs7v4r9ffq88xn'
-  // const date = '2018/02/01'
+  // const mom = '2018/02/01'
   // console.log(date)
-  const TodaysDate = moment().format('YYYY-MM-DD')
+  // const TodaysDate = moment().format('YYYY-MM-DD')
+  console.log(date)
   const url = `http://api.sportradar.us/nba/trial/v5/en/games/${date}/schedule.json?api_key=${API_KEY}`
   axios.get(url)
    .then(res => {
@@ -26,6 +29,9 @@ export const renderNBAMatches = (date) => async dispatch => {
      dispatch({ type: FETCHED_NBA_MATCHES, payload: matches })
    })
    .catch((error) => {
+     if(error.response.status === 404){
+       dispatch({ type:  No_NBA_MATCHES })
+     }
      dispatch({ type: ERROR_IN_SENDING_REQUEST, payload: error})
    })
 }
@@ -93,17 +99,15 @@ export const renderNBANews = () => async dispatch => {
   const lang = 'en'
   const startingDate = moment().add(-1, 'days').format('YYYY-MM-DD')
   const endDate = moment().format('YYYY-MM-DD')
-  const url2 = `https://newsapi.org/v2/everything?language=en&q=NBA&page=1&from=${startingDate}&to=${endDate}&sortBy=popularity&apiKey=${NEWS_API_KEY}`
-  // const url3 = `https://newsapi.org/v2/everything?q=farah-najjar&apiKey=${NEWS_API_KEY}`
+  const url2 = `https://newsapi.org/v2/everything?language=en&q=basketball&NBA&page=1&from=${startingDate}&to=${endDate}&sortBy=popularity&apiKey=${NEWS_API_KEY}`
   axios.get(url2)
    .then((res) => {
-     console.log(res)
         const articles = res.data.articles
         dispatch({ type: NBA_ARTICLES, payload: articles })
    })
    .catch((error) => {
-     console.log('in error')
      console.log(error)
+     dispatch({ type: ERROR_IN_FETCHING_NBA_NEWS })
    })
 }
 

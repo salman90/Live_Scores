@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, TouchableHighlight, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, ScrollView, TouchableHighlight, ActivityIndicator, Alert, Image } from 'react-native';
 import { Button, Card, Icon } from 'react-native-elements';
 import DateScrollerForNBA from '../components/dateScrollerForNBA';
 import { connect } from 'react-redux';
@@ -11,6 +11,10 @@ class NBAScores extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Live Scores',
+      headerStyle: {
+        backgroundColor: '#fff'
+        },
+
          headerLeft: (
            <Icon
            type='font-awesome'
@@ -20,6 +24,7 @@ class NBAScores extends Component {
             containerStyle={{ marginLeft: 5}}
            />
          )
+
     };
   }
 
@@ -140,25 +145,30 @@ class NBAScores extends Component {
     if(this.props.NBAGames.length === 0){
       return (
         <View
-          style={{ flex:1 }}
+          style={{ flex:1, backgroundColor: '#ab372b' }}
         >
          <View
          >
            <DateScrollerForNBA />
          </View>
          <View
-          style={{ flex:1 }}
+          style={{ flex:1, alignItems: 'center', justifyContent: 'center' }}
          >
          {this.renderError()}
-          <Text>No Matches</Text>
+            <Image
+            style={{ width: 250, height: 150 }}
+            source={require('../images/logo.jpg')}
+            />
+            <Text>No Matches</Text>
          </View>
         </View>
       )
     }
     return (
       <View
-       style={{ flex: 1}}
+       style={{ flex: 1, backgroundColor: '#ab372b' }}
       >
+      <DateScrollerForNBA />
       {this.renderError()}
        <ScrollView
         style={{ flex: 1, marginTop: 10}}

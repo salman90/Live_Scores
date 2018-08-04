@@ -8,6 +8,7 @@ import {
   FETCHING_BASSBALL_SCORES,
   CLEAR_ERROR_MESSAGE_FOR_BASSBALL_SCORES,
   ERROR_IN_FETCHING_BASSBALL_NEWS,
+  NO_GAMES_THAT_DAY,
 } from '../actions/types'
 
 const INITIAL_STATE = {
@@ -41,6 +42,8 @@ export default (state = INITIAL_STATE, action) => {
      return { ...state, error: '', NewsError: '' }
     case ERROR_IN_FETCHING_BASSBALL_NEWS:
      return { ...state, NewsError: 'something went wrong'}
+    case NO_GAMES_THAT_DAY:
+     return { ...state, bassballGames: [], loading: false }
     default:
     return state;
   }

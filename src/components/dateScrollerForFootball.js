@@ -57,7 +57,8 @@ class DateScrollerForFootball extends Component {
         >
         <View
          key={i}
-         style={{ alignItems: 'center',flexDirection: 'row', width: 70, height: 50, marginTop: 5, justifyContent: 'center', marginLeft: 5}}
+         style={{ alignItems: 'center',flexDirection: 'row', width: 70, height: 50,
+         justifyContent: 'center', marginLeft: 5}}
         >
 
             <Text
@@ -77,7 +78,13 @@ class DateScrollerForFootball extends Component {
         horizontal={true}
         >
          <View
-          style={{ width: width, marginTop : 5, flexDirection: 'row', height: 50, borderBottomWidth: 1, borderColor: '#000', backgroundColor: 'gray' }}
+          style={{
+            width: width,
+            flexDirection: 'row',
+          height: 50,
+          borderBottomWidth: 4,
+          borderBottomWidth: 4,
+          borderColor: '#000', backgroundColor: 'gray' }}
          >
          {this.renderDates()}
          </View>
