@@ -12,7 +12,7 @@ import store from './store'
 import { Provider } from 'react-redux'
 import { Icon, Button  } from 'react-native-elements'
 import LiveScores from './screens/LiveScores';
-import Calendar from './screens/Calendar';
+import NBALiveMatches from './screens/NBALiveMatches';
 import Sports from './screens/Sports';
 import GameDetails from './screens/GameDetails';
 import FootballScores from './screens/FootballScores';
@@ -30,6 +30,8 @@ import BassballArticleDetails from './screens/BassballArticleDetails';
 import FootballLiveScores from './screens/footballLiveScores';
 import BassballLiveScores from './screens/bassballLiveScores';
 import LiveFootballMatchDetails from './screens/liveFootballMatchDetails';
+import TennisMatches from './screens/TennisMatches';
+import BassballLiveMatchDetials from './screens/bassballLiveMatchDetails';
 import Auth from './screens/Auth';
 import firebase from 'firebase';
 
@@ -140,8 +142,8 @@ class App extends Component {
      NBANews: {
        screen: stackNavForNBANews
      },
-     calendar: {
-       screen: Calendar
+     NBALiveMatches: {
+       screen: NBALiveMatches
      },
    }, {
      navigationOptions: ({ navigation }) => ({
@@ -172,6 +174,15 @@ class App extends Component {
              />
            )
          }
+         else if(routeName ==='NBALiveMatches'){
+           return (
+             <Icon
+             name='ios-stopwatch'
+              type='ionicon'
+              size={25}
+             />
+           )
+         }
        }
      })
    })
@@ -190,6 +201,11 @@ class App extends Component {
    }, {
    })
 
+   const stackNavForLiveBassballMatches = createStackNavigator({
+     BassballLiveScores: { screen: BassballLiveScores },
+     BassballLiveMatchDetails: { screen: BassballLiveMatchDetials }
+   })
+
    const tabNavForBassBall = createBottomTabNavigator({
      BassBallScores: {
        screen: StackNavForBassBall
@@ -198,7 +214,7 @@ class App extends Component {
        screen: StackNavForBassballNews
      },
      bassballLiveScores: {
-       screen: BassballLiveScores
+       screen: stackNavForLiveBassballMatches
      },
    }, {
      navigationOptions: ({ navigation }) => ({
@@ -263,7 +279,9 @@ class App extends Component {
      NBAScores: {
        screen: tabNavForNBA
      },
-
+     TennisMatches: {
+       screen: TennisMatches
+     },
    }, {
      navigationOptions: (navigation) => ({
 

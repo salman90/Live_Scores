@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text, ScrollView, ActivityIndicator } from 'react-native';
+import {View, Text, ScrollView, ActivityIndicator, TouchableWithoutFeedback } from 'react-native';
 import {connect} from 'react-redux';
 import { Card } from 'react-native-elements'
 import * as actions from '../actions';
@@ -7,6 +7,12 @@ import moment from 'moment';
 
 
 class BassballLiveScores extends Component {
+
+  renderLiveGameInfo(game){
+    this.props.renderLiveMatchDetailsForBassball(game, () => {
+      this.props.navigation.navigate('BassballLiveMatchDetails')
+    })
+  }
 
   renderLiveMatches() {
     const { bassballGames } = this.props
@@ -22,10 +28,14 @@ class BassballLiveScores extends Component {
         const gameDate = game.game.scheduled
         const gameDateFormat = moment(gameDate).format("hh:mm a")
         return (
+
           <View
             key={gameID}
             style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', marginTop: 20}}
-          >
+            >
+            <TouchableWithoutFeedback
+             onPress={this.renderLiveGameInfo.bind(this, game)}
+            >
           <Card
           key={gameID}
            title={'MLB'}
@@ -75,6 +85,7 @@ class BassballLiveScores extends Component {
               </Text>
             </View>
           </Card>
+          </TouchableWithoutFeedback>
           </View>
         )
       }

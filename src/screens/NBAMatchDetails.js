@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Dimensions,
+  Modal,
+  TouchableWithoutFeedback,
+  TouchableHighlight } from 'react-native';
 import { Button } from 'react-native-elements';
 import * as actions from '../actions';
 import { connect }  from 'react-redux';
@@ -19,21 +27,98 @@ class NBAMatchDetails extends Component {
 
   componentDidMount(){
     this.setState({
-      showHomeTeam: true,
       tableData: this.props.homeTeam
     })
   }
   renderHomeTeamInfo(){
     this.setState({
       showHomeTeam: true,
+      showAwayTeam: false,
                   })
   }
 
+
+
   renderAwayTeamInfo(){
-    // console.log('in away team ')
     this.setState({
       showHomeTeam: false,
+      showAwayTeam: true,
     })
+
+
+
+  }
+
+  renderCloseModale = () => {
+    this.setState({
+      showHomeTeam: false,
+      showAwayTeam: false,
+    })
+  }
+
+  renderModal = () => {
+    return (
+      <Modal
+         animationType="slide"
+         transparent={false}
+         visible={this.state.showHomeTeam}
+      >
+
+        <View
+         style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}
+        >
+        <View
+          style={{width: width * 0.95 , height: height * 0.80}}>
+          <ScrollView>
+            <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
+             <Row data={this.state.tableHead} style={styles.head} textStyle={styles.text}/>
+             <Rows data={this.props.homeTeam} textStyle={styles.text}/>
+           </Table>
+          </ScrollView>
+         </View>
+         <View
+         >
+           <Button
+            title='close Box Scores'
+            onPress={this.renderCloseModale}
+            buttonStyle={{ marginTop: 1, borderRadius: 8, width: 200}}
+           />
+         </View>
+        </View>
+      </Modal>
+    )
+  }
+
+  renderHomeTeamModal = () => {
+    return (
+      <Modal
+         animationType="slide"
+         transparent={false}
+         visible={this.state.showAwayTeam}
+      >
+        <View
+         style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+        >
+          <View
+            style={{width: width * 0.95 , height: height * 0.80}}>
+            <ScrollView>
+                 <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
+                   <Row data={this.state.tableHead} style={styles.head} textStyle={styles.text}/>
+                   <Rows data={this.props.awayTeam} textStyle={styles.text}/>
+                 </Table>
+            </ScrollView>
+          </View>
+          <View>
+              <Button
+               title='close Box Scores'
+               onPress={this.renderCloseModale}
+               buttonStyle={{ marginTop: 10, borderRadius: 8, width: 200}}
+              />
+          </View>
+        </View>
+      </Modal>
+    )
+
   }
 
   render(){
@@ -47,81 +132,103 @@ class NBAMatchDetails extends Component {
     const stadium = gameData.venue.name
     const awayTeam = this.props.gameData.away.name
     const homeTeam = this.props.gameData.home.name
+    const awayTeamAlis = this.props.gameData.away.alias
+    const homeTeamAlis = this.props.gameData.home.alias
 
     if(status === 'closed'){
       return (
         <View
-         style={{ flex: 1, marginTop: 10}}
+         style={{
+           flex: 1,
+           alignItems: 'center',
+           justifyContent: 'center',
+           backgroundColor: '#ab372b',
+         }}
          >
-         <View
-          style={{ flex: 1 }}
-         >
-         <View
-          style={{ alignItems: 'center', justifyContent: 'center'}}
-         >
-           <Text>{moment(gameDate).format('LLL')}</Text>
-         </View>
            <View
-            style={{ width: width * 0.98, justifyContent: 'space-between', flexDirection: 'row' }}
+            style={{ backgroundColor: '#fff', width: width * 0.98, height: 300, alignItems: 'center', justifyContent: 'center', borderRadius: 8 }}
            >
-              <View
-               style={{flexDirection: 'row', justifyContent: 'space-around' }}
-              >
-                <Text>{awayTeamName}</Text>
-                <Text
-                 style={{marginLeft: 10}}
-                >{awayTeamScore}</Text>
-              </View>
-
-              <View
-              style={{flexDirection: 'row' }}
-              >
-              <Text
-               style={{marginRight: 10}}
-              >{homeTeamScore}</Text>
-              <Text>{homeTeamName}</Text>
-              </View>
-           </View>
-         </View>
-          <View
-           style={{ flex: 1,  justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}
-          >
-          <View>
-              <Button
-               title={awayTeam}
-               onPress={this.renderHomeTeamInfo.bind(this)}
-              />
-          </View>
-           <View>
-              <Button
-              title={homeTeam}
-              onPress={this.renderAwayTeamInfo.bind(this)}
-              />
+           {this.renderModal()}
+           {this.renderHomeTeamModal()}
+             <View
+             style={{ alignItems: 'center', justifyContent: 'center'}}
+             >
+               <Text
+               style={{ fontSize: 25, fontWeight: 'bold', marginBottom: 10 }}
+               >
+                 MBA
+               </Text>
+               <Text>
+               {moment(gameDate).format('LLL')}
+               </Text>
             </View>
-          </View>
-          <View
-           style={styles.container}
-          >
-          <ScrollView
-          >
+            <View
+             style={{ flexDirection: 'row', width: width * 0.90 , marginTop: 20, alignItems: 'center', justifyContent: 'space-around'}}
+            >
+              <View
+               style={{flexDirection: 'row', justifyContent: 'space-between', width: 100 }}
+              >
+                  <Text
+                  selectable={true}
+                  numberOfLines={1}
+                  style={{ fontSize: 20, letterSpacing: 2, fontWeight: 'bold' }}
+                  >{awayTeamAlis}</Text>
+                 <Text
+                 style={{
+                   fontWeight: 'bold',
+                   fontSize: 20,
+                  marginRight: 15
+                 }}
+                 >{awayTeamScore}</Text>
+             </View>
+             <View
+             style={{flexDirection: 'row', justifyContent: 'space-between', width: 100 }}
+             >
+              <Text
+              style={{
+                fontWeight: 'bold',
+                fontSize: 20,
+               marginRight: 15
+              }}
+               >
+               {homeTeamScore}
+               </Text>
+               <Text
+               selectable={true}
+               numberOfLines={1}
+               style={{ fontSize: 20, letterSpacing: 2, fontWeight: 'bold' }}
+               >
+               {homeTeamAlis}
+               </Text>
+             </View>
+            </View>
 
-           {
-              this.state.showHomeTeam?
-              <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
-                <Row data={this.state.tableHead} style={styles.head} textStyle={styles.text}/>
-                <Rows data={this.props.homeTeam} textStyle={styles.text}/>
-              </Table>
-              :
-              <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
-                <Row data={this.state.tableHead} style={styles.head} textStyle={styles.text}/>
-                <Rows data={this.props.awayTeam} textStyle={styles.text}/>
-              </Table>
-           }
-          </ScrollView>
+            <View
+             style={{ alignItems: 'center', justifyContent: 'center', marginTop: 10}}
+            >
+              <Text
+               style={{ fontSize: 20, letterSpacing: 2, }}
+              >Box scores</Text>
+            </View>
+            <View
+              style={{ flexDirection: 'row', width: width * 0.90, marginTop: 20, alignItems: 'center', justifyContent: 'space-around'}}
+            >
+                  <Button
+                    buttonStyle={{ borderRadius: 8, backgroundColor: '#33A8FF' }}
+                    title={awayTeamAlis}
+                    onPress={this.renderAwayTeamInfo.bind(this)}
+                   />
+                   <Button
+                   buttonStyle={{ borderRadius: 8, backgroundColor: '#33A8FF' }}
+                    title={homeTeamAlis}
+                    onPress={this.renderHomeTeamInfo.bind(this)}
+                />
+            </View>
+
           </View>
         </View>
       )
-    }else if (status == 'scheduled'){
+    }else {
 
       return  (
         <View
@@ -160,10 +267,6 @@ class NBAMatchDetails extends Component {
            <Text>{stadium}</Text>
           </View>
         </View>
-      )
-    }else if (status == 'inprogress') {
-      return (
-        <View />
       )
     }
   }

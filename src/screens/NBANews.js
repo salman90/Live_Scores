@@ -45,6 +45,7 @@ renderError = () => {
 
   _keyExtractor = (item, index) => item.title;
   render(){
+    console.log(this.propsnbaArticles)
     if(this.props.nbaArticles.length === 0){
       return (
         <View
@@ -73,10 +74,16 @@ renderError = () => {
              style={{ flexDirection: 'row', borderBottomWidth: 2, borderTopColor: 'gray' }}
             >
               <View>
+              {
+                item.urlToImage === null?
+                <View
+                 style={{ width: 100, height: 50, backgroundColor: '#fff', margin: 4}}
+                 />:
                 <Image
                   source={{ uri: item.urlToImage }}
                   style={{ width: 100, height: 50, margin: 4 }}
                 />
+              }
               </View>
               <View>
                  <View>

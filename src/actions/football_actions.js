@@ -15,56 +15,67 @@ import {
   FETCHED_LIVE_SCORES_IN_FOOTBALL_SUCCESSFULLY,
   ERROR_FETCHING_LIVE_MATCHES,
   NO_FOOTBALL_MATCHES_IN_THAT_DATE,
+  FECHING_FOOTBALL_MATCH_DETAILS,
  } from './types'
 
  export const getTodaysMatchesForFootball = (date) => async dispatch => {
+   // console.log()
    dispatch({ type: FETCHING_FOOTBALL_SCORES })
-   const API_KEY = 'eh7pgue3fj5gc8a57rsqux9c'
-   // const date = '2017-04-02'
+   const API_KEY = 'a4nbj7zwu8r7dzgeaw8yr23t'
+   // const dateL = '2018-08-07'
    const TodaysDate = moment().format('YYYY/MM/DD')
-   const url = `https://api.sportradar.us/soccer-xt3/eu/en/schedules/${date}/results.json?api_key=${API_KEY}`
+   const url = `https://api.sportradar.us/soccer-xt3/eu/en/schedules/${date}/schedule.json?api_key=${API_KEY}`
+   // setInterval( async () => {
+   //   console.log('salman is here')
+   // }, 10000)
    axios.get(url)
     .then(res => {
-      const results = res.data.results
-      let games = []
-      results.map((game, i) => {
-
-        let tournamentInfo = game.sport_event.tournament
-        let matchId = game.sport_event.id
-        let matchTime = game.sport_event.scheduled
-        let homeTeam = game.sport_event.competitors[0]
-        let awayTeam = game.sport_event.competitors[1]
-        // console.log('homeTeam', game.sport_event.competitors[0] )
-        // console.log('awayTeam', game.sport_event.competitors[1])
-        // console.log(game.sport_event.competitors)
-        let matchStatus = game.sport_event_status
-        let HalfScore = game.sport_event_status.period_scores
-
-        let firstHalfScore  = null
-        let secondHalfScore = null
-         if(typeof HalfScore != 'undefined'){
-            firstHalfScore = game.sport_event_status.period_scores[0]
-            secondHalfScore = game.sport_event_status.period_scores[1]
-         }
-
-        let matchDetails = {
-          tournamentInfo: game.sport_event.tournament,
-           matchId: game.sport_event.id,
-           matchTime: game.sport_event.scheduled,
-           matchStatus: game.sport_event_status,
-           firstHalfScore: firstHalfScore,
-           secondHalfScore: secondHalfScore,
-           homeTeam: homeTeam,
-           awayTeam: awayTeam,
-        }
-        games.push(matchDetails)
-        // return games
-      })
-      dispatch({ type: FETCHED_FOOTBALL_MATCHES, payload: games })
+      const results = res.data
+      const footballEvent  = results.sport_events
+      // console.log(event)
+      dispatch({ type: FETCHED_FOOTBALL_MATCHES, payload: footballEvent })
+      // console.log(res.data)
+      // console.log(results)
+   //    let games = []
+   //    results.map((game, i) => {
+   //
+   //      let tournamentInfo = game.sport_event.tournament
+   //      let matchId = game.sport_event.id
+   //      let matchTime = game.sport_event.scheduled
+   //      let homeTeam = game.sport_event.competitors[0]
+   //      let awayTeam = game.sport_event.competitors[1]
+   //      // console.log('homeTeam', game.sport_event.competitors[0] )
+   //      // console.log('awayTeam', game.sport_event.competitors[1])
+   //      // console.log(game.sport_event.competitors)
+   //      let matchStatus = game.sport_event_status
+   //      let HalfScore = game.sport_event_status.period_scores
+   //
+   //      let firstHalfScore  = null
+   //      let secondHalfScore = null
+   //       if(typeof HalfScore != 'undefined'){
+   //          firstHalfScore = game.sport_event_status.period_scores[0]
+   //          secondHalfScore = game.sport_event_status.period_scores[1]
+   //       }
+   //
+   //      let matchDetails = {
+   //        tournamentInfo: game.sport_event.tournament,
+   //         matchId: game.sport_event.id,
+   //         matchTime: game.sport_event.scheduled,
+   //         matchStatus: game.sport_event_status,
+   //         firstHalfScore: firstHalfScore,
+   //         secondHalfScore: secondHalfScore,
+   //         homeTeam: homeTeam,
+   //         awayTeam: awayTeam,
+   //      }
+   //      games.push(matchDetails)
+   //      // return games
+   //    })
+   //    dispatch({ type: FETCHED_FOOTBALL_MATCHES, payload: games })
     })
    .catch((error) => {
      console.log(error)
      if(error.response.status === 404){
+
        dispatch({ type: NO_FOOTBALL_MATCHES_IN_THAT_DATE })
      }else {
        dispatch({ type: ERROR_IN_FETCHING_FOOTBALL_SCORES })
@@ -73,7 +84,8 @@ import {
 }
 
 export const getMatchDetails = (game,callback) => async dispatch => {
-  const API_KEY = 'eh7pgue3fj5gc8a57rsqux9c'
+  dispatch({ type: FECHING_FOOTBALL_MATCH_DETAILS })
+  const API_KEY = 'a4nbj7zwu8r7dzgeaw8yr23t'
   const gameUid = game.matchId
   // console.log(game)
   // console.log(game.matchId)
@@ -81,6 +93,7 @@ export const getMatchDetails = (game,callback) => async dispatch => {
   axios.get(url)
    .then((res) => {
      let matchEvent =  res.data
+     // console.log(matchEvent)
      dispatch({ type: FOOTBALL_MATCH_DETAILS, payload: matchEvent })
    })
 
@@ -112,15 +125,18 @@ export const clearErrorInFootball = () => async dispatch => {
 
 export const getFootballLiveScores = () => async dispatch => {
   dispatch({ type: FECHING_LIVE_SCORES_IN_FOOTBALL })
-  const API_KEY = 'eh7pgue3fj5gc8a57rsqux9c'
+  const API_KEY = 'a4nbj7zwu8r7dzgeaw8yr23t'
   const URL = `https://api.sportradar.us/soccer-xt3/eu/en/schedules/live/results.json?api_key=${API_KEY}`
+
   axios.get(URL)
    .then((res) => {
+     // console.log(res)
      const matchInfo = res.data.results
+     // console.log(res.data.results)
      dispatch({ type: FETCHED_LIVE_SCORES_IN_FOOTBALL_SUCCESSFULLY, payload: matchInfo })
    })
    .catch((error) => {
-     // console.log(error)
+     console.log(error)
      if(error.response.status === 404){
        dispatch({ type: NO_LIVE_MATCHES_ERROR })
      }

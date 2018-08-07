@@ -11,7 +11,8 @@ import {
   FETCHING_BASSBALL_SCORES,
   CLEAR_ERROR_MESSAGE_FOR_BASSBALL_SCORES,
   ERROR_IN_FETCHING_BASSBALL_NEWS,
-  NO_GAMES_THAT_DAY
+  NO_GAMES_THAT_DAY,
+  LIVE_MATCH_DETAILS_FOR_BASSBALL,
 } from './types'
 
 
@@ -107,4 +108,49 @@ export const getBassballNews = () => async dispatch => {
 export const clearError = () => async dispatch => {
   // console.log('sssss')
   dispatch({ type: CLEAR_ERROR_MESSAGE_FOR_BASSBALL_SCORES })
+}
+
+export const renderLiveMatchDetailsForBassball = (game, callback) => async dispatch => {
+  dispatch({ type: LIVE_MATCH_DETAILS_FOR_BASSBALL, payload: game })
+
+  // const awayTeamInfo = game.game.away
+  const awayTeamInfo = game.game.away
+  const awayAbbr = awayTeamInfo.abbr
+  const homeTeamInfo = game.game.home
+  const homeAbbr =  homeTeamInfo.abbr
+  // const awayScoringTeam = awayTeamInfo.scoring
+  const awayScoringTeam = awayTeamInfo.scoring
+  const homeScoringTeam = homeTeamInfo.scoring
+  let awayRuns = []
+  awayRuns.push(awayAbbr)
+  awayScoringTeam.map((score, i) => {
+    let runs = score.runs
+    awayRuns.push(runs)
+  })
+  // console.log(awayRuns)
+  let awayTotalCountOfErrors = _.sumBy(['errors'], _.partial(_.sumBy, awayScoringTeam));
+  let awayTotalCountOfHits  = _.sumBy(['hits'], _.partial(_.sumBy, awayScoringTeam));
+  let awayTotalCountOfRuns  = _.sumBy(['runs'], _.partial(_.sumBy, awayScoringTeam));
+
+  awayRuns.push(awayTotalCountOfRuns, awayTotalCountOfErrors, awayTotalCountOfHits )
+  console.log(awayRuns)
+  dispatch({ type: SCORING_RESULTS_FOR_AWAY_TEAM, payload: awayRuns })
+
+
+  let homeRuns = []
+  let totalRuns = 0
+  homeRuns.push(homeAbbr)
+  homeScoringTeam.map((score, i) => {
+    let runs = score.runs
+    homeRuns.push(runs)
+  })
+
+  let homeTotalCountOfErrors = _.sumBy(['errors'], _.partial(_.sumBy, homeScoringTeam));
+  let homeTotalCountOfHits  = _.sumBy(['hits'], _.partial(_.sumBy, homeScoringTeam));
+  let homeTotalCountOfRuns  = _.sumBy(['runs'], _.partial(_.sumBy, homeScoringTeam));
+
+  homeRuns.push(homeTotalCountOfRuns, homeTotalCountOfHits, homeTotalCountOfErrors)
+  dispatch({ type: SCORING_RESULTS_FOR_HOME_TEAM, payload: homeRuns  })
+
+  callback()
 }

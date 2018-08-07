@@ -42,75 +42,137 @@ class FootballScores extends Component {
   renderFootBallGames() {
     const { footballGames } = this.props
     footballGames.sort(function(a,b){
-      const keyA = new Date(a.matchTime)
-      const keyB = new Date(b.matchTime)
+      const keyA = new Date(a.scheduled)
+      const keyB = new Date(b.scheduled)
       if(keyA < keyB) return -1;
       if(keyA > keyB) return 1;
       return 0
     })
     return footballGames.map((game, i) => {
-      const awayTeamName =  game.awayTeam.name
-      const homeTeamName = game.homeTeam.name
-      const awayTeamScore = game.matchStatus.away_score
-      const homeTeamScore = game.matchStatus.home_score
-      const tournamentName = game.tournamentInfo.name
-      const matchStatus = game.matchStatus.status
-      const matchTime = game.matchTime
+      // console.log(game)
+      const homtTeamInfo = game.competitors[0]
+      const homeTeamName =  homtTeamInfo.name
+      const awayTeamInfo  = game.competitors[1]
+      const awayTeamName = awayTeamInfo.name
+      const matchTime = game.scheduled
+      const matchStatus = game.status
+      console.log(matchStatus)
+      const tournamentName = game.tournament.name
       const matchTimeNewFormat = moment(matchTime).format('LLL')
+       return (
+         <View
+             key={i}
+             style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', marginTop: 20}}
+             >
+             <TouchableHighlight
+              onPress={this.renderFootballDetails.bind(this, game)}
+             >
+               <Card
+               title={tournamentName}
+               >
+                <View>
+                   {matchStatus == 'closed' || matchStatus == 'ended' ? <Text>FT</Text>: null}
+                   {matchStatus == 'not_started' ? <Text>{matchTimeNewFormat}</Text>: null}
+                   {matchStatus == 'live'?
+                   <View
+                   style={{ width: 10, height: 10, borderRadius: 10/2, backgroundColor: 'green'}}
+                   ></View>: null}
+                     {matchStatus =='wdelay'? <Text>Delay</Text>: null}
+                </View>
+                 <View
+                  style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10 }}
+                 >
+                   <Text
+                    style={{fontSize: 15, fontWeight: 'bold'}}
+                   >
+                     {awayTeamName}
+                   </Text>
+                   <Text
+                   style={{fontSize: 15, fontWeight: 'bold'}}
+                   >
+                   </Text>
+                 </View>
+                 <View
+                 style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10  }}
+                 >
+                   <Text
+                   style={{fontSize: 15, fontWeight: 'bold'}}
+                   >
+                     {homeTeamName}
+                   </Text>
+                   <Text
+                   style={{fontSize: 15, fontWeight: 'bold'}}
+                   >
+                   </Text>
+                 </View>
+               </Card>
+               </TouchableHighlight>
+             </View>
+       )
 
-      return (
-        <View
-        key={i}
-        style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', marginTop: 20}}
-        >
-        <TouchableHighlight
-         onPress={this.renderFootballDetails.bind(this, game)}
-        >
-          <Card
-          title={tournamentName}
-          >
-           <View>
-              {matchStatus == 'closed' ? <Text>FT</Text>: null}
-              {matchStatus == 'scheduled' ? <Text>{matchTimeNewFormat}</Text>: null}
-              {matchStatus == 'inprogress'?
-              <View
-              style={{ width: 10, height: 10, borderRadius: 10/2, backgroundColor: 'green'}}
-              ></View>: null}
-                {matchStatus =='wdelay'? <Text>Delay</Text>: null}
-           </View>
-            <View
-             style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10 }}
-            >
-              <Text
-               style={{fontSize: 15, fontWeight: 'bold'}}
-              >
-                {awayTeamName}
-              </Text>
-              <Text
-              style={{fontSize: 15, fontWeight: 'bold'}}
-              >
-                {awayTeamScore}
-              </Text>
-            </View>
-            <View
-            style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10  }}
-            >
-              <Text
-              style={{fontSize: 15, fontWeight: 'bold'}}
-              >
-                {homeTeamName}
-              </Text>
-              <Text
-              style={{fontSize: 15, fontWeight: 'bold'}}
-              >
-                {homeTeamScore}
-              </Text>
-            </View>
-          </Card>
-          </TouchableHighlight>
-        </View>
-      )
     })
+    //   const awayTeamName =  game.awayTeam.name
+    //   const homeTeamName = game.homeTeam.name
+    //   const awayTeamScore = game.matchStatus.away_score
+    //   const homeTeamScore = game.matchStatus.home_score
+    //   const tournamentName = game.tournamentInfo.name
+    //   const matchStatus = game.matchStatus.status
+    //   const matchTime = game.matchTime
+    //   const matchTimeNewFormat = moment(matchTime).format('LLL')
+    //
+    //   return (
+    //     <View
+    //     key={i}
+    //     style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', marginTop: 20}}
+    //     >
+    //     <TouchableHighlight
+    //      onPress={this.renderFootballDetails.bind(this, game)}
+    //     >
+    //       <Card
+    //       title={tournamentName}
+    //       >
+    //        <View>
+    //           {matchStatus == 'closed' ? <Text>FT</Text>: null}
+    //           {matchStatus == 'scheduled' ? <Text>{matchTimeNewFormat}</Text>: null}
+    //           {matchStatus == 'inprogress'?
+    //           <View
+    //           style={{ width: 10, height: 10, borderRadius: 10/2, backgroundColor: 'green'}}
+    //           ></View>: null}
+    //             {matchStatus =='wdelay'? <Text>Delay</Text>: null}
+    //        </View>
+    //         <View
+    //          style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10 }}
+    //         >
+    //           <Text
+    //            style={{fontSize: 15, fontWeight: 'bold'}}
+    //           >
+    //             {awayTeamName}
+    //           </Text>
+    //           <Text
+    //           style={{fontSize: 15, fontWeight: 'bold'}}
+    //           >
+    //             {awayTeamScore}
+    //           </Text>
+    //         </View>
+    //         <View
+    //         style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10  }}
+    //         >
+    //           <Text
+    //           style={{fontSize: 15, fontWeight: 'bold'}}
+    //           >
+    //             {homeTeamName}
+    //           </Text>
+    //           <Text
+    //           style={{fontSize: 15, fontWeight: 'bold'}}
+    //           >
+    //             {homeTeamScore}
+    //           </Text>
+    //         </View>
+    //       </Card>
+    //       </TouchableHighlight>
+    //     </View>
+    //   )
+    // })
   }
 
   clearError(){

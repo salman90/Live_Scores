@@ -38,3 +38,5 @@ export const NO_LIVE_MATCHES_ERROR = 'no_live_matches_error';
 export const FETCHED_LIVE_SCORES_IN_FOOTBALL_SUCCESSFULLY = 'fetched_live_scores_in_football_successfully';
 export const NO_FOOTBALL_MATCHES_IN_THAT_DATE = 'no_football_matches_in_that_date ';
 export const No_NBA_MATCHES = 'no_nba_matches';
+export const FECHING_FOOTBALL_MATCH_DETAILS = 'fetching_football_match_details';
+export const LIVE_MATCH_DETAILS_FOR_BASSBALL = 'live_match_details_for_bassball';

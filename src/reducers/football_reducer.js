@@ -12,6 +12,7 @@ import {
   NO_LIVE_MATCHES_ERROR,
   FETCHED_LIVE_SCORES_IN_FOOTBALL_SUCCESSFULLY,
   NO_FOOTBALL_MATCHES_IN_THAT_DATE,
+  FECHING_FOOTBALL_MATCH_DETAILS,
 } from '../actions/types'
 
 const INITIAL_STATE = {
@@ -24,6 +25,7 @@ const INITIAL_STATE = {
   liveGames: [],
   liveMatch: {},
   loadingLiveMatches: false,
+  loadingMatchDetails: false,
 }
 
 
@@ -37,7 +39,7 @@ export default (state = INITIAL_STATE, action) => {
      // console.log(action.payload)
      return { ...state, footballArticles: action.payload}
     case FOOTBALL_MATCH_DETAILS:
-     return { ...state, footballMatchDetails: action.payload}
+     return { ...state, footballMatchDetails: action.payload, loadingMatchDetails: false }
     case FETCHING_FOOTBALL_SCORES:
      return { ...state, loading: true}
     case ERROR_IN_FETCHING_FOOTBALL_SCORES:
@@ -47,7 +49,7 @@ export default (state = INITIAL_STATE, action) => {
     case ERROR_IN_FETCHING_FOOTBALL_NEWS:
      return { ...state, newsError: 'something went wrong'}
     case FETCHED_LIVE_SCORES_IN_FOOTBALL_SUCCESSFULLY:
-     return { ...state, liveGames: action.payload, loadingLiveMatches: true}
+     return { ...state, liveGames: action.payload, loadingLiveMatches: false}
     case LIVE_MATCH_DETAILS:
      return { ...state, liveMatch: action.payload }
     case NO_LIVE_MATCHES_ERROR:
@@ -56,6 +58,9 @@ export default (state = INITIAL_STATE, action) => {
      return { ...state, loadingLiveMatches: true }
     case NO_FOOTBALL_MATCHES_IN_THAT_DATE:
      return { ...state, loading: false, footballGames: [] }
+    case FECHING_FOOTBALL_MATCH_DETAILS:
+    // console.log('in action ss')
+     return { ...state, loadingMatchDetails: true }
     default:
     return state;
   }

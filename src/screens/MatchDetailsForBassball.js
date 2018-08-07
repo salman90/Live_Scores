@@ -404,8 +404,6 @@ class MatchDetailsForBassball extends Component {
             </View>
           </View>
           </View>
-
-          //////
           <View
            style={{ width: width * 0.98, height: 100, marginTop: 10}}
           >

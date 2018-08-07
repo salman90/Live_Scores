@@ -9,6 +9,7 @@ import {
   CLEAR_ERROR_MESSAGE_FOR_BASSBALL_SCORES,
   ERROR_IN_FETCHING_BASSBALL_NEWS,
   NO_GAMES_THAT_DAY,
+  LIVE_MATCH_DETAILS_FOR_BASSBALL,
 } from '../actions/types'
 
 const INITIAL_STATE = {
@@ -20,6 +21,7 @@ const INITIAL_STATE = {
   error: '',
   loading: false,
   NewsError: '',
+  liveBassballMatchDetails: {},
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -44,6 +46,8 @@ export default (state = INITIAL_STATE, action) => {
      return { ...state, NewsError: 'something went wrong'}
     case NO_GAMES_THAT_DAY:
      return { ...state, bassballGames: [], loading: false }
+    case LIVE_MATCH_DETAILS_FOR_BASSBALL:
+     return { ...state, liveBassballMatchDetails: action.payload }
     default:
     return state;
   }

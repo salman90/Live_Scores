@@ -17,11 +17,11 @@ import moment from 'moment';
 export const renderNBAMatches = (date) => async dispatch => {
   dispatch({ type: FETCHING_NBA_SCORES })
   const API_KEY = 'vnvs88e983qs7v4r9ffq88xn'
-  // const mom = '2018/02/01'
+  const mom = '2018/02/01'
   // console.log(date)
   // const TodaysDate = moment().format('YYYY-MM-DD')
   console.log(date)
-  const url = `http://api.sportradar.us/nba/trial/v5/en/games/${date}/schedule.json?api_key=${API_KEY}`
+  const url = `http://api.sportradar.us/nba/trial/v5/en/games/${mom}/schedule.json?api_key=${API_KEY}`
   axios.get(url)
    .then(res => {
      // console.log(res.data.games)
@@ -99,7 +99,10 @@ export const renderNBANews = () => async dispatch => {
   const lang = 'en'
   const startingDate = moment().add(-1, 'days').format('YYYY-MM-DD')
   const endDate = moment().format('YYYY-MM-DD')
+  console.log(startingDate)
+  console.log(endDate)
   const url2 = `https://newsapi.org/v2/everything?language=en&q=basketball&NBA&page=1&from=${startingDate}&to=${endDate}&sortBy=popularity&apiKey=${NEWS_API_KEY}`
+  // console.log(url2)
   axios.get(url2)
    .then((res) => {
         const articles = res.data.articles

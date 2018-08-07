@@ -3,7 +3,8 @@ import { View, Text, ActivityIndicator, FlatList, TouchableHighlight, Alert, Ima
 import { connect } from 'react-redux';
 import { List, ListItem } from 'react-native-elements';
 import * as actions from '../actions';
-import moment from 'moment'
+import moment from 'moment';
+import CacheImage from '../components/cacheImage';
 
 
 class BassballNews extends Component {
