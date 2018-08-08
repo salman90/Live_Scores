@@ -52,7 +52,7 @@ class BassBallScores extends Component {
 
   componentWillMount(){
     const date = moment().format('YYYY/MM/DD')
-    // this.props.getTodaysMatches(date)
+    this.props.getTodaysMatches(date)
   }
 
   renderMatchDetail(game) {
