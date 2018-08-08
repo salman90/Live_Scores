@@ -8,6 +8,7 @@ import {
   DrawerItems,
   SafeAreaView,
 } from 'react-navigation';
+import { FIREBASE_API_KEY } from 'react-native-dotenv';
 import store from './store'
 import { Provider } from 'react-redux'
 import { Icon, Button  } from 'react-native-elements'
@@ -48,7 +49,6 @@ function cacheImages(images) {
 }
 
 
-const API_KEY = '8uevyeqyb38gms9t8qmbtj5w'
 
 class App extends Component {
   state = {
@@ -65,7 +65,7 @@ class App extends Component {
   componentWillMount(){
     ///////
     const config = {
-    apiKey: "AIzaSyB0rXZX-LXn0iw07K4SrWWndTP3hus1sFc",
+    apiKey: FIREBASE_API_KEY,
     authDomain: "live-scores-b9be5.firebaseapp.com",
     databaseURL: "https://live-scores-b9be5.firebaseio.com",
     projectId: "live-scores-b9be5",

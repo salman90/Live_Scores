@@ -1,5 +1,6 @@
 import moment from 'moment';
 import axios from 'axios';
+import { BASSBALL_API_KEY, BASSBALL_NEWS_API_KEY } from 'react-native-dotenv';
 import _ from 'lodash';
 import {
   FETCHED_BASSBALL_MATCHES,
@@ -21,9 +22,7 @@ export const getTodaysMatches = (date) => async dispatch => {
   // console.log(date)
   // console.log('in function')
   // const dateToday = '2018-07-27'
-  const API_KEY = '8uevyeqyb38gms9t8qmbtj5w'
-  const API_KEY_2 = '4zgwz5dxh4qdcteb9dt63n8f'
-  const url  = `http://api.sportradar.us/mlb/trial/v6.5/en/games/${date}/boxscore.json?api_key=${API_KEY_2}`
+  const url  = `http://api.sportradar.us/mlb/trial/v6.5/en/games/${date}/boxscore.json?api_key=${BASSBALL_API_KEY}`
   axios.get(url)
    .then( res => {
      const games = res.data.league.games
@@ -90,11 +89,10 @@ export const getMachInfo = (game, callback) => async dispatch => {
 }
 
 export const getBassballNews = () => async dispatch => {
-  const NEWS_API_KEY = 'f654a5a963d34b4eba103c5948c43fd5'
   const lang = 'en'
   const startingDate = moment().add(-1, 'days').format('YYYY-MM-DD')
   const endDate = moment().format('YYYY-MM-DD')
-  const URL =`https://newsapi.org/v2/everything?language=en&q=MLB&page=1&from=${startingDate}&to=${endDate}&sortBy=popularity&apiKey=${NEWS_API_KEY}`
+  const URL =`https://newsapi.org/v2/everything?language=en&q=MLB&page=1&from=${startingDate}&to=${endDate}&sortBy=popularity&apiKey=${BASSBALL_NEWS_API_KEY}`
     axios.get(URL)
      .then((res) => {
        const articles = res.data.articles

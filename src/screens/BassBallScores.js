@@ -12,16 +12,17 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import moment from 'moment';
 import axios from 'axios';
-// import CacheImage from './components/cacheImages';
+// import { API_KEYOKOK }  from 'react-native-dotenv';
 
 
 
 class BassBallScores extends Component {
-
-  state = {
-    animatedValue: new Animated.Value(0)
-
-  }
+  constructor(props) {
+    super(props);
+    this.state = {
+      animatedValue: new Animated.Value(0)
+    }
+}
 
   static navigationOptions = ({ navigation }) => {
 
@@ -52,6 +53,7 @@ class BassBallScores extends Component {
 
   componentWillMount(){
     const date = moment().format('YYYY/MM/DD')
+    // console.log(API_KEYOKOK)
     this.props.getTodaysMatches(date)
   }
 

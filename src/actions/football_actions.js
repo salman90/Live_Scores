@@ -1,5 +1,6 @@
 import moment from 'moment';
 import axios from 'axios';
+import { FOOTBALL_API_KEY, FOOTBALL_NEWS_API_KEY } from 'react-native-dotenv';
 import {
   FETCHED_FOOTBALL_MATCHES,
   GAME_INFO_FOOTBALL,
@@ -19,15 +20,10 @@ import {
  } from './types'
 
  export const getTodaysMatchesForFootball = (date) => async dispatch => {
-   // console.log()
+
    dispatch({ type: FETCHING_FOOTBALL_SCORES })
-   const API_KEY = 'a4nbj7zwu8r7dzgeaw8yr23t'
-   // const dateL = '2018-08-07'
    const TodaysDate = moment().format('YYYY/MM/DD')
-   const url = `https://api.sportradar.us/soccer-xt3/eu/en/schedules/${date}/schedule.json?api_key=${API_KEY}`
-   // setInterval( async () => {
-   //   console.log('salman is here')
-   // }, 10000)
+   const url = `https://api.sportradar.us/soccer-xt3/eu/en/schedules/${date}/schedule.json?api_key=${FOOTBALL_API_KEY}`
    axios.get(url)
     .then(res => {
       const results = res.data
@@ -49,12 +45,9 @@ import {
 
 export const getMatchDetails = (game,callback) => async dispatch => {
   dispatch({ type: FECHING_FOOTBALL_MATCH_DETAILS })
-  const API_KEY = 'a4nbj7zwu8r7dzgeaw8yr23t'
   const gameUid = game.id
-  // console.log(game)
-  // console.log(game)
-  // console.log(game.matchId)
-  const url = `https://api.sportradar.us/soccer-xt3/eu/en/matches/${gameUid}/summary.json?api_key=${API_KEY}`
+
+  const url = `https://api.sportradar.us/soccer-xt3/eu/en/matches/${gameUid}/summary.json?api_key=${FOOTBALL_API_KEY}`
   axios.get(url)
    .then((res) => {
      let matchEvent =  res.data
@@ -67,12 +60,10 @@ export const getMatchDetails = (game,callback) => async dispatch => {
 
 
 export const getFootballNews = () => async dispatch => {
-  const NEWS_API_KEY = 'f654a5a963d34b4eba103c5948c43fd5'
   const lang = 'en'
-  // const startingDate = '2018-07-28'
   const endDate = moment().format('YYYY-MM-DD')
   const startingDate = moment().add(-1, 'days').format('YYYY-MM-DD')
-  const URL = `https://newsapi.org/v2/everything?language=en&q=la-liga&serie-A&english-premier-league&page=1&from=${startingDate}&to=${endDate}&sortBy=popularity&apiKey=${NEWS_API_KEY}`
+  const URL = `https://newsapi.org/v2/everything?language=en&q=la-liga&serie-A&english-premier-league&page=1&from=${startingDate}&to=${endDate}&sortBy=popularity&apiKey=${FOOTBALL_NEWS_API_KEY}`
     axios.get(URL)
      .then((res) =>{
         const europeanFootballNews =  res.data.articles
@@ -90,8 +81,7 @@ export const clearErrorInFootball = () => async dispatch => {
 
 export const getFootballLiveScores = () => async dispatch => {
   dispatch({ type: FECHING_LIVE_SCORES_IN_FOOTBALL })
-  const API_KEY = 'a4nbj7zwu8r7dzgeaw8yr23t'
-  const URL = `https://api.sportradar.us/soccer-xt3/eu/en/schedules/live/results.json?api_key=${API_KEY}`
+  const URL = `https://api.sportradar.us/soccer-xt3/eu/en/schedules/live/results.json?api_key=${FOOTBALL_API_KEY}`
 
   axios.get(URL)
    .then((res) => {
@@ -101,7 +91,6 @@ export const getFootballLiveScores = () => async dispatch => {
      dispatch({ type: FETCHED_LIVE_SCORES_IN_FOOTBALL_SUCCESSFULLY, payload: matchInfo })
    })
    .catch((error) => {
-     console.log(error)
      if(error.response.status === 404){
        dispatch({ type: NO_LIVE_MATCHES_ERROR })
      }
