@@ -5,6 +5,7 @@ import { List, ListItem } from 'react-native-elements';
 import * as actions from '../actions';
 import moment from 'moment';
 import CacheImage from '../components/cacheImage';
+import listItemPureComponent from '../components/listItemPureComponent'
 
 
 class BassballNews extends Component {

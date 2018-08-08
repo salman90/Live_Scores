@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import moment from 'moment';
 import axios from 'axios';
+// import CacheImage from './components/cacheImages';
 
 
 
@@ -19,6 +20,7 @@ class BassBallScores extends Component {
 
   state = {
     animatedValue: new Animated.Value(0)
+
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -50,7 +52,7 @@ class BassBallScores extends Component {
 
   componentWillMount(){
     const date = moment().format('YYYY/MM/DD')
-    this.props.getTodaysMatches(date)
+    // this.props.getTodaysMatches(date)
   }
 
   renderMatchDetail(game) {

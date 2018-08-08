@@ -15,18 +15,23 @@ class CacheImage extends Component {
 
   async componentDidMount(){
     const { uri } = this.props
+    console.log(uri)
+    // const { uri } = this.props
     const filename = uri.substring(uri.lastIndexOf("/"), uri.indexOf("?") === -1 ? uri.length : uri.indexOf("?"));
+    console.log(filename)
     const ext = filename.indexOf(".") === -1 ? ".jpg" : filename.substring(filename.lastIndexOf("."));
     const path = `${BASE_DIR}${SHA1(uri)}${ext}`;
+    console.log(path)
     const tmpPath = `${BASE_DIR}${SHA1(uri)}-${_.uniqueId()}${ext}`;
     const info = await FileSystem.getInfoAsync(path);
-    console.log(tmpPath)
-    console.log(path)
     console.log(info)
+    // console.log(tmpPath)
+    // console.log(path)
+    // console.log(info)
     const {exists} = info;
-    console.log(exists)
+    // console.log(exists)
     if(exists){
-      console.log(exists)
+      console.log(exists,'mmmm')
       this.setState({
       source: {
         uri: path
@@ -34,7 +39,7 @@ class CacheImage extends Component {
       })
      return;
     }
-    console.log('download image')
+    // console.log('download image')
     await FileSystem.downloadAsync(uri, tmpPath);
     await FileSystem.moveAsync({ from: tmpPath, to: path });
     // this.setState({

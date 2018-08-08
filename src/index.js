@@ -34,12 +34,34 @@ import TennisMatches from './screens/TennisMatches';
 import BassballLiveMatchDetials from './screens/bassballLiveMatchDetails';
 import Auth from './screens/Auth';
 import firebase from 'firebase';
+import { AppLoading, Asset } from 'expo';
 
+
+function cacheImages(images) {
+  return images.map(image => {
+    if (typeof image === 'string') {
+      return Image.prefetch(image);
+    } else {
+      return Asset.fromModule(image).downloadAsync();
+    }
+  });
+}
 
 
 const API_KEY = '8uevyeqyb38gms9t8qmbtj5w'
 
 class App extends Component {
+  state = {
+    isReady: false,
+  }
+
+
+  async _loadAssetsAsync() {
+    const imageAssets = cacheImages([
+      require('./images/logo.jpg'),
+    ])
+    await Promise.all([ ...imageAssets ])
+  }
   componentWillMount(){
     ///////
     const config = {
@@ -279,9 +301,6 @@ class App extends Component {
      NBAScores: {
        screen: tabNavForNBA
      },
-     TennisMatches: {
-       screen: TennisMatches
-     },
    }, {
      navigationOptions: (navigation) => ({
 
@@ -305,7 +324,15 @@ class App extends Component {
           tabBarVisible: false
       },
    })
-
+     if(!this.state.isReady){
+        return (
+          <AppLoading
+          startAsync={this._loadAssetsAsync}
+          onFinish={() => this.setState({ isReady: true })}
+          onError={console.warn}
+          />
+        )
+     }
    return (
      <Provider store={store}>
        <TabNavigator />
@@ -313,6 +340,8 @@ class App extends Component {
    )
  }
 }
+
+
 
 const customDrowerNav = (props) => {
   return (

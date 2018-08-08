@@ -3,10 +3,17 @@ import { View, Text, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+import { Icon } from 'react-native-elements';
 
 const {height, width} = Dimensions.get('window')
 
 class LiveFootballMatchDetails extends Component{
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerLeft: (<Icon type='font-awesome' name='arrow-circle-left' size={25}
+  containerStyle={{ paddingLeft: 15 }} color='#000' onPress={() => navigation.goBack()} />),
+    }
+  }
 
   state = {
     tableHead: ['Team','first Half', 'Second Half'],

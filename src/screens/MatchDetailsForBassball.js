@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import moment from 'moment';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
+import { Icon } from 'react-native-elements';
 
 
 
@@ -12,6 +13,12 @@ const {height, width} = Dimensions.get('window')
 
 
 class MatchDetailsForBassball extends Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerLeft: (<Icon type='font-awesome' name='arrow-circle-left' size={25}
+  containerStyle={{ paddingLeft: 15 }} color='#000' onPress={() => navigation.goBack()} />),
+    }
+  }
   state = {
     tableHead: ['Team','1', '2', '3', '4', '5', '6', '7', '8', '9', 'R', 'H', 'E'],
 

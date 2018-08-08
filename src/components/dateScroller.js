@@ -20,11 +20,14 @@ const {height, width} = Dimensions.get('window');
 class DateScroller extends Component {
   state = {
     dates: [],
-    indexes: []
+    indexes: [],
+    liked: false,
+    sss: 'ddd'
   }
 
 
   componentWillMount() {
+    console.log(this.state.indexes)
     const { dates } = this.state
     let oneDayBefore = moment().add(-1, 'days')
     let twoDaysBefore = moment().add(-2, 'days')
@@ -34,14 +37,19 @@ class DateScroller extends Component {
     dates.push(twoDaysBefore,oneDayBefore,TodaysDate, oneDaysAfter,twoDaysAfter)
   }
 
-  handelDatePress(date){
+  handelDatePress(date, i){
     const newDate = moment(date).format('YYYY/MM/DD')
+    console.log(i)
     // console.log(newDate)
     this.props.getTodaysMatches(newDate)
 
+
+
+    // this.setState({sss: null});
   }
 
   renderDates = () => {
+    // console.log(this.state.sss)
     // console.log(this.state.dates)
     // const sortedArray = _(this.state.dates).sort()
     // console.log(sortedArray)
@@ -58,7 +66,7 @@ class DateScroller extends Component {
         >
         <View
          key={i}
-         style={{ alignItems: 'center',flexDirection: 'row', width: 70, height: 50, justifyContent: 'center', marginLeft: 5}}
+         style={{ alignItems: 'center',flexDirection: 'row', width: 70, height: 50, justifyContent: 'center', marginLeft: 5 }}
         >
 
             <Text

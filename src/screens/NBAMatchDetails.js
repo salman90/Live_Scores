@@ -13,11 +13,18 @@ import * as actions from '../actions';
 import { connect }  from 'react-redux';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 import moment from 'moment';
+import { Icon } from 'react-native-elements';
 
 
 const {height, width} = Dimensions.get('window')
 
 class NBAMatchDetails extends Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerLeft: (<Icon type='font-awesome' name='arrow-circle-left' size={25}
+  containerStyle={{ paddingLeft: 15 }} color='#000' onPress={() => navigation.goBack()} />),
+    }
+  }
   state = {
     showHomeTeam: false,
     showAwayTeam: false,

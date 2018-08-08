@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import { View, Text, Image, Dimensions  } from 'react-native';
+import CacheImage from '../components/cacheImage';
+import { Icon } from 'react-native-elements';
 
 const {height, width} = Dimensions.get('window');
 
 class BassballArticleDetails extends Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerLeft: (<Icon type='font-awesome' name='arrow-circle-left' size={25}
+  containerStyle={{ paddingLeft: 15 }} color='#000' onPress={() => navigation.goBack()} />),
+    }
+  }
   componentDidMount() {
     const navParams = this.props.navigation.state.params
     console.log(navParams)
@@ -20,9 +28,9 @@ class BassballArticleDetails extends Component {
         <View
          style={{ marginTop: 10}}
         >
-          <Image
+          <CacheImage
               style={{width: width * 0.85, height: 250 }}
-              source={{uri: this.props.navigation.state.params.urlToImage}}
+              uri={this.props.navigation.state.params.urlToImage}
           />
         </View>
         <View
