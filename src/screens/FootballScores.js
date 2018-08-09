@@ -25,13 +25,37 @@ class FootballScores extends Component {
          size={30}
          containerStyle={{ marginLeft: 5}}
         />
+      ),
+      headerRight: (
+        <Icon
+          type='font-awesome'
+           size={25}
+           onPress={navigation.getParam('SignOut')}
+           name='sign-out'
+        />
       )
     }
   }
   componentDidMount(){
     const TodaysDate = moment().format('YYYY-MM-DD')
     this.props.getTodaysMatchesForFootball(TodaysDate)
+    this.props.navigation.setParams({ SignOut: this._signUserOut });
   }
+
+  _signUserOut = () => {
+    // this.props.signUserOut()
+    Alert.alert(
+      'SignOut',
+      'Are You Sure That You Want To Sign Out',
+      [
+        {text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel'},
+        {text: 'Yes', onPress: () =>  this.props.signUserOut(() =>{
+          this.props.navigation.navigate('auth')
+        })},
+      ]
+    )
+  };
+
 
   renderFootballDetails(game){
     this.props.getMatchDetails(game, () =>{
@@ -235,7 +259,7 @@ class FootballScores extends Component {
        <DateScrollerForFootball
        />
        <ScrollView
-         style={{ flex: 1 }}
+       contentContainerStyle={{ marginBottom: 20, paddingVertical: 25 }}
        >
         {this.renderFootBallGames()}
        </ScrollView>

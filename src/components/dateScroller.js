@@ -7,6 +7,7 @@ import { View,
   Dimensions,
   StyleSheet,
 TouchableHighlight,
+Animated,
 
 } from 'react-native';
 import moment from 'moment'
@@ -22,12 +23,12 @@ class DateScroller extends Component {
     dates: [],
     indexes: [],
     liked: false,
-    sss: 'ddd'
+    sss: 'ddd',
+    animatedValue: new Animated.Value(0)
   }
 
 
   componentWillMount() {
-    console.log(this.state.indexes)
     const { dates } = this.state
     let oneDayBefore = moment().add(-1, 'days')
     let twoDaysBefore = moment().add(-2, 'days')
@@ -38,25 +39,37 @@ class DateScroller extends Component {
   }
 
   handelDatePress(date, i){
+
     const newDate = moment(date).format('YYYY/MM/DD')
-    console.log(i)
+    // console.log(i)
     // console.log(newDate)
     this.props.getTodaysMatches(newDate)
 
+    this.startAnimation()
+  }
 
-
-    // this.setState({sss: null});
+  startAnimation = () => {
+    // console.log('anannan')
+    Animated.timing(this.state.animatedValue, {
+          toValue: 1,
+         duration: 30000
+    }).start(() => {
+      console.log('done')
+    })
   }
 
   renderDates = () => {
-    // console.log(this.state.sss)
     // console.log(this.state.dates)
-    // const sortedArray = _(this.state.dates).sort()
-    // console.log(sortedArray)
-
     return this.state.dates.map((date, i) => {
       // console.log(date)
       const newFormat = moment(date).format('LL')
+      // console.log(newFormat)
+      const TextColor = {
+      color: this.state.animatedValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['#ff0000', '#000']
+      })
+    }
       return(
         <TouchableHighlight
          onPress={this.handelDatePress.bind(this, date, i)}
@@ -64,20 +77,22 @@ class DateScroller extends Component {
          hasTVPreferredFocus={true}
          key={i}
         >
-        <View
+        <Animated.View
          key={i}
          style={{ alignItems: 'center',flexDirection: 'row', width: 70, height: 50, justifyContent: 'center', marginLeft: 5 }}
         >
 
-            <Text
-            >{newFormat}</Text>
-        </View>
+          <Animated.Text
+            style={TextColor}
+          >{newFormat}</Animated.Text>
+        </Animated.View>
         </TouchableHighlight>
       )
 
     })
   }
   render(){
+    console.log(this.state.animatedValue)
     return (
       <View
 
@@ -86,12 +101,13 @@ class DateScroller extends Component {
         horizontal={true}
         >
          <View
-          style={{ width: width,
+          style={{
+            width: width,
             flexDirection: 'row',
             height: 50,
-            borderBottomWidth: 2,
-          borderTopWidth: 1 ,
-          borderColor: '#000', backgroundColor: 'gray', borderColor: '#000' }}
+            borderBottomWidth: 4,
+          borderColor: '#000', backgroundColor: 'gray', borderColor: '#000'
+        }}
          >
          {this.renderDates()}
          </View>

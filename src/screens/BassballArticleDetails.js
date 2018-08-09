@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, Image, Dimensions  } from 'react-native';
-import CacheImage from '../components/cacheImage';
+// import CacheImage from '../components/cacheImage';
+import { CacheManager } from "react-native-expo-image-cache";
+// import { file}
 import { Icon } from 'react-native-elements';
 
 const {height, width} = Dimensions.get('window');
@@ -14,7 +16,12 @@ class BassballArticleDetails extends Component {
   }
   componentDidMount() {
     const navParams = this.props.navigation.state.params
-    console.log(navParams)
+    // console.log(navParams.urlToImage)
+    const path = CacheManager.get(navParams.urlToImage).getPath();
+    // console.log(path.exsits)
+    // console.log(path)
+    // console.log()
+    // console.log(this.props.navParams)
   }
   render(){
     return(
@@ -28,9 +35,9 @@ class BassballArticleDetails extends Component {
         <View
          style={{ marginTop: 10}}
         >
-          <CacheImage
+          <Image
               style={{width: width * 0.85, height: 250 }}
-              uri={this.props.navigation.state.params.urlToImage}
+              source={{uri: this.props.navigation.state.params.urlToImage}}
           />
         </View>
         <View

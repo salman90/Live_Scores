@@ -8,11 +8,10 @@
     "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logoIcon.png",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/liveScore.png",
+      "backgroundColor": "#a33636",
     },
     "updates": {
       "fallbackToCacheTimeout": 0

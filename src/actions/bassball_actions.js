@@ -19,10 +19,14 @@ import {
 
 export const getTodaysMatches = (date) => async dispatch => {
   dispatch({ type: FETCHING_BASSBALL_SCORES})
+
+  const API_KEY =  '4zgwz5dxh4qdcteb9dt63n8f'
+
   // console.log(date)
   // console.log('in function')
-  // const dateToday = '2018-07-27'
-  const url  = `http://api.sportradar.us/mlb/trial/v6.5/en/games/${date}/boxscore.json?api_key=${BASSBALL_API_KEY}`
+  const dateToday = '2018/07/27'
+  console.log(date)
+  const url  = `http://api.sportradar.us/mlb/trial/v6.5/en/games/${dateToday}/boxscore.json?api_key=${API_KEY}`
   axios.get(url)
    .then( res => {
      const games = res.data.league.games
@@ -96,6 +100,11 @@ export const getBassballNews = () => async dispatch => {
     axios.get(URL)
      .then((res) => {
        const articles = res.data.articles
+       // console.log(articles.title)
+       // const images =  articles.urlToImage
+       // const _.uniqBy(articles, 'urlToImage');
+       _.uniqBy(articles, 'urlToImage');
+       // console.log(articles.title)
        dispatch({ type: MLB_ARTICLES, payload: articles })
      })
      .catch((error) => {

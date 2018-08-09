@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Text, View, TextInput, Dimensions, ActivityIndicator } from 'react-native';
+import {Text, View, TextInput, Dimensions, ActivityIndicator, Alert } from 'react-native';
 import { Button, Icon } from 'react-native-elements'
 import firebase from 'firebase';
 import { connect } from 'react-redux';
@@ -28,7 +28,13 @@ class Auth extends Component {
 
   renderErorr = () => {
     if(this.props.error){
-      alert(this.props.error)
+      Alert.alert(
+        'Error',
+        this.props.error,
+        [
+          {text: 'ok', onPress: () =>  this.props.clearEroorInAuth()}
+        ]
+      )
     }
   }
 

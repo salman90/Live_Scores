@@ -1,5 +1,6 @@
 import moment from 'moment';
 import axios from 'axios';
+import _ from 'lodash';
 import { FOOTBALL_API_KEY, FOOTBALL_NEWS_API_KEY } from 'react-native-dotenv';
 import {
   FETCHED_FOOTBALL_MATCHES,
@@ -67,7 +68,12 @@ export const getFootballNews = () => async dispatch => {
     axios.get(URL)
      .then((res) =>{
         const europeanFootballNews =  res.data.articles
-        // console.log(europeanFootballNews)
+        // europeanFootballNews.map((article, i) => {
+        //   console.l
+        // })
+        // console.log(res.data.articles)
+        // _.uniqBy(europeanFootballNews, 'title');
+        console.log(europeanFootballNews)
         dispatch({ type: FETCHED_FOOTBALL_ARTICLES, payload: europeanFootballNews })
      })
      .catch((error) => {

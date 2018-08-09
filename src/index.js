@@ -63,7 +63,6 @@ class App extends Component {
     await Promise.all([ ...imageAssets ])
   }
   componentWillMount(){
-    ///////
     const config = {
     apiKey: FIREBASE_API_KEY,
     authDomain: "live-scores-b9be5.firebaseapp.com",
@@ -293,13 +292,38 @@ class App extends Component {
 
    const drowerNav = createDrawerNavigator({
      BassballScores: {
-       screen: tabNavForBassBall
+       screen: tabNavForBassBall,
+         navigationOptions: {
+           title: 'MLB',
+           drawerIcon:
+           <Icon
+            type='ionicon'
+            name='ios-baseball'
+            size={25}
+           />
+         },
      },
      FootballScores: {
-       screen: tabNavForFootball
+       screen: tabNavForFootball, navigationOptions: {
+          title: 'Football',
+          drawerIcon:<Icon
+          name='ios-football'
+           type='ionicon'
+           size={25}
+          />
+        },
      },
      NBAScores: {
-       screen: tabNavForNBA
+       screen: tabNavForNBA,
+       navigationOptions: {
+          title: 'NBA',
+          drawerIcon:
+          <Icon
+           name='ios-basketball'
+           type='ionicon'
+           size={25}
+          />
+        },
      },
    }, {
      navigationOptions: (navigation) => ({
@@ -312,7 +336,7 @@ class App extends Component {
      drawerTaggleRoute: 'DrawerTaggle'
    })
 
-   const TabNavigator = createBottomTabNavigator({
+   const TabNavigator = createStackNavigator({
      auth: { screen: Auth},
      sports: {
        screen: drowerNav
@@ -320,9 +344,9 @@ class App extends Component {
    },{
      lazy: true,
       swipeEnabled: false,
-      navigationOptions: {
-          tabBarVisible: false
-      },
+      navigationOptions: (navigation) => ({
+        header: null,
+      }),
    })
      if(!this.state.isReady){
         return (

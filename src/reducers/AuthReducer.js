@@ -6,6 +6,7 @@ import {
   LOGED_IN_SUCCESSFULLY,
   SIGNING_IN_USER,
   SIGN_IN_FAILD,
+  CLEAR_ERROR_IN_AUTH,
 } from '../actions/types'
 
 const INITIAL_STATE = {
@@ -33,7 +34,9 @@ export default (state = INITIAL_STATE, action) => {
   case SIGNING_IN_USER:
    return { ...state, loading: true}
   case SIGN_IN_FAILD:
-   return {...state, error: action.payload, loading: false }
+   return {...state, error: action.payload, loading: false, email: '', password: '' }
+  case CLEAR_ERROR_IN_AUTH:
+   return { ...state, error: '' }
     default:
    return state;
   }

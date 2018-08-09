@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text, ScrollView, ActivityIndicator, TouchableWithoutFeedback, Image } from 'react-native';
+import {View, Text, ScrollView, ActivityIndicator, TouchableWithoutFeedback, Image, Alert } from 'react-native';
 import { Button, List, ListItem, Card, Icon  } from 'react-native-elements';
 import { connect } from 'react-redux';
 import * as actions from '../actions'
@@ -10,12 +10,35 @@ class FootballLiveScores extends Component {
       title: 'Live Scores',
       headerStyle: {
         backgroundColor: '#fff'
-        }
+      },
+      headerRight: (
+        <Icon
+          type='font-awesome'
+           size={25}
+           onPress={navigation.getParam('SignOut')}
+           name='sign-out'
+        />
+      ),
     }
   }
   componentDidMount(){
     this.props.getFootballLiveScores()
+    this.props.navigation.setParams({ SignOut: this._signUserOut });
   }
+
+  _signUserOut = () => {
+    // this.props.signUserOut()
+    Alert.alert(
+      'SignOut',
+      'Are You Sure That You Want To Sign Out',
+      [
+        {text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel'},
+        {text: 'Yes', onPress: () =>  this.props.signUserOut(() =>{
+          this.props.navigation.navigate('auth')
+        })},
+      ]
+    )
+  };
 
 
   renderDetailsPage(game){

@@ -5,11 +5,12 @@ import {
   ScrollView,
   ActivityIndicator,
   FlatList, TouchableHighlight, Alert, Image } from 'react-native';
-import { List, ListItem } from 'react-native-elements';
+import { List, Icon } from 'react-native-elements';
 import { connect } from 'react-redux'
 import * as actions from '../actions'
 import { Button } from 'react-native-elements';
 import moment from 'moment';
+import ListItem from '../components/listItem';
 
 
 class FootballNews extends Component {
@@ -18,14 +19,37 @@ class FootballNews extends Component {
       title: 'Live Scores',
       headerStyle: {
         backgroundColor: '#fff'
-        }
+      },
+      headerRight: (
+        <Icon
+          type='font-awesome'
+           size={25}
+           onPress={navigation.getParam('SignOut')}
+           name='sign-out'
+        />
+      ),
     }
   }
   componentDidMount() {
     this.props.getFootballNews()
+    this.props.navigation.setParams({ SignOut: this._signUserOut });
   }
 
-  _keyExtractor = (item, index) => item.title
+  _signUserOut = () => {
+    // this.props.signUserOut()
+    Alert.alert(
+      'SignOut',
+      'Are You Sure That You Want To Sign Out',
+      [
+        {text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel'},
+        {text: 'Yes', onPress: () =>  this.props.signUserOut(() =>{
+          this.props.navigation.navigate('auth')
+        })},
+      ]
+    )
+  };
+
+  _keyExtractor = (item, index) => item.urlToImage
 
   clearError(){
     this.props.clearErrorInFootball()
@@ -46,6 +70,13 @@ class FootballNews extends Component {
     }
   }
 
+  _renderItem = ({item}) => (
+    <ListItem
+      pageName='footballArticleDetails'
+      item={item}
+      navigation={this.props.navigation}
+    />
+  )
   render(){
     // console.log(this.props.footballArticles)
     if(this.props.footballArticles.length === 0) {
@@ -71,39 +102,9 @@ class FootballNews extends Component {
        <FlatList
 
        data={this.props.footballArticles}
+       automaticallyAdjustContentInsets={false}
        keyExtractor={this._keyExtractor}
-       renderItem={ ({ item }) => (
-        <TouchableHighlight
-         onPress={() => this.props.navigation.navigate('footballArticleDetails', item)}
-        >
-          <View
-           style={{ flexDirection: 'row', borderWidth: 2, borderTopColor: 'gray' }}
-          >
-           <View>
-             <Image
-                source={{ uri: item.urlToImage }}
-                style={{ width: 100, height: 50, margin: 4 }}
-             />
-           </View>
-           <View>
-             <View>
-               <Text
-                numberOfLines={1}
-                style={{ flex: 1, justifyContent: 'center' }}
-               >{item.title.substr(0, 30)}...
-               </Text>
-             </View>
-             <View>
-                <Text
-                 style={{ fontSize: 10 , color: 'gray'}}
-                >{moment(item.publishedAt).format('LLL')}
-                </Text>
-             </View>
-            </View>
-          </View>
-        </TouchableHighlight>
-       )
-       }
+       renderItem={this._renderItem}
        />
 
       </View>

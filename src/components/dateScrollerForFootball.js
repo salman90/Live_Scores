@@ -83,7 +83,6 @@ class DateScrollerForFootball extends Component {
             flexDirection: 'row',
           height: 50,
           borderBottomWidth: 4,
-          borderBottomWidth: 4,
           borderColor: '#000', backgroundColor: 'gray' }}
          >
          {this.renderDates()}

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text, ActivityIndicator, FlatList, TouchableHighlight, Alert, Image } from 'react-native';
 import { connect } from 'react-redux';
-import { List, ListItem } from 'react-native-elements';
+import { List, Button, Icon } from 'react-native-elements';
 import * as actions from '../actions';
 import moment from 'moment';
 import CacheImage from '../components/cacheImage';
-import listItemPureComponent from '../components/listItemPureComponent'
+import listItemPureComponent from '../components/listItemPureComponent';
+import ListItem from '../components/listItem';
 
 
 class BassballNews extends Component {
@@ -16,11 +17,35 @@ class BassballNews extends Component {
       headerStyle: {
             backgroundColor: '#fff',
         },
+        headerRight: (
+          <Icon
+            type='font-awesome'
+             size={25}
+             onPress={navigation.getParam('SignOut')}
+             name='sign-out'
+          />
+        ),
     }
   }
+
   componentDidMount() {
     this.props.getBassballNews()
+    this.props.navigation.setParams({ SignOut: this._signUserOut });
   }
+
+  _signUserOut = () => {
+    Alert.alert(
+      'SignOut',
+      'Are You Sure That You Want To Sign Out',
+      [
+        {text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel'},
+        {text: 'Yes', onPress: () =>  this.props.signUserOut(() =>{
+          this.props.navigation.navigate('auth')
+        })},
+      ]
+    )
+  };
+
   _keyExtractor = (item, index) => item.title;
 
   clearError(){
@@ -40,9 +65,15 @@ class BassballNews extends Component {
     }
   }
 
+  _renderItem = ({item}) => (
+      <ListItem
+        pageName='BassballArticleDetails'
+        item={item}
+        navigation={this.props.navigation}
+      />
+  )
 
   render(){
-    // console.log(this.props.error)
     if(this.props.MLBNews.length === 0){
       return (
         <View
@@ -64,39 +95,9 @@ class BassballNews extends Component {
             data={this.props.MLBNews}
             automaticallyAdjustContentInsets={false}
             keyExtractor={this._keyExtractor}
-            renderItem={ ({ item }) => (
-              <TouchableHighlight
-               onPress={() => this.props.navigation.navigate('BassballArticleDetails', item)}
-              >
-                <View
-                  style={{ flexDirection: 'row', borderBottomWidth: 2, borderTopColor: 'gray'}}
-                >
-                <View>
-                  <Image
-                   source={{ uri: item.urlToImage }}
-                   style={{ width: 100, height: 50, margin: 4 }}
-                  />
-                </View>
-                <View>
-                 <View>
-                    <Text
-                    numberOfLines={1}
-                     style={{ flex: 1, justifyContent: 'center'}}
-                    >{item.title.substr(0, 30)}...
-                    </Text>
-                </View>
-                <View>
-                  <Text
-                   style={{ fontSize: 10, color: 'gray'}}
-                  >{moment(item.publishedAt).format('LLL')}
-                  </Text>
-                </View>
-                </View>
-                </View>
-              </TouchableHighlight>
-            )}
+            renderItem={this._renderItem}
           />
-        </View>
+      </View>
     )
   }
 }

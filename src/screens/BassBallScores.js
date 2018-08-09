@@ -46,16 +46,39 @@ class BassBallScores extends Component {
             size={30}
             containerStyle={{ marginLeft: 5}}
            />
-         )
+         ),
+         headerRight: (
+           <Icon
+             type='font-awesome'
+              size={25}
+              onPress={navigation.getParam('SignOut')}
+              name='sign-out'
+           />
+         ),
     };
   }
 
 
-  componentWillMount(){
+  componentDidMount(){
     const date = moment().format('YYYY/MM/DD')
     // console.log(API_KEYOKOK)
-    this.props.getTodaysMatches(date)
+    // this.props.getTodaysMatches(date)
+    this.props.navigation.setParams({ SignOut: this._signUserOut });
   }
+
+  _signUserOut = () => {
+    // this.props.signUserOut()
+    Alert.alert(
+      'SignOut',
+      'Are You Sure That You Want To Sign Out',
+      [
+        {text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel'},
+        {text: 'Yes', onPress: () =>  this.props.signUserOut(() =>{
+          this.props.navigation.navigate('auth')
+        })},
+      ]
+    )
+  };
 
   renderMatchDetail(game) {
     this.props.getMachInfo(game, () => {
@@ -105,7 +128,7 @@ class BassBallScores extends Component {
         >
           <View
           key={i}
-          style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', marginTop: 20}}
+          style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', marginTop: 20, marginBottom: 20}}
           >
             {this.renderAnimation(gameStatus)}
             <Card
@@ -220,7 +243,7 @@ class BassBallScores extends Component {
       >
         <DateScroller />
         <ScrollView
-         style={{ flex: 1 }}
+        contentContainerStyle={{ marginBottom: 20, paddingVertical: 25 }}
         >
          {this.renderLiveMatches()}
         </ScrollView>

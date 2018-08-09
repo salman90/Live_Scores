@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, ActivityIndicator, FlatList, TouchableHighlight, Alert, Image } from 'react-native';
-import { List, ListItem } from 'react-native-elements';
+import { List, Button, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import moment from 'moment';
+import ListItem from '../components/listItem';
 
 
 
@@ -16,12 +17,47 @@ class NBANews extends Component {
       headerStyle: {
         backgroundColor: '#fff'
         },
+        headerRight: (
+          <Icon
+            type='font-awesome'
+             size={25}
+             onPress={navigation.getParam('SignOut')}
+             name='sign-out'
+          />
+        ),
     }
   }
 
-  componentWillMount(){
+  componentDidMount(){
     this.props.renderNBANews()
+    this.props.navigation.setParams({ SignOut: this._signUserOut });
   }
+
+
+  _signUserOut = () => {
+    // this.props.signUserOut()
+    Alert.alert(
+      'SignOut',
+      'Are You Sure That You Want To Sign Out',
+      [
+        {text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel'},
+        {text: 'Yes', onPress: () =>  this.props.signUserOut(() =>{
+          this.props.navigation.navigate('auth')
+        })},
+      ]
+    )
+  };
+
+
+  _renderItem = ({item}) => (
+      <ListItem
+        pageName='NBAArticleDetails'
+        item={item}
+        navigation={this.props.navigation}
+      />
+  )
+
+
 
 
   clearError(){
@@ -66,47 +102,7 @@ renderError = () => {
 
         <FlatList
         data={this.props.nbaArticles}
-        renderItem={ ({ item }) => (
-          <TouchableHighlight
-           onPress={() => this.props.navigation.navigate('NBAArticleDetails', item)}
-          >
-            <View
-             style={{ flexDirection: 'row', borderBottomWidth: 2, borderTopColor: 'gray' }}
-            >
-              <View>
-              {
-                item.urlToImage === null?
-                <View
-                 style={{ width: 100, height: 50, backgroundColor: '#fff', margin: 4}}
-                 />:
-                <Image
-                  source={{ uri: item.urlToImage }}
-                  style={{ width: 100, height: 50, margin: 4 }}
-                />
-              }
-              </View>
-              <View>
-                 <View>
-                   <Text
-                    numberOfLines={1}
-                    style={{ flex: 1, justifyContent: 'center'}}
-                   >
-                   {item.title.substr(0, 30)}...
-                   </Text>
-                 </View>
-                 <View>
-                   <Text
-                    style={{ fontSize: 10, color: 'gray'}}
-                   >
-                    {item.publishedAt}
-                   </Text>
-                 </View>
-              </View>
-            </View>
-          </TouchableHighlight>
-        )
-
-        }
+        renderItem={this._renderItem}
         keyExtractor={this._keyExtractor}
          />
       </View>

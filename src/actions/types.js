@@ -40,3 +40,4 @@ export const NO_FOOTBALL_MATCHES_IN_THAT_DATE = 'no_football_matches_in_that_dat
 export const No_NBA_MATCHES = 'no_nba_matches';
 export const FECHING_FOOTBALL_MATCH_DETAILS = 'fetching_football_match_details';
 export const LIVE_MATCH_DETAILS_FOR_BASSBALL = 'live_match_details_for_bassball';
+export const CLEAR_ERROR_IN_AUTH = 'clear_error_in_auth';

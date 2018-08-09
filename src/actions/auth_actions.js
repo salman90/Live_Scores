@@ -6,6 +6,7 @@ import {
   LOGED_IN_SUCCESSFULLY,
   SIGNING_IN_USER,
   SIGN_IN_FAILD,
+  CLEAR_ERROR_IN_AUTH
 } from './types'
 import firebase from 'firebase'
 
@@ -57,4 +58,14 @@ export const logInUser = (callback) => async dispatch => {
       callback()
     }
   })
+}
+
+export const signUserOut = (callback) => async dispatch => {
+  firebase.auth().signOut()
+  callback()
+  // console.log('sign out ksmksmqkqskxsmx')
+}
+
+export const clearEroorInAuth = () => async dispatch => {
+  dispatch({ type: CLEAR_ERROR_IN_AUTH })
 }

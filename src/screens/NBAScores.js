@@ -23,8 +23,15 @@ class NBAScores extends Component {
             size={30}
             containerStyle={{ marginLeft: 5}}
            />
-         )
-
+         ),
+         headerRight: (
+           <Icon
+             type='font-awesome'
+              size={25}
+              onPress={navigation.getParam('SignOut')}
+              name='sign-out'
+           />
+         ),
     };
   }
 
@@ -32,7 +39,22 @@ class NBAScores extends Component {
   componentDidMount() {
     const date = moment().format('YYYY/MM/DD')
     this.props.renderNBAMatches(date)
+    this.props.navigation.setParams({ SignOut: this._signUserOut });
   }
+
+  _signUserOut = () => {
+    // this.props.signUserOut()
+    Alert.alert(
+      'SignOut',
+      'Are You Sure That You Want To Sign Out',
+      [
+        {text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel'},
+        {text: 'Yes', onPress: () =>  this.props.signUserOut(() =>{
+          this.props.navigation.navigate('auth')
+        })},
+      ]
+    )
+  };
 
   onMatchPress(game){
     this.props.showMatchDetails(game, ()=> {
@@ -171,7 +193,7 @@ class NBAScores extends Component {
       <DateScrollerForNBA />
       {this.renderError()}
        <ScrollView
-        style={{ flex: 1, marginTop: 10}}
+       contentContainerStyle={{ marginBottom: 20, paddingVertical: 25 }}
        >
          {this.renderNBAGames()}
        </ScrollView>
