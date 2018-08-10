@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import {Text, View, TextInput, Dimensions, ActivityIndicator, Alert } from 'react-native';
+import {
+  Text,
+  View,
+  TextInput,
+  Dimensions, ActivityIndicator, Alert, Image, KeyboardAvoidingView } from 'react-native';
 import { Button, Icon } from 'react-native-elements'
 import firebase from 'firebase';
 import { connect } from 'react-redux';
@@ -52,11 +56,29 @@ class Auth extends Component {
        )
      }
     return(
+      <KeyboardAvoidingView
+           style={{flex: 1}}
+           behavior="padding"
+        >
       <View
-       style={{ alignItems: 'center', justifyContent: 'center', flex: 1, flexDirection: 'column'}}
+       style={{
+         alignItems: 'center',
+       justifyContent: 'center',
+       flex: 1,
+       flexDirection: 'column',
+       backgroundColor: '#ab372b'
+     }}
       >
+      <View
+
+      >
+        <Image
+         source={require('../images/logo.jpg')}
+         style={{ width: 200, height: 200 }}
+        />
+      </View>
        <View
-        style={{ flexDirection: 'row'}}
+        style={{ flexDirection: 'row',}}
        >
              <Icon
              type='font-awesome'
@@ -98,11 +120,12 @@ class Auth extends Component {
           <Button
              title='Sign UP'
              onPress={this.signUp}
-             buttonStyle={{marginTop: 15, width: 200, height: 50, borderRadius: 8}}
+             buttonStyle={{marginTop: 15, width: 200, height: 50, borderRadius: 10, backgroundColor: '#000'}}
           />
        </View>
        {this.renderErorr()}
       </View>
+      </KeyboardAvoidingView>
     )
   }
 }

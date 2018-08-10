@@ -150,7 +150,6 @@ class MatchDetailsForBassball extends Component {
          awayTeamScores.splice(7, 0, '_')
          awayTeamScores.splice(8, 0, '_')
          awayTeamScores.splice(9, 0, '_')
-         ////////////
          homeTeamScores.splice(2, 0, '_')
          homeTeamScores.splice(3, 0, '_')
          homeTeamScores.splice(4, 0, '_')
@@ -159,10 +158,7 @@ class MatchDetailsForBassball extends Component {
          homeTeamScores.splice(7, 0, '_')
          homeTeamScores.splice(8, 0, '_')
          homeTeamScores.splice(9, 0, '_')
-         // this.setState({ tableHead: ['Team', '1', 'R', 'H', 'E'] })
-         // console.log(this.state.tableHead)
-         // console.log(this.state.tableHead)
-         // homeTeamScores.splice(1, 0, "lol")
+
        } else if(this.props.homeTeamScores.length === 6){
          awayTeamScores.splice(3, 0, '_')
          awayTeamScores.splice(4, 0, '_')
@@ -350,10 +346,6 @@ class MatchDetailsForBassball extends Component {
             </Text>
             <Text>{matchTimeNewFormat}</Text>
           </View>
-
-          ///
-
-
           <View
            style={{ flexDirection: 'row', width: width * 0.90, marginTop: 20, alignItems: 'center', justifyContent: 'space-around'}}
           >

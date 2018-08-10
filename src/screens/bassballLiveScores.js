@@ -17,6 +17,7 @@ class BassballLiveScores extends Component {
   renderLiveMatches() {
     const { bassballGames } = this.props
     return bassballGames.map((game, i) => {
+      // console.log(this.state.status)
       const gameStatus =  game.game.status
       if(gameStatus == 'inprogress') {
         const homeTeamName = game.game.home.name

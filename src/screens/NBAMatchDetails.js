@@ -163,7 +163,7 @@ class NBAMatchDetails extends Component {
                <Text
                style={{ fontSize: 25, fontWeight: 'bold', marginBottom: 10 }}
                >
-                 MBA
+                 NBA
                </Text>
                <Text>
                {moment(gameDate).format('LLL')}

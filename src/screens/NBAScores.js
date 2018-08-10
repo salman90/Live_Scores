@@ -37,7 +37,8 @@ class NBAScores extends Component {
 
 
   componentDidMount() {
-    const date = moment().format('YYYY/MM/DD')
+    // const date = moment().format('YYYY/MM/DD')
+    const date = '2018/06/08'
     this.props.renderNBAMatches(date)
     this.props.navigation.setParams({ SignOut: this._signUserOut });
   }

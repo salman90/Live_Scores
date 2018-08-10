@@ -83,7 +83,6 @@ class DateScroller extends Component {
         >
 
           <Animated.Text
-            style={TextColor}
           >{newFormat}</Animated.Text>
         </Animated.View>
         </TouchableHighlight>
@@ -92,7 +91,6 @@ class DateScroller extends Component {
     })
   }
   render(){
-    console.log(this.state.animatedValue)
     return (
       <View
 

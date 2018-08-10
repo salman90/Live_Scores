@@ -5,7 +5,6 @@ import { List, Button, Icon } from 'react-native-elements';
 import * as actions from '../actions';
 import moment from 'moment';
 import CacheImage from '../components/cacheImage';
-import listItemPureComponent from '../components/listItemPureComponent';
 import ListItem from '../components/listItem';
 
 

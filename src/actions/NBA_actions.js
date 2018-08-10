@@ -16,11 +16,11 @@ import moment from 'moment';
 
 export const renderNBAMatches = (date) => async dispatch => {
   dispatch({ type: FETCHING_NBA_SCORES })
-  const mom = '2018/02/01'
+  // const mom = '2018/02/01'
   // console.log(date)
   // const TodaysDate = moment().format('YYYY-MM-DD')
   // console.log(date)
-  const url = `http://api.sportradar.us/nba/trial/v5/en/games/${mom}/schedule.json?api_key=${NBA_API_KEY}`
+  const url = `http://api.sportradar.us/nba/trial/v5/en/games/${date}/schedule.json?api_key=${NBA_API_KEY}`
   axios.get(url)
    .then(res => {
      // console.log(res.data.games)
