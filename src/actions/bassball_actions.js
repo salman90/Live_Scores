@@ -24,7 +24,7 @@ export const getTodaysMatches = (date) => async dispatch => {
 
   // console.log(date)
   // console.log('in function')
-  const dateToday = '2018/07/27'
+  // const dateToday = '2018/07/27'
   console.log(date)
 
   const url  = `http://api.sportradar.us/mlb/trial/v6.5/en/games/${date}/boxscore.json?api_key=${API_KEY}`

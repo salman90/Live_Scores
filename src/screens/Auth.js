@@ -3,7 +3,9 @@ import {
   Text,
   View,
   TextInput,
-  Dimensions, ActivityIndicator, Alert, Image, KeyboardAvoidingView } from 'react-native';
+  Dimensions,
+  ActivityIndicator,
+  Alert, Image, KeyboardAvoidingView, StyleSheet } from 'react-native';
 import { Button, Icon } from 'react-native-elements'
 import firebase from 'firebase';
 import { connect } from 'react-redux';
@@ -15,6 +17,10 @@ const {height, width} = Dimensions.get('window');
 
 
 class Auth extends Component {
+  constructor(props) {
+    super(props);
+    this.signUp = this.signUp.bind(this);
+  }
 
   componentDidMount(){
     // const
@@ -23,7 +29,7 @@ class Auth extends Component {
     })
   }
 
-  signUp = () => {
+  signUp() {
     const { email, password } = this.props
     this.props.signInWithEmail(email, password, () => {
       this.props.navigation.navigate('sports')
@@ -57,37 +63,29 @@ class Auth extends Component {
      }
     return(
       <KeyboardAvoidingView
-           style={{flex: 1}}
+           style={styles.keyBoardAvoidStyle}
            behavior="padding"
         >
       <View
-       style={{
-         alignItems: 'center',
-       justifyContent: 'center',
-       flex: 1,
-       flexDirection: 'column',
-       backgroundColor: '#ab372b'
-     }}
+       style={styles.containerStyle}
       >
-      <View
-
-      >
+      <View>
         <Image
          source={require('../images/logo.jpg')}
-         style={{ width: 200, height: 200 }}
+         style={styles.imageStyle}
         />
       </View>
        <View
-        style={{ flexDirection: 'row',}}
+        style={styles.TextInputContainerStyle}
        >
              <Icon
              type='font-awesome'
              name='envelope'
              size={25}
-             iconStyle={{ marginRight: 10, marginTop: 10 }}
+             iconStyle={styles.envelopeIconStyle}
              />
              <TextInput
-             style={{height: 40, borderColor: 'gray', borderBottomWidth: 1, width: width * 0.75 }}
+             style={styles.textInputStyle}
              onChangeText={(email) => this.props.updateEmail(email)}
              value={this.props.email}
              autoCorrect={false}
@@ -96,7 +94,7 @@ class Auth extends Component {
              />
        </View>
        <View
-        style={{ flexDirection: 'row', marginTop: 10}}
+        style={[styles.TextInputContainerStyle, {marginTop: 10}]}
        >
              <Icon
              type='font-awesome'
@@ -105,7 +103,7 @@ class Auth extends Component {
              iconStyle={{ marginRight: 10 }}
              />
              <TextInput
-             style={{height: 40, borderColor: 'gray', borderBottomWidth: 1, width: width * 0.75 }}
+             style={styles.textInputStyle}
              onChangeText={(pass) => this.props.updatePassword(pass)}
              value={this.props.password}
              autoCorrect={false}
@@ -115,12 +113,12 @@ class Auth extends Component {
              />
        </View>
        <View
-        style={{ alignItems: 'center', justifyContent: 'center'}}
+        style={styles.buttonContainer}
        >
           <Button
              title='Sign UP'
              onPress={this.signUp}
-             buttonStyle={{marginTop: 15, width: 200, height: 50, borderRadius: 10, backgroundColor: '#000'}}
+             buttonStyle={styles.buttonStyle}
           />
        </View>
        {this.renderErorr()}
@@ -129,6 +127,47 @@ class Auth extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  keyBoardAvoidStyle: {
+    flex: 1
+  },
+  containerStyle: {
+    alignItems: 'center',
+  justifyContent: 'center',
+  flex: 1,
+  flexDirection: 'column',
+  backgroundColor: '#ab372b',
+  },
+  imageStyle: {
+    width: 200,
+    height: 200,
+  },
+  TextInputContainerStyle: {
+    flexDirection: 'row',
+  },
+  envelopeIconStyle: {
+    marginRight: 10,
+    marginTop: 10
+  },
+  textInputStyle: {
+    height: 40,
+    borderColor: 'gray',
+    borderBottomWidth: 1,
+    width: width * 0.75
+  },
+  buttonContainer: {
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  buttonStyle: {
+    marginTop: 15,
+    width: 200,
+    height: 50,
+    borderRadius: 10,
+    backgroundColor: '#000'
+  },
+})
 
 
 const mapStateToProps =  state => {

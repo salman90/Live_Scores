@@ -10,6 +10,10 @@ import DateScrollerForFootball from '../components/dateScrollerForFootball'
 
 
 class FootballScores extends Component {
+  constructor(props) {
+    super(props);
+this.renderFootballDetails = this.renderFootballDetails.bind(this)
+  }
   static navigationOptions = ({ navigation }) => {
 
     return {
@@ -57,7 +61,7 @@ class FootballScores extends Component {
   };
 
 
-  renderFootballDetails(game){
+  renderFootballDetails = (game) => () => {
     this.props.getMatchDetails(game, () =>{
       this.props.navigation.navigate('MatchDetailsForFootball')
     })
@@ -89,7 +93,7 @@ class FootballScores extends Component {
              style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', marginTop: 20}}
              >
              <TouchableHighlight
-              onPress={this.renderFootballDetails.bind(this, game)}
+              onPress={this.renderFootballDetails(game)}
              >
                <Card
                title={tournamentName}

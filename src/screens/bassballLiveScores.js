@@ -7,8 +7,12 @@ import moment from 'moment';
 
 
 class BassballLiveScores extends Component {
+  constructor(props) {
+    super(props);
+    this.renderLiveGameInfo = this.renderLiveGameInfo.bind(this)
+  }
 
-  renderLiveGameInfo(game){
+  renderLiveGameInfo = (game) => () =>{
     this.props.renderLiveMatchDetailsForBassball(game, () => {
       this.props.navigation.navigate('BassballLiveMatchDetails')
     })
@@ -35,7 +39,7 @@ class BassballLiveScores extends Component {
             style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', marginTop: 20}}
             >
             <TouchableWithoutFeedback
-             onPress={this.renderLiveGameInfo.bind(this, game)}
+             onPress={this.renderLiveGameInfo(game)}
             >
           <Card
           key={gameID}

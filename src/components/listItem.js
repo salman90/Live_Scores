@@ -5,6 +5,10 @@ import moment from 'moment';
 
 
 class ListItem extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    // this.renderArticleDetails
+  }
   componentDidMount(){
     const { item, pageName, navigation } = this.props
     const image = item.urlToImage

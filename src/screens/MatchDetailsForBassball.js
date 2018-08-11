@@ -23,8 +23,7 @@ class MatchDetailsForBassball extends Component {
     tableHead: ['Team','1', '2', '3', '4', '5', '6', '7', '8', '9', 'R', 'H', 'E'],
 
   }
-  componentWillMount() {
-  }
+
   renderMatchDetails() {
     const { bassballMatchDetails } = this.props
     const gameStatus = bassballMatchDetails.game.status
@@ -38,53 +37,41 @@ class MatchDetailsForBassball extends Component {
     if(gameStatus == 'scheduled') {
       return (
         <View
-         style={{
-           alignItems: 'center',
-           justifyContent: 'center',
-           flexDirection: 'column',
-           height: 300,
-           borderRadius: 8,
-           backgroundColor: '#fff',
-         }}
+         style={styles.cardStyle}
         >
           <View
-          style={{ alignItems: 'center', justifyContent: 'center'}}
+          style={styles.cardTitleContainerStyle}
           >
             <Text
-            style={{ fontSize: 25, fontWeight: 'bold', marginBottom: 10 }}
+            style={styles.cardTitleStyle}
             >
               MLB
             </Text>
             <Text>{matchTimeNewFormat}</Text>
           </View>
           <View
-           style={{ flexDirection: 'row', width: width * 0.90, marginTop: 20, alignItems: 'center', justifyContent: 'space-around'}}
+           style={styles.teamInfoContainer}
           >
            <View>
             <View
-             style={{ flexDirection: 'row', justifyContent: 'space-between', width: 100}}
+             style={styles.teamRowStyle}
             >
             <View>
              <Text
-             style={{ fontSize: 20, letterSpacing: 2, fontWeight: 'bold' }}
+             style={styles.teamNameStyle}
              selectable={true}
              numberOfLines={1}
              >
              {awayTeamInfo.name}
              </Text>
              <Text
-              style={{ fontWeight: 'bold', marginLeft: 2, marginTop: 2 }}
+              style={styles.teamStatStyle}
              >
               {`(${awayTeamInfo.win} - ${awayTeamInfo.loss})`}
              </Text>
             </View>
              <Text
-             style={{
-                marginLeft: 15,
-                fontWeight: 'bold',
-                fontSize: 20,
-               marginRight: 10
-              }}
+             style={this.awayTeamScore}
              >
              {awayTeamInfo.runs}
              </Text>
@@ -92,45 +79,35 @@ class MatchDetailsForBassball extends Component {
           </View>
           <View>
             <View
-             style={{ flexDirection: 'row', justifyContent: 'space-between', width: 100}}
+             style={styles.teamRowStyle}
             >
                 <Text
-                style={{
-                  marginRight: 15,
-                  fontWeight: 'bold',
-                  fontSize: 20,
-                 marginRight: 15
-                }}
+                style={styles.homeTeamScore}
                 >{homeTeamInfo.runs}</Text>
               <View>
                 <Text
                 selectable={true}
                 numberOfLines={1}
-                style={{ fontSize: 20, letterSpacing: 2, fontWeight: 'bold' }}
+                style={styles.teamNameStyle}
                 >{homeTeamInfo.name}</Text>
                 <Text
-                style={{ fontWeight: 'bold', marginLeft: 2, marginTop: 2 }}
+                style={styles.teamStatStyle}
                 >{`(${homeTeamInfo.win} - ${homeTeamInfo.loss})`}</Text>
               </View>
             </View>
           </View>
           </View>
         <View
-         style={{alignItems: 'center', justifyContent: 'center', marginTop: 10 }}
+         style={styles.stadiumContainer}
         >
           <Text
-           style={{fontSize: 15, fontWeight: 'bold', letterSpacing: 2 }}
+           style={styles.staduimTitleStyle}
           >Stadium
           </Text>
           <Text
-          style={{fontSize: 20, fontWeight: 'bold', letterSpacing: 2, marginTop: 2 }}
+          style={styles.staduimNameStyle}
           >
           {stadiumName}</Text>
-        </View>
-        <View
-         style={{alignItems: 'center', justifyContent: 'center'}}
-        >
-
         </View>
       </View>
       )
@@ -235,83 +212,65 @@ class MatchDetailsForBassball extends Component {
 
       return (
         <View
-         style={{
-           alignItems: 'center',
-         justifyContent: 'center',
-         marginTop: 10,
-         flexDirection: 'column',
-         backgroundColor: '#fff',
-         height: 300,
-         borderRadius: 8,
-       }}
+         style={styles.cardStyle}
         >
           <View
-           style={{ alignItems: 'center', justifyContent: 'center'}}
+           style={styles.cardTitleContainerStyle}
           >
             <Text
-             style={{ fontSize: 25, fontWeight: 'bold', marginBottom: 10 }}
+             style={styles.cardTitleStyle}
             >
             MLB
             </Text>
           <Text>{matchTimeNewFormat}</Text>
           </View>
           <View
-           style={{ flexDirection: 'row', width: width * 0.90, marginTop: 20, alignItems: 'center', justifyContent: 'space-around'}}
+           style={styles.teamInfoContainer}
           >
            <View>
             <View
-             style={{ flexDirection: 'row', justifyContent: 'space-between', width: 100}}
+             style={styles.teamRowStyle}
             >
             <View>
                <Text
-                style={{ fontSize: 20, letterSpacing: 2, fontWeight: 'bold' }}
+                style={styles.teamNameStyle}
                 selectable={true}
                 numberOfLines={1}
                >
                {awayTeamInfo.name}
                </Text>
                <Text
-                style={{ fontWeight: 'bold', marginLeft: 2, marginTop: 2 }}
+                style={styles.teamStatStyle}
                >{`(${awayTeamInfo.win} - ${awayTeamInfo.loss})`}</Text>
             </View>
              <Text
-              style={{
-                 marginLeft: 15,
-                 fontWeight: 'bold',
-                 fontSize: 20,
-                marginRight: 10
-            }}
+              style={styles.awayTeamScoreStyle}
              >{awayTeamInfo.runs}
              </Text>
             </View>
           </View>
           <View>
             <View
-             style={{ flexDirection: 'row', justifyContent: 'space-between', width: 100}}
+             style={styles.teamRowStyle}
             >
                 <Text
-                style={{
-                  marginRight: 15,
-                fontWeight: 'bold',
-                fontSize: 20,
-               marginRight: 15
-             }}
+                style={styles.homeTeamScoreStyle}
                 >{homeTeamInfo.runs}</Text>
               <View>
                 <Text
                 selectable={true}
                 numberOfLines={1}
-                style={{ fontSize: 20, letterSpacing: 2, fontWeight: 'bold' }}
+                style={styles.teamNameStyle}
                 >{homeTeamInfo.name}</Text>
                 <Text
-                style={{ fontWeight: 'bold', marginLeft: 2, marginTop: 2 }}
+                style={styles.teamStatStyle}
                 >{`(${homeTeamInfo.win} - ${homeTeamInfo.loss})`}</Text>
               </View>
             </View>
           </View>
           </View>
           <View
-           style={{ width: width * 0.98, height: 100, marginTop: 10}}
+           style={styles.tableContainer}
           >
             <Table
               borderStyle={{borderWidth: 3, borderColor: '#c8e1ff'}}
@@ -328,83 +287,66 @@ class MatchDetailsForBassball extends Component {
     else if(gameStatus == 'closed') {
       return (
         <View
-         style={{
-           alignItems: 'center',
-         justifyContent: 'center',
-         flexDirection: 'column',
-         backgroundColor: '#fff',
-         height: 300,
-         borderRadius: 8,
-       }}
+         style={styles.cardStyle}
         >
           <View
-          style={{ alignItems: 'center', justifyContent: 'center'}}
+          style={styles.cardTitleContainerStyle}
           >
             <Text
-            style={{ fontSize: 25, fontWeight: 'bold', marginBottom: 10 }}>
+            style={styles.cardTitleStyle}>
               MLB
             </Text>
             <Text>{matchTimeNewFormat}</Text>
           </View>
           <View
-           style={{ flexDirection: 'row', width: width * 0.90, marginTop: 20, alignItems: 'center', justifyContent: 'space-around'}}
+           style={styles.teamInfoContainer}
           >
            <View>
             <View
-             style={{ flexDirection: 'row', justifyContent: 'space-between', width: 100}}
+             style={styles.teamRowStyle}
             >
             <View>
              <Text
-             style={{ fontSize: 20, letterSpacing: 2, fontWeight: 'bold' }}
+             style={styles.teamNameStyle}
              selectable={true}
              numberOfLines={1}
              >
              {awayTeamInfo.name}
              </Text>
              <Text
-              style={{ fontWeight: 'bold', marginLeft: 2, marginTop: 2 }}
+              style={styles.teamStatStyle}
              >
               {`(${awayTeamInfo.win} - ${awayTeamInfo.loss})`}
              </Text>
             </View>
              <Text
-             style={{
-                marginLeft: 15,
-                fontWeight: 'bold',
-                fontSize: 20,
-               marginRight: 10
-              }}
+             style={styles.awayTeamScoreStyle}
              >{awayTeamInfo.runs}
              </Text>
             </View>
           </View>
           <View>
             <View
-             style={{ flexDirection: 'row', justifyContent: 'space-between', width: 100}}
+             style={styles.teamRowStyle}
             >
                 <Text
-                style={{
-                  marginRight: 15,
-                  fontWeight: 'bold',
-                  fontSize: 20,
-                 marginRight: 15
-                }}
+                style={styles.homeTeamScoreStyle}
                 >{homeTeamInfo.runs}</Text>
               <View>
                 <Text
                 selectable={true}
                 numberOfLines={1}
-                style={{ fontSize: 20, letterSpacing: 2, fontWeight: 'bold' }}
+                style={styles.teamNameStyle}
                 >{homeTeamInfo.name}</Text>
                 <Text
-                style={{ fontWeight: 'bold', marginLeft: 2, marginTop: 2 }}
+                style={styles.teamStatStyle}
                 >{`(${homeTeamInfo.win} - ${homeTeamInfo.loss})`}</Text>
               </View>
             </View>
           </View>
           </View>
           <View
-           style={{ width: width * 0.98, height: 100, marginTop: 10}}
+           style={styles.tableContainer}
           >
             <Table
               borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}
@@ -419,7 +361,7 @@ class MatchDetailsForBassball extends Component {
   }else {
     return (
       <View
-       style={{ alignItems: 'center', justifyContent: 'center', marginTop: 10, flexDirection: 'column'}}
+       style={styles.cardStyle}
       >
        <View
        >
@@ -427,7 +369,7 @@ class MatchDetailsForBassball extends Component {
        </View>
 
        <View
-        style={{ flexDirection: 'row', width: width * 0.90, marginTop: 20, alignItems: 'center', justifyContent: 'space-between' }}
+        style={styles.teamInfoContainer}
        >
          <View
          >
@@ -441,13 +383,17 @@ class MatchDetailsForBassball extends Component {
          </View>
       </View>
       <View
-       style={{alignItems: 'center', justifyContent: 'center'}}
+       style={styles.stadiumContainer}
       >
-        <Text>Stadium</Text>
-        <Text>{stadiumName}</Text>
+        <Text
+         style={styles.staduimTitleStyle}
+        >Stadium</Text>
+        <Text
+         style={styles.staduimNameStyle}
+        >{stadiumName}</Text>
       </View>
       <View
-       style={{alignItems: 'center', justifyContent: 'center'}}
+       style={styles.cityContainer}
       >
         <Text>City</Text>
         <Text>{city}</Text>
@@ -461,7 +407,7 @@ class MatchDetailsForBassball extends Component {
 
     return (
       <View
-       style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ab372b'}}
+       style={styles.matchDetailsContainer}
       >
       {this.renderMatchDetails()}
       </View>
@@ -472,8 +418,94 @@ class MatchDetailsForBassball extends Component {
 const styles = StyleSheet.create({
   container: {padding: 16, paddingTop: 30, backgroundColor: '#fff' },
   head: { height: 40, backgroundColor: '#f1f8ff' },
-  text: { margin: 6 }
+  text: { margin: 6 },
+  matchDetailsContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ab372b'
+  },
+  cardStyle: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+    flexDirection: 'column',
+    backgroundColor: '#fff',
+    height: 300,
+    borderRadius: 8,
+  },
+  cardTitleContainerStyle: {
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  cardTitleStyle: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginBottom: 10
+  },
+  teamInfoContainer: {
+    flexDirection: 'row',
+    width: width * 0.90,
+    marginTop: 20,
+    alignItems: 'center',
+    justifyContent: 'space-between'
+  },
+  teamRowStyle:{
+    flexDirection: 'row',
+    justifyContent:
+    'space-between',
+    width: 100
+  },
+  homeTeamScoreStyle: {
+    marginRight: 15,
+    fontWeight: 'bold',
+    fontSize: 20,
+   marginRight: 15,
+ },
+ awayTeamScoreStyle: {
+   marginRight: 15,
+   fontWeight: 'bold',
+   fontSize: 20,
+  marginLeft: 15,
+},
+ teamNameStyle: {
+   fontSize: 20,
+   letterSpacing: 2,
+   fontWeight: 'bold'
+ },
+ teamStatStyle: {
+   fontWeight: 'bold',
+   marginLeft: 2,
+   marginTop: 2
+ },
+ tableContainer: {
+   width: width * 0.98,
+   height: 100,
+   marginTop: 10,
+ },
+ stadiumContainer: {
+   alignItems: 'center',
+   justifyContent: 'center',
+   marginTop: 10
+ },
+ cityContainer:{
+   alignItems: 'center',
+   justifyContent: 'center'
+ },
+ staduimTitleStyle: {
+   fontSize: 15,
+   fontWeight: 'bold',
+   letterSpacing: 2
+ },
+  staduimNameStyle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    letterSpacing: 2,
+    marginTop: 2
+  },
 })
+
+
 
 const mapStateToProps = state => {
   return {

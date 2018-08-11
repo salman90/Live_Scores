@@ -5,20 +5,22 @@ import {
   ActivityIndicator,
   ScrollView,
   TouchableWithoutFeedback,
-  Animated, Alert, Image } from 'react-native';
+  Animated,
+  Alert, Image, StyleSheet } from 'react-native';
 import { Button, Card, Icon } from 'react-native-elements';
 import DateScroller from '../components/dateScroller';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import moment from 'moment';
 import axios from 'axios';
-// import { API_KEYOKOK }  from 'react-native-dotenv';
 
 
 
 class BassBallScores extends Component {
   constructor(props) {
     super(props);
+    this.renderMatchDetail = this.renderMatchDetail.bind(this)
+    this.clearError = this.clearError.bind(this)
     this.state = {
       animatedValue: new Animated.Value(0)
     }
@@ -63,25 +65,26 @@ class BassBallScores extends Component {
     const date = moment().format('YYYY/MM/DD')
     // const date = '2018/06/08'
     // console.log(API_KEYOKOK)
-    this.props.getTodaysMatches(date)
+    // this.props.getTodaysMatches(date)
     this.props.navigation.setParams({ SignOut: this._signUserOut });
   }
 
   _signUserOut = () => {
+    console.log('in fucntion')
     // this.props.signUserOut()
     Alert.alert(
       'SignOut',
       'Are You Sure That You Want To Sign Out',
       [
-        {text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel'},
         {text: 'Yes', onPress: () =>  this.props.signUserOut(() =>{
           this.props.navigation.navigate('auth')
         })},
+        {text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel'},
       ]
     )
   };
 
-  renderMatchDetail(game) {
+  renderMatchDetail = (game) => () => {
     this.props.getMachInfo(game, () => {
       this.props.navigation.navigate('MatchDetailsBassball')
     })
@@ -116,8 +119,7 @@ class BassBallScores extends Component {
       const gameStatus =  game.game.status
       const gameDate = game.game.scheduled
       const gameDateFormat = moment(gameDate).format("hh:mm a")
-      // console.log(gameDateFormat)
-      // console.log(gameDateFormat)
+
       const opacity = {
          opacity: this.state.animatednValue
       }
@@ -125,56 +127,51 @@ class BassBallScores extends Component {
 
         <TouchableWithoutFeedback
           key={i}
-          onPress={this.renderMatchDetail.bind(this, game)}
+          onPress={this.renderMatchDetail(game)}
         >
           <View
           key={i}
-          style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', marginTop: 20, marginBottom: 20}}
+          style={styles.matchListContainerStyle}
           >
             {this.renderAnimation(gameStatus)}
             <Card
              title={'MLB'}
-             titleStyle={{ color: '#000'}}
-             containerStyle={{ backgroundColor: '#fff',
-             borderColor: '#000', borderWidth: 2, borderRadius: 2  }}
+             titleStyle={styles.cardTitleStyle}
+             containerStyle={styles.cardStyle}
             >
             <View>
               {gameStatus == 'scheduled' ? <Text>{gameDateFormat}</Text> : null}
               {gameStatus == 'inprogress'?
-              <Animated.View style={[{
-                width: 10,
-                height: 10,
-                borderRadius: 10/2,
-                backgroundColor: 'green'}]}></Animated.View>: null}
+              <Animated.View style={styles.liveMatchLight}></Animated.View>: null}
               {gameStatus == 'closed' || gameStatus == 'complete' ? <Text>FT</Text>: null}
               {gameStatus =='wdelay'? <Text>Delay</Text>: null}
             </View>
 
               <View
-               style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10 }}
+               style={styles.teamsContainer}
               >
                 <Text
-                 style={{fontSize: 15, fontWeight: 'bold'}}
+                 style={styles.teamNameStyle}
                 >
                   {awayTeamName}
                 </Text>
                 <Text
-                style={{fontSize: 15, fontWeight: 'bold'}}
+                style={styles.teamScoreStyle}
 
                 >
                   {awayTeamScore}
                 </Text>
               </View>
               <View
-              style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10  }}
+              style={styles.teamsContainer}
               >
                 <Text
-                style={{fontSize: 15, fontWeight: 'bold'}}
+                style={styles.teamNameStyle}
                 >
                   {homeTeamName}
                 </Text>
                 <Text
-                style={{fontSize: 15, fontWeight: 'bold'}}
+                style={styles.teamScoreStyle}
                 >
                   {homeTeamScore}
                 </Text>
@@ -197,21 +194,20 @@ class BassBallScores extends Component {
         'Error',
         'something went wrong',
         [
-          {text: 'OK', onPress: this.clearError.bind(this)},
+          {text: 'OK', onPress: this.clearError},
         ]
       )
     }
   }
   render(){
-    // console.log(this.props.error)
-     if(this.props.loading){
+    if(this.props.loading){
        return(
          <View
-          style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}
+          style={styles.containerStyle}
          >
            <ActivityIndicator
              size="large"
-             color="#0000ff"
+             color="#000"
            />
          </View>
        )
@@ -226,25 +222,25 @@ class BassBallScores extends Component {
            <DateScroller />
          </View>
          <View
-          style={{alignItems: 'center', justifyContent: 'center', flex: 1, backgroundColor:  '#ab372b'}}
+          style={styles.containerStyle}
          >
            <Image
-             style={{ width: 250, height: 150 }}
+             style={styles.imageStyle}
              source={require('../images/logo.jpg')}
            />
-           <Text>No Matches</Text>
+            <Text>No Matches</Text>
 
-         </View>
+          </View>
          </View>
        )
      }
     return(
       <View
-      style={{ flex: 1, backgroundColor: '#ab372b'}}
+      style={styles.mainScreenContainerStyle}
       >
         <DateScroller />
         <ScrollView
-        contentContainerStyle={{ marginBottom: 20, paddingVertical: 25 }}
+        contentContainerStyle={styles.scrollViewStyle}
         >
          {this.renderLiveMatches()}
         </ScrollView>
@@ -252,6 +248,63 @@ class BassBallScores extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  containerStyle: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+    backgroundColor: '#ab372b'
+  },
+  imageStyle: {
+     width: 250,
+     height: 150
+  },
+  mainScreenContainerStyle: {
+    flex: 1,
+    backgroundColor: '#ab372b',
+  },
+  scrollViewStyle: {
+     marginBottom: 20,
+     paddingVertical: 25,
+  },
+  matchListContainerStyle: {
+    flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      marginTop: 20,
+    marginBottom: 20,
+  },
+  cardTitleStyle: {
+     color: '#000'
+  },
+  cardStyle: {
+    backgroundColor: '#fff',
+    borderColor: '#000',
+    borderWidth: 2,
+    borderRadius: 2,
+  },
+  liveMatchLight: {
+    width: 10,
+    height: 10,
+    borderRadius: 10/2,
+    backgroundColor: 'green',
+  },
+  teamsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 10
+  },
+  teamNameStyle: {
+    fontSize: 15,
+    fontWeight: 'bold'
+  },
+  teamScoreStyle: {
+    fontSize: 15,
+    fontWeight: 'bold'
+  },
+})
+
 
 const mapStateToProps =  state => {
   return {

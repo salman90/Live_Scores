@@ -39,10 +39,10 @@ class DateScroller extends Component {
   }
 
   handelDatePress(date, i){
-
+    // console.log('hello jjsjdj')
     const newDate = moment(date).format('YYYY/MM/DD')
     // console.log(i)
-    // console.log(newDate)
+    // const newDate = 11222
     this.props.getTodaysMatches(newDate)
 
     this.startAnimation()
@@ -92,9 +92,7 @@ class DateScroller extends Component {
   }
   render(){
     return (
-      <View
-
-      >
+      <View>
         <ScrollView
         horizontal={true}
         >

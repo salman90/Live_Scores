@@ -8,6 +8,10 @@ import moment from 'moment';
 
 
 class NBAScores extends Component {
+  constructor(props) {
+    super(props);
+this.onMatchPress = this.onMatchPress.bind(this)
+  }
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Live Scores',
@@ -49,15 +53,15 @@ class NBAScores extends Component {
       'SignOut',
       'Are You Sure That You Want To Sign Out',
       [
-        {text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel'},
         {text: 'Yes', onPress: () =>  this.props.signUserOut(() =>{
           this.props.navigation.navigate('auth')
         })},
+        {text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel'},
       ]
     )
   };
 
-  onMatchPress(game){
+  onMatchPress = (game) => () => {
     this.props.showMatchDetails(game, ()=> {
       this.props.navigation.navigate('NBAMatchDetails')
     })
@@ -85,7 +89,7 @@ class NBAScores extends Component {
         style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', marginTop: 20}}
         >
         <TouchableHighlight
-         onPress={this.onMatchPress.bind(this, game)}
+         onPress={this.onMatchPress(game)}
         >
           <Card
           title='NBA'

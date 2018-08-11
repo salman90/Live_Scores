@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import {View, Text, ScrollView, ActivityIndicator, TouchableWithoutFeedback, Image, Alert } from 'react-native';
 import { Button, List, ListItem, Card, Icon  } from 'react-native-elements';
 import { connect } from 'react-redux';
-import * as actions from '../actions'
+import * as actions from '../actions';
 
 class FootballLiveScores extends Component {
+  constructor(props) {
+    super(props);
+    this.renderDetailsPage = this.renderDetailsPage.bind(this)
+  }
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Live Scores',
@@ -41,7 +45,7 @@ class FootballLiveScores extends Component {
   };
 
 
-  renderDetailsPage(game){
+  renderDetailsPage = (game) => () => {
     this.props.liveMatchDetails(game, () => {
       this.props.navigation.navigate('LiveFootballMatchDetails')
     })
@@ -88,7 +92,7 @@ class FootballLiveScores extends Component {
         style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', marginTop: 20}}
         >
          <TouchableWithoutFeedback
-          onPress={this.renderDetailsPage.bind(this, game)}
+          onPress={this.renderDetailsPage(game)}
          >
           <Card
           title={tournamentName}
