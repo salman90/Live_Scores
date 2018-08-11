@@ -65,7 +65,7 @@ class BassBallScores extends Component {
     const date = moment().format('YYYY/MM/DD')
     // const date = '2018/06/08'
     // console.log(API_KEYOKOK)
-    // this.props.getTodaysMatches(date)
+    this.props.getTodaysMatches(date)
     this.props.navigation.setParams({ SignOut: this._signUserOut });
   }
 
@@ -117,6 +117,7 @@ class BassBallScores extends Component {
       const homeTeamScore = game.game.home.runs
       const awayTeamScore = game.game.away.runs
       const gameStatus =  game.game.status
+      console.log(gameStatus)
       const gameDate = game.game.scheduled
       const gameDateFormat = moment(gameDate).format("hh:mm a")
 

@@ -373,13 +373,21 @@ class MatchDetailsForBassball extends Component {
        >
          <View
          >
-           <Text>{awayTeamInfo.name}</Text>
-           <Text>{`(${awayTeamInfo.win} - ${awayTeamInfo.loss})`}</Text>
+           <Text
+            style={styles.teamNameStyle}
+           >{awayTeamInfo.name}</Text>
+           <Text
+           style={styles.teamStatStyle}
+           >{`(${awayTeamInfo.win} - ${awayTeamInfo.loss})`}</Text>
          </View>
 
          <View>
-           <Text>{homeTeamInfo.name}</Text>
-           <Text>{`(${homeTeamInfo.win} - ${homeTeamInfo.loss})`}</Text>
+           <Text
+           style={styles.teamNameStyle}
+           >{homeTeamInfo.name}</Text>
+           <Text
+            style={styles.teamStatStyle}
+           >{`(${homeTeamInfo.win} - ${homeTeamInfo.loss})`}</Text>
          </View>
       </View>
       <View
@@ -395,8 +403,12 @@ class MatchDetailsForBassball extends Component {
       <View
        style={styles.cityContainer}
       >
-        <Text>City</Text>
-        <Text>{city}</Text>
+        <Text
+        style={styles.staduimTitleStyle}
+        >City</Text>
+        <Text
+        style={styles.staduimNameStyle}
+        >{city}</Text>
       </View>
     </View>
     )
