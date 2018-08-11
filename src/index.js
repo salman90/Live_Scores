@@ -12,10 +12,7 @@ import { FIREBASE_API_KEY } from 'react-native-dotenv';
 import store from './store'
 import { Provider } from 'react-redux'
 import { Icon, Button  } from 'react-native-elements'
-import LiveScores from './screens/LiveScores';
 import NBALiveMatches from './screens/NBALiveMatches';
-import Sports from './screens/Sports';
-import GameDetails from './screens/GameDetails';
 import FootballScores from './screens/FootballScores';
 import BassBallScores from './screens/BassBallScores';
 import NBAScores from './screens/NBAScores';
@@ -31,7 +28,6 @@ import BassballArticleDetails from './screens/BassballArticleDetails';
 import FootballLiveScores from './screens/footballLiveScores';
 import BassballLiveScores from './screens/bassballLiveScores';
 import LiveFootballMatchDetails from './screens/liveFootballMatchDetails';
-import TennisMatches from './screens/TennisMatches';
 import BassballLiveMatchDetials from './screens/bassballLiveMatchDetails';
 import Auth from './screens/Auth';
 import firebase from 'firebase';
@@ -277,15 +273,6 @@ class App extends Component {
      })
    })
 
-   const stackNavForLiveScores = createStackNavigator({
-     livescores: { screen:  LiveScores },
-     gameDetails: { screen: GameDetails }
-
-   }, {
-     navigationOptions: () => ({
-       title: `BarBack`,
-     })
-   })
 
 
 
