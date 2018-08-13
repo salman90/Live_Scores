@@ -4,7 +4,8 @@
  width="100"
 />
 
-live scores app gives you live coverage for match(results, fixtures, news) for a MLB  and NBA and European football. liveScores project was built with React Native Expo and firebase backend to authentication users. we used <a href='https://developer.sportradar.com'/>sportradar</a> to fetch live match information like matches schedules & we also used <a href='https://newsapi.org/sources'>News Api</a> to fetch articles and new about the sports.
+Live Scores app gives you live coverage for match(results, fixtures, news) for MLB  and NBA and European football. liveScores project was built with React Native Expo and Firebase backend to authentication users.<a href='https://developer.sportradar.com'/>Sportradar</a> is used to fetch live match information and match schedules.  <a href='https://newsapi.org/sources'>News Api</a> is used to fetch articles and news.
+
 
 <img                                
  src='assets/drawerNav.png'
