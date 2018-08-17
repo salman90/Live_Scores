@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ActivityIndicator, Dimensions } from 'react-native';
+import { View, Text, ActivityIndicator, Dimensions, StyleSheet } from 'react-native';
 import { Button, Card } from 'react-native-elements';
 import { connect }  from 'react-redux';
 import * as actions from '../actions';
@@ -47,44 +47,30 @@ class MatchDetailsForFootball extends Component {
       // console.log(eventInfo)
       return (
         <View
-         style={{
-           flex: 1,
-           alignItems: 'center',
-           backgroundColor: '#ab372b',
-           justifyContent: 'center'
-         }}
+         style={styles.mainContainerStyle}
         >
          <View
-         style={{
-         marginTop: 10,
-         flexDirection: 'column',
-          backgroundColor: '#fff',
-          borderRadius: 8,
-          width: width * 0.95,
-          height: 300,
-          alignItems: 'center',
-          justifyContent: 'center'
-         }}
+         style={styles.cardContainerStyle}
          >
            <View
-            style={{ width: width * 0.9, alignItems: 'center', justifyContent: 'center'}}
+            style={styles.cardTitleContainerStyle}
            >
             <Text
             selectable={true}
             numberOfLines={1}
-             style={{ fontSize: 20, fontWeight: 'bold'}}
+            style={styles.tournamentStyle}
             >{`${tournamentName}`}</Text>
            </View>
            <View
-             style={{ flexDirection: 'row', width: width * 0.90, marginTop: 20, alignItems: 'center', justifyContent: 'space-around'}}
+             style={styles.teamContainerStyle}
            >
                <View
-                style={{ flexDirection: 'row', justifyContent: 'space-between', width: 120}}
+                style={styles.awayTeamContainer}
                >
 
                   <View>
                     <Text
-                    style={{ fontSize: 20, letterSpacing: 2, fontWeight: 'bold' }}
+                    style={styles.teamName}
                     selectable={true}
                     numberOfLines={1}
                     >
@@ -95,23 +81,23 @@ class MatchDetailsForFootball extends Component {
 
                   >
                      <Text
-                     style={{ fontSize: 25, marginLeft: 2}}
+                     style={styles.awayScoreStyle}
                      >{awayScore}</Text>
                   </View>
 
                </View>
              <View
-             style={{ flexDirection: 'row', justifyContent: 'space-between', width: 120}}
+             style={styles.homeTeamContainerStyle}
              >
               <View
               >
                  <Text
-                 style={{ fontSize: 25}}
+                 style={styles.homeScoreStyle}
                  >{homeScore}</Text>
               </View>
               <View>
                   <Text
-                  style={{ fontSize: 20, letterSpacing: 2, fontWeight: 'bold' }}
+                  style={styles.homeTeamNameStyle}
                   selectable={true}
                   numberOfLines={1}
                   >
@@ -132,44 +118,30 @@ class MatchDetailsForFootball extends Component {
     }else if(status === 'live') {
       return (
         <View
-         style={{
-           flex: 1,
-           alignItems: 'center',
-           backgroundColor: '#ab372b',
-           justifyContent: 'center'
-         }}
+         style={styles.mainContainerStyle}
         >
          <View
-         style={{
-         marginTop: 10,
-         flexDirection: 'column',
-          backgroundColor: '#fff',
-          borderRadius: 8,
-          width: width * 0.95,
-          height: 300,
-          alignItems: 'center',
-          justifyContent: 'center'
-         }}
+         style={styles.cardContainerStyle}
          >
            <View
-            style={{ width: width * 0.9, alignItems: 'center', justifyContent: 'center'}}
+            style={styles.cardTitleContainerStyle}
            >
             <Text
             selectable={true}
             numberOfLines={1}
-             style={{ fontSize: 20, fontWeight: 'bold'}}
+             style={styles.tournamentStyle}
             >{`${tournamentName}`}</Text>
            </View>
            <View
-             style={{ flexDirection: 'row', width: width * 0.90, marginTop: 20, alignItems: 'center', justifyContent: 'space-around'}}
+             style={styles.teamContainerStyle}
            >
                <View
-                style={{ flexDirection: 'row', justifyContent: 'space-between', width: 120}}
+                style={styles.awayTeamContainer}
                >
 
                   <View>
                     <Text
-                    style={{ fontSize: 20, letterSpacing: 2, fontWeight: 'bold' }}
+                    style={styles.teamName}
                     selectable={true}
                     numberOfLines={1}
                     >
@@ -180,23 +152,23 @@ class MatchDetailsForFootball extends Component {
 
                   >
                      <Text
-                     style={{ fontSize: 25, marginLeft: 2}}
+                     style={styles.awayScoreStyle}
                      >{awayScore}</Text>
                   </View>
 
                </View>
              <View
-             style={{ flexDirection: 'row', justifyContent: 'space-between', width: 120}}
+             style={styles.homeTeamContainerStyle}
              >
               <View
               >
                  <Text
-                 style={{ fontSize: 25}}
+                 style={styles.homeScoreStyle}
                  >{homeScore}</Text>
               </View>
               <View>
                   <Text
-                  style={{ fontSize: 20, letterSpacing: 2, fontWeight: 'bold' }}
+                  style={styles.teamName}
                   selectable={true}
                   numberOfLines={1}
                   >
@@ -218,44 +190,30 @@ class MatchDetailsForFootball extends Component {
       console.log(typeof homeScore === 'undefined')
       return (
         <View
-         style={{
-           flex: 1,
-           alignItems: 'center',
-           backgroundColor: '#ab372b',
-           justifyContent: 'center'
-         }}
+         style={styles.mainContainerStyle}
         >
          <View
-         style={{
-         marginTop: 10,
-         flexDirection: 'column',
-          backgroundColor: '#fff',
-          borderRadius: 8,
-          width: width * 0.95,
-          height: 300,
-          alignItems: 'center',
-          justifyContent: 'center'
-         }}
+         style={styles.cardContainerStyle}
          >
            <View
-            style={{ width: width * 0.9, alignItems: 'center', justifyContent: 'center'}}
+            style={styles.cardTitleContainerStyle}
            >
             <Text
             selectable={true}
             numberOfLines={1}
-             style={{ fontSize: 20, fontWeight: 'bold'}}
+             style={styles.tournamentStyle}
             >{`${tournamentName}`}</Text>
            </View>
            <View
-             style={{ flexDirection: 'row', width: width * 0.90, marginTop: 20, alignItems: 'center', justifyContent: 'space-around'}}
+             style={styles.teamContainerStyle}
            >
                <View
-                style={{ flexDirection: 'row', justifyContent: 'space-between', width: 120}}
+                style={styles.awayTeamContainer}
                >
 
                   <View>
                     <Text
-                    style={{ fontSize: 20, letterSpacing: 2, fontWeight: 'bold' }}
+                    style={styles.teamName}
                     selectable={true}
                     numberOfLines={1}
                     >
@@ -266,23 +224,23 @@ class MatchDetailsForFootball extends Component {
 
                   >
                      <Text
-                     style={{ fontSize: 25, marginLeft: 2}}
+                     style={styles.awayScoreStyle}
                      >{typeof awayScore === 'undefined'? 0 : awayScore}</Text>
                   </View>
 
                </View>
              <View
-             style={{ flexDirection: 'row', justifyContent: 'space-between', width: 120}}
+             style={styles.homeTeamContainerStyle}
              >
               <View
               >
                  <Text
-                 style={{ fontSize: 25}}
+                 style={styles.homeScoreStyle}
                  >{typeof homeScore === 'undefined'? 0 : homeScore}</Text>
               </View>
               <View>
                   <Text
-                  style={{ fontSize: 20, letterSpacing: 2, fontWeight: 'bold' }}
+                  style={styles.teamName}
                   selectable={true}
                   numberOfLines={1}
                   >
@@ -319,13 +277,74 @@ class MatchDetailsForFootball extends Component {
     }
     return(
       <View
-       style={{ flex: 1}}
+       style={{ flex: 1 }}
        >
         {this.renderMatchStages()}
       </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  mainContainerStyle: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: '#ab372b',
+    justifyContent: 'center',
+  },
+  cardContainerStyle: {
+    marginTop: 10,
+    flexDirection: 'column',
+     backgroundColor: '#fff',
+     borderRadius: 8,
+     width: width * 0.95,
+     height: 300,
+     alignItems: 'center',
+     justifyContent: 'center'
+  },
+  cardTitleContainerStyle: {
+    width: width * 0.9,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  tournamentStyle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  teamContainerStyle: {
+     flexDirection: 'row',
+     width: width * 0.90,
+     marginTop: 20,
+     alignItems: 'center',
+     justifyContent: 'space-around'
+  },
+  awayTeamContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 120
+  },
+  teamName: {
+    fontSize: 20,
+    letterSpacing: 2,
+    fontWeight: 'bold'
+  },
+  awayScoreStyle: {
+    fontSize: 25,
+    marginLeft: 2
+  },
+  homeScoreStyle: {
+    fontSize: 25,
+    marginRight: 2
+  },
+  homeTeamContainerStyle:{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 120
+  },
+  homeTeamNameStyle: {
+    fontSize: 25
+  },
+})
 
 const mapStateToProps = state => {
   return {

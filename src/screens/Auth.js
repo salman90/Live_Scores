@@ -23,7 +23,6 @@ class Auth extends Component {
   }
 
   componentDidMount(){
-    // const
     this.props.logInUser(() => {
       this.props.navigation.navigate('sports')
     })

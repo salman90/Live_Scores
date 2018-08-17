@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import {View, Text, ScrollView, ActivityIndicator, TouchableWithoutFeedback, Image, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  ActivityIndicator,
+  TouchableWithoutFeedback,
+  Image, Alert, StyleSheet } from 'react-native';
 import { Button, List, ListItem, Card, Icon  } from 'react-native-elements';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
@@ -31,7 +37,6 @@ class FootballLiveScores extends Component {
   }
 
   _signUserOut = () => {
-    // this.props.signUserOut()
     Alert.alert(
       'SignOut',
       'Are You Sure That You Want To Sign Out',
@@ -64,32 +69,20 @@ class FootballLiveScores extends Component {
     return liveGames.map((game, i) => {
       const matchInfo = game.sport_event
       const matchCompleteStatus = game.sport_event_status
-      // console.log(matchCompleteStatus)
       const homeTeamInfo = matchInfo.competitors[0]
-      // console.log(homeTeamInfo)
       const homeTeamName = homeTeamInfo.name
-      // console.log(homeTeamName)
       const awayTeamInfo = matchInfo.competitors[1]
       const awayTeamName = awayTeamInfo.name
-      // console.log(awayTeamName)
       const tournamentName = matchInfo.season.name
-      // console.log(tournamentName)
       const status = matchCompleteStatus.status
-      // if(status == 'live'){
         const awayTeamScore = matchCompleteStatus.away_score
         const homeTeamScore = matchCompleteStatus.home_score
         const matchPeriod = matchCompleteStatus.match_status
-
-      // }
-      // if(status == 'live'){
         const matchClock = matchCompleteStatus.clock
-
-      // }
-
       return (
         <View
         key={i}
-        style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', marginTop: 20}}
+        style={styles.cardContainerStyle}
         >
          <TouchableWithoutFeedback
           onPress={this.renderDetailsPage(game)}
@@ -104,35 +97,35 @@ class FootballLiveScores extends Component {
               style={{flexDirection: 'row'}}
               >
               <View
-              style={{ width: 10, height: 10, borderRadius: 10/2, backgroundColor: 'green', marginRight: 4}}
+              style={styles.greendotStyle}
               ></View><Text>{matchClock.match_time}</Text></View>: null
             }
               {status == 'not_started'? <Text>{status}</Text>: null}
             </View>
             <View
-            style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10 }}
+            style={styles.teamsContainerStyle}
             >
              <Text
-              style={{fontSize: 15, fontWeight: 'bold'}}
+              style={styles.teamNameStyle}
              >
               {awayTeamName}
              </Text>
              <Text
-             style={{fontSize: 15, fontWeight: 'bold'}}
+             style={styles.teamScoreStyle}
              >
               {awayTeamScore}
              </Text>
             </View>
             <View
-            style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10  }}
+            style={styles.teamsContainerStyle}
             >
               <Text
-               style={{fontSize: 15, fontWeight: 'bold'}}
+               style={styles.teamNameStyle}
               >
                 {homeTeamName}
               </Text>
               <Text
-              style={{fontSize: 15, fontWeight: 'bold'}}
+              style={styles.teamScoreStyle}
               >
                {homeTeamScore}
               </Text>
@@ -157,10 +150,10 @@ class FootballLiveScores extends Component {
     if(liveGames.length === 0){
       return (
         <View
-         style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ab372b'}}
+         style={styles.logoContainer}
         >
           <Image
-            style={{ width: 250, height: 130}}
+            style={styles.logoImageStyle}
             source={require('../images/logo.jpg')}
           />
           <Text>No live matches today</Text>
@@ -170,7 +163,7 @@ class FootballLiveScores extends Component {
     }
     return (
       <View
-      style={{ flex: 1, backgroundColor: '#ab372b'}}
+      style={styles.containerStyle}
       >
         <ScrollView>
           {this.renderLiveScores()}
@@ -179,6 +172,49 @@ class FootballLiveScores extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  containerStyle: {
+    flex: 1,
+    backgroundColor: '#ab372b'
+  },
+  cardContainerStyle: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    marginTop: 20
+  },
+  greendotStyle: {
+    width: 10,
+    height: 10,
+    borderRadius: 10/2,
+    backgroundColor: 'green',
+    marginRight: 4
+  },
+  teamsContainerStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 10
+  },
+  teamNameStyle: {
+    fontSize: 15,
+    fontWeight: 'bold'
+  },
+  teamScoreStyle: {
+    fontSize: 15,
+    fontWeight: 'bold'
+  },
+  logoImageStyle: {
+     width: 250,
+     height: 130
+  },
+  logoContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ab372b'
+  },
+})
 
 const mapStateToProps = state => {
   return {

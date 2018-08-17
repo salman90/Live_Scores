@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView , TouchableHighlight, ActivityIndicator, Alert, Image } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView ,
+  TouchableHighlight,
+  ActivityIndicator,
+  Alert,
+  Image,
+  StyleSheet } from 'react-native';
 import { Button, List, ListItem, Card, Icon  } from 'react-native-elements';
 import DateScroller from '../components/dateScroller';
 import { connect } from 'react-redux';
@@ -13,6 +21,7 @@ class FootballScores extends Component {
   constructor(props) {
     super(props);
 this.renderFootballDetails = this.renderFootballDetails.bind(this)
+this.clearError = this.clearError.bind(this)
   }
   static navigationOptions = ({ navigation }) => {
 
@@ -90,7 +99,7 @@ this.renderFootballDetails = this.renderFootballDetails.bind(this)
        return (
          <View
              key={i}
-             style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', marginTop: 20}}
+             style={styles.cardStyle}
              >
              <TouchableHighlight
               onPress={this.renderFootballDetails(game)}
@@ -103,34 +112,26 @@ this.renderFootballDetails = this.renderFootballDetails.bind(this)
                    {matchStatus == 'not_started' ? <Text>{matchTimeNewFormat}</Text>: null}
                    {matchStatus == 'live'?
                    <View
-                   style={{ width: 10, height: 10, borderRadius: 10/2, backgroundColor: 'green'}}
+                   style={styles.greendotStyle}
                    ></View>: null}
                      {matchStatus =='wdelay'? <Text>Delay</Text>: null}
                 </View>
                  <View
-                  style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10 }}
+                  style={styles.teamContainer}
                  >
                    <Text
-                    style={{fontSize: 15, fontWeight: 'bold'}}
+                    style={styles.teamNameFont}
                    >
                      {awayTeamName}
                    </Text>
-                   <Text
-                   style={{fontSize: 15, fontWeight: 'bold'}}
-                   >
-                   </Text>
                  </View>
                  <View
-                 style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10  }}
+                 style={styles.teamContainer}
                  >
                    <Text
-                   style={{fontSize: 15, fontWeight: 'bold'}}
+                   style={styles.teamNameFont}
                    >
                      {homeTeamName}
-                   </Text>
-                   <Text
-                   style={{fontSize: 15, fontWeight: 'bold'}}
-                   >
                    </Text>
                  </View>
                </Card>
@@ -139,68 +140,6 @@ this.renderFootballDetails = this.renderFootballDetails.bind(this)
        )
 
     })
-    //   const awayTeamName =  game.awayTeam.name
-    //   const homeTeamName = game.homeTeam.name
-    //   const awayTeamScore = game.matchStatus.away_score
-    //   const homeTeamScore = game.matchStatus.home_score
-    //   const tournamentName = game.tournamentInfo.name
-    //   const matchStatus = game.matchStatus.status
-    //   const matchTime = game.matchTime
-    //   const matchTimeNewFormat = moment(matchTime).format('LLL')
-    //
-    //   return (
-    //     <View
-    //     key={i}
-    //     style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', marginTop: 20}}
-    //     >
-    //     <TouchableHighlight
-    //      onPress={this.renderFootballDetails.bind(this, game)}
-    //     >
-    //       <Card
-    //       title={tournamentName}
-    //       >
-    //        <View>
-    //           {matchStatus == 'closed' ? <Text>FT</Text>: null}
-    //           {matchStatus == 'scheduled' ? <Text>{matchTimeNewFormat}</Text>: null}
-    //           {matchStatus == 'inprogress'?
-    //           <View
-    //           style={{ width: 10, height: 10, borderRadius: 10/2, backgroundColor: 'green'}}
-    //           ></View>: null}
-    //             {matchStatus =='wdelay'? <Text>Delay</Text>: null}
-    //        </View>
-    //         <View
-    //          style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10 }}
-    //         >
-    //           <Text
-    //            style={{fontSize: 15, fontWeight: 'bold'}}
-    //           >
-    //             {awayTeamName}
-    //           </Text>
-    //           <Text
-    //           style={{fontSize: 15, fontWeight: 'bold'}}
-    //           >
-    //             {awayTeamScore}
-    //           </Text>
-    //         </View>
-    //         <View
-    //         style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10  }}
-    //         >
-    //           <Text
-    //           style={{fontSize: 15, fontWeight: 'bold'}}
-    //           >
-    //             {homeTeamName}
-    //           </Text>
-    //           <Text
-    //           style={{fontSize: 15, fontWeight: 'bold'}}
-    //           >
-    //             {homeTeamScore}
-    //           </Text>
-    //         </View>
-    //       </Card>
-    //       </TouchableHighlight>
-    //     </View>
-    //   )
-    // })
   }
 
   clearError(){
@@ -213,7 +152,7 @@ this.renderFootballDetails = this.renderFootballDetails.bind(this)
         'Error',
         'something went wrong',
         [
-          {text: 'OK', onPress: this.clearError.bind(this)},
+          {text: 'OK', onPress: this.clearError},
         ]
       )
     }
@@ -223,7 +162,7 @@ this.renderFootballDetails = this.renderFootballDetails.bind(this)
     if(this.props.loading){
       return (
         <View
-         style={{alignItems: 'center', justifyContent: 'center', flex: 1}}
+         style={styles.mainContainerStyle}
         >
           <ActivityIndicator
           size="large"
@@ -235,18 +174,18 @@ this.renderFootballDetails = this.renderFootballDetails.bind(this)
     if(this.props.footballGames.length === 0){
       return (
         <View
-         style={{flex: 1, backgroundColor: '#ab372b'}}
+         style={styles.container}
         >
         <View>
             <DateScrollerForFootball
             />
         </View>
           <View
-           style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}
+           style={styles.mainContainerStyle}
           >
           {this.renderError()}
             <Image
-             style={{ width: 250, height: 150}}
+             style={styles.imageStyle}
              source={require('../images/logo.jpg')}
             />
             <Text>No Matches</Text>
@@ -256,14 +195,14 @@ this.renderFootballDetails = this.renderFootballDetails.bind(this)
     }
     return(
       <View
-      style={{ flex: 1, backgroundColor: '#ab372b'}}
+      style={styles.container}
       >
        {this.renderError()}
 
        <DateScrollerForFootball
        />
        <ScrollView
-       contentContainerStyle={{ marginBottom: 20, paddingVertical: 25 }}
+       contentContainerStyle={styles.crollViewStyle}
        >
         {this.renderFootBallGames()}
        </ScrollView>
@@ -271,6 +210,47 @@ this.renderFootballDetails = this.renderFootballDetails.bind(this)
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ab372b',
+  },
+  mainContainerStyle: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  imageStyle: {
+    width: 250,
+    height: 150
+  },
+  scrollViewStyle: {
+    marginBottom: 20,
+    paddingVertical: 25,
+  },
+  cardStyle: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  greendotStyle: {
+     width: 10,
+     height: 10,
+     borderRadius: 10/2,
+     backgroundColor: 'green'
+  },
+  teamContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 10
+  },
+  teamNameFont: {
+    fontSize: 15,
+    fontWeight: 'bold',
+  },
+})
 
 const mapStateToProps = state => {
   return {

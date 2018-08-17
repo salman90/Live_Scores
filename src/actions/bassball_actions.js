@@ -19,15 +19,7 @@ import {
 
 export const getTodaysMatches = (date) => async dispatch => {
   dispatch({ type: FETCHING_BASSBALL_SCORES})
-
-  const API_KEY =  '4zgwz5dxh4qdcteb9dt63n8f'
-
-  // console.log(date)
-  // console.log('in function')
-  // const dateToday = '2018/07/27'
-  console.log(date)
-
-  const url  = `http://api.sportradar.us/mlb/trial/v6.5/en/games/${date}/boxscore.json?api_key=${API_KEY}`
+  const url  = `http://api.sportradar.us/mlb/trial/v6.5/en/games/${date}/boxscore.json?api_key=${BASSBALL_API_KEY}`
   axios.get(url)
    .then( res => {
      const games = res.data.league.games
@@ -88,8 +80,6 @@ export const getMachInfo = (game, callback) => async dispatch => {
     dispatch({ type: SCORING_RESULTS_FOR_HOME_TEAM, payload: homeRuns  })
 
   }
-
-  // console.log(homeRuns, 'home runs')
   callback()
 }
 
@@ -101,11 +91,7 @@ export const getBassballNews = () => async dispatch => {
     axios.get(URL)
      .then((res) => {
        const articles = res.data.articles
-       // console.log(articles.title)
-       // const images =  articles.urlToImage
-       // const _.uniqBy(articles, 'urlToImage');
        _.uniqBy(articles, 'urlToImage');
-       // console.log(articles.title)
        dispatch({ type: MLB_ARTICLES, payload: articles })
      })
      .catch((error) => {
@@ -114,19 +100,16 @@ export const getBassballNews = () => async dispatch => {
 }
 
 export const clearError = () => async dispatch => {
-  // console.log('sssss')
   dispatch({ type: CLEAR_ERROR_MESSAGE_FOR_BASSBALL_SCORES })
 }
 
 export const renderLiveMatchDetailsForBassball = (game, callback) => async dispatch => {
   dispatch({ type: LIVE_MATCH_DETAILS_FOR_BASSBALL, payload: game })
 
-  // const awayTeamInfo = game.game.away
   const awayTeamInfo = game.game.away
   const awayAbbr = awayTeamInfo.abbr
   const homeTeamInfo = game.game.home
   const homeAbbr =  homeTeamInfo.abbr
-  // const awayScoringTeam = awayTeamInfo.scoring
   const awayScoringTeam = awayTeamInfo.scoring
   const homeScoringTeam = homeTeamInfo.scoring
   let awayRuns = []
@@ -141,7 +124,6 @@ export const renderLiveMatchDetailsForBassball = (game, callback) => async dispa
   let awayTotalCountOfRuns  = _.sumBy(['runs'], _.partial(_.sumBy, awayScoringTeam));
 
   awayRuns.push(awayTotalCountOfRuns, awayTotalCountOfErrors, awayTotalCountOfHits )
-  console.log(awayRuns)
   dispatch({ type: SCORING_RESULTS_FOR_AWAY_TEAM, payload: awayRuns })
 
 

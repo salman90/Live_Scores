@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, TouchableHighlight, ActivityIndicator, Alert, Image } from 'react-native';
+import { View,
+  Text,
+  ScrollView,
+  TouchableHighlight,
+  ActivityIndicator,
+  Alert,
+  StyleSheet,
+  Image } from 'react-native';
 import { Button, Card, Icon } from 'react-native-elements';
 import DateScrollerForNBA from '../components/dateScrollerForNBA';
 import { connect } from 'react-redux';
@@ -41,14 +48,12 @@ this.onMatchPress = this.onMatchPress.bind(this)
 
 
   componentDidMount() {
-    // const date = moment().format('YYYY/MM/DD')
     const date = '2018/06/08'
     this.props.renderNBAMatches(date)
     this.props.navigation.setParams({ SignOut: this._signUserOut });
   }
 
   _signUserOut = () => {
-    // this.props.signUserOut()
     Alert.alert(
       'SignOut',
       'Are You Sure That You Want To Sign Out',
@@ -86,7 +91,7 @@ this.onMatchPress = this.onMatchPress.bind(this)
       return (
         <View
         key={i}
-        style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', marginTop: 20}}
+        style={styles.cardContainerStyle}
         >
         <TouchableHighlight
          onPress={this.onMatchPress(game)}
@@ -98,36 +103,36 @@ this.onMatchPress = this.onMatchPress.bind(this)
               {gameStatus == 'closed' || gameStatus == 'complete'? <Text>FT</Text>: null}
               {gameStatus == 'inprogress'?
               <View
-               style={{ width: 10, height: 10, borderRadius: 10/2, backgroundColor: 'green'}}
+               style={styles.greendotStyle}
               ></View>: null}
                 {gameStatus =='wdelay'? <Text>Delay</Text>: null}
                 {gameStatus == 'scheduled'? <Text>{gameTimeNewFormat}</Text>: null}
             </View>
             <View
-             style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10 }}
+             style={styles.teamContainerStyle}
             >
               <Text
-               style={{fontSize: 15, fontWeight: 'bold'}}
+               style={styles.teamNameStyle}
               >
               {awayTeamName}
               </Text>
               <Text
-              style={{fontSize: 15, fontWeight: 'bold'}}
+              style={styles.teamScoreStyle}
 
               >
                 {awayTeamScore}
               </Text>
             </View>
             <View
-             style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10  }}
+             style={styles.teamContainerStyle}
             >
             <Text
-            style={{fontSize: 15, fontWeight: 'bold'}}
+            style={styles.teamNameStyle}
             >
               {homeTeamName}
             </Text>
             <Text
-            style={{fontSize: 15, fontWeight: 'bold'}}
+            style={styles.teamScoreStyle}
             >
               {homeTeamScore}
             </Text>
@@ -179,11 +184,11 @@ this.onMatchPress = this.onMatchPress.bind(this)
            <DateScrollerForNBA />
          </View>
          <View
-          style={{ flex:1, alignItems: 'center', justifyContent: 'center' }}
+          style={styles.loadingContainerStyle}
          >
          {this.renderError()}
             <Image
-            style={{ width: 250, height: 150 }}
+            style={styles.imageLogoStyle}
             source={require('../images/logo.jpg')}
             />
             <Text>No Matches</Text>
@@ -193,12 +198,12 @@ this.onMatchPress = this.onMatchPress.bind(this)
     }
     return (
       <View
-       style={{ flex: 1, backgroundColor: '#ab372b' }}
+       style={styles.containerStyle}
       >
       <DateScrollerForNBA />
       {this.renderError()}
        <ScrollView
-       contentContainerStyle={{ marginBottom: 20, paddingVertical: 25 }}
+       contentContainerStyle={styles.scrollViewStyle}
        >
          {this.renderNBAGames()}
        </ScrollView>
@@ -206,6 +211,51 @@ this.onMatchPress = this.onMatchPress.bind(this)
     )
   }
 }
+
+const styles = StyleSheet.create({
+  containerStyle: {
+    flex: 1,
+    backgroundColor: '#ab372b'
+  },
+  scrollViewStyle: {
+    marginBottom: 20,
+    paddingVertical: 25
+  },
+  cardContainerStyle: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    marginTop: 20
+  },
+  greendotStyle: {
+    width: 10,
+    height: 10,
+    borderRadius: 10/2,
+    backgroundColor: 'green'
+  },
+  teamContainerStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 10
+  },
+  teamNameStyle: {
+    fontSize: 15,
+    fontWeight: 'bold'
+  },
+  teamScoreStyle: {
+    fontSize: 15,
+    fontWeight: 'bold'
+  },
+  loadingContainerStyle: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1
+  },
+  imageLogoStyle: {
+    width: 250,
+    height: 150
+  },
+})
 
 const mapStateToProps = state => {
   return {

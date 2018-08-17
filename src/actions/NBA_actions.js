@@ -98,7 +98,7 @@ export const renderNBANews = () => async dispatch => {
   const endDate = moment().format('YYYY-MM-DD')
   console.log(startingDate)
   console.log(endDate)
-  const url2 = `https://newsapi.org/v2/everything?language=en&q=basketball&NBA&page=1&from=${startingDate}&to=${endDate}&sortBy=popularity&apiKey=${NBA_NEWS_API_KEY}`
+  const url2 = `https://newsapi.org/v2/everything?language=en&q=basketball&page=1&from=${startingDate}&to=${endDate}&sortBy=popularity&apiKey=${NBA_NEWS_API_KEY}`
   // console.log(url2)
   axios.get(url2)
    .then((res) => {

@@ -63,15 +63,11 @@ class BassBallScores extends Component {
 
   componentDidMount(){
     const date = moment().format('YYYY/MM/DD')
-    // const date = '2018/06/08'
-    // console.log(API_KEYOKOK)
     this.props.getTodaysMatches(date)
     this.props.navigation.setParams({ SignOut: this._signUserOut });
   }
 
   _signUserOut = () => {
-    console.log('in fucntion')
-    // this.props.signUserOut()
     Alert.alert(
       'SignOut',
       'Are You Sure That You Want To Sign Out',

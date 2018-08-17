@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, ActivityIndicator, FlatList, TouchableHighlight, Alert, Image } from 'react-native';
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  FlatList,
+  TouchableHighlight,
+  Alert, Image, StyleSheet } from 'react-native';
 import { List, Button, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
@@ -35,7 +41,6 @@ class NBANews extends Component {
 
 
   _signUserOut = () => {
-    // this.props.signUserOut()
     Alert.alert(
       'SignOut',
       'Are You Sure That You Want To Sign Out',
@@ -81,7 +86,6 @@ renderError = () => {
 
   _keyExtractor = (item, index) => item.title;
   render(){
-    console.log(this.propsnbaArticles)
     if(this.props.nbaArticles.length === 0){
       return (
         <View
@@ -96,7 +100,7 @@ renderError = () => {
     }
     return (
       <View
-       style={{ flex: 1 }}
+       style={styles.container}
       >
       {this.renderError()}
 
@@ -109,6 +113,12 @@ renderError = () => {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  }
+})
 
 const mapStateToProps = state => {
   return {

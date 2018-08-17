@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import {View, Text, ScrollView, ActivityIndicator, TouchableWithoutFeedback } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  ActivityIndicator,
+  TouchableWithoutFeedback,
+  StyleSheet } from 'react-native';
 import {connect} from 'react-redux';
 import { Card } from 'react-native-elements'
 import * as actions from '../actions';
@@ -21,7 +27,6 @@ class BassballLiveScores extends Component {
   renderLiveMatches() {
     const { bassballGames } = this.props
     return bassballGames.map((game, i) => {
-      // console.log(this.state.status)
       const gameStatus =  game.game.status
       if(gameStatus == 'inprogress') {
         const homeTeamName = game.game.home.name
@@ -36,7 +41,7 @@ class BassballLiveScores extends Component {
 
           <View
             key={gameID}
-            style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', marginTop: 20}}
+            style={styles.cardContainer}
             >
             <TouchableWithoutFeedback
              onPress={this.renderLiveGameInfo(game)}
@@ -44,47 +49,42 @@ class BassballLiveScores extends Component {
           <Card
           key={gameID}
            title={'MLB'}
-           titleStyle={{ color: '#000'}}
-           containerStyle={{ backgroundColor: '#fff',
-           borderColor: '#000', borderWidth: 2, borderRadius: 2  }}
+           titleStyle={styles.cardTitle}
+           containerStyle={styles.cardStyle}
           >
           <View>
             {gameStatus == 'scheduled' ? <Text>{gameDateFormat}</Text> : null}
             {gameStatus == 'inprogress'?
-            <View style={[{
-              width: 10,
-              height: 10,
-              borderRadius: 10/2,
-              backgroundColor: 'green'}]}></View>: null}
+            <View style={styles.greendotStyle}></View>: null}
             {gameStatus == 'closed' || gameStatus == 'complete' ? <Text>FT</Text>: null}
             {gameStatus =='wdelay'? <Text>Delay</Text>: null}
           </View>
 
             <View
-             style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10 }}
+             style={styles.teamContainer}
             >
               <Text
-               style={{fontSize: 15, fontWeight: 'bold'}}
+               style={styles.teamNameFont}
               >
                 {awayTeamName}
               </Text>
               <Text
-              style={{fontSize: 15, fontWeight: 'bold'}}
+              style={styles.teamScoreStyle}
 
               >
                 {awayTeamScore}
               </Text>
             </View>
             <View
-            style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 10  }}
+            style={styles.teamContainer}
             >
               <Text
-              style={{fontSize: 15, fontWeight: 'bold'}}
+              style={styles.teamNameFont}
               >
                 {homeTeamName}
               </Text>
               <Text
-              style={{fontSize: 15, fontWeight: 'bold'}}
+              style={styles.teamScoreStyle}
               >
                 {homeTeamScore}
               </Text>
@@ -102,11 +102,11 @@ class BassballLiveScores extends Component {
 
     return (
       <View
-      style={{ flex: 1, backgroundColor: '#ab372b'}}
+      style={styles.container}
 
       >
        <ScrollView
-        style={{ flex: 1}}
+        style={styles.scrollViewStyle}
        >
         {this.renderLiveMatches()}
         </ScrollView>
@@ -114,6 +114,50 @@ class BassballLiveScores extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ab372b',
+  },
+  scrollViewStyle: {
+    flex: 1
+  },
+  cardContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    marginTop: 20
+  },
+  cardTitle: {
+    color: '#000'
+  },
+  cardStyle: {
+    backgroundColor: '#fff',
+    borderColor: '#000',
+    borderWidth: 2,
+    borderRadius: 2,
+  },
+  greendotStyle: {
+    width: 10,
+    height: 10,
+    borderRadius: 10/2,
+    backgroundColor: 'green'
+  },
+  teamContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 10
+  },
+  teamNameFont: {
+    fontSize: 15,
+    fontWeight: 'bold'
+  },
+  teamScoreStyle: {
+    fontSize: 15,
+    fontWeight: 'bold'
+  },
+})
 
 const mapStateToProps = state => {
   return {

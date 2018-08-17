@@ -38,8 +38,6 @@ export const signInWithEmail = (email, password, callback) => async dispatch => 
        callback()
      })
      .catch((error) => {
-       // console.log('in error')
-       // console.log(error)
        let errorCode = error.code;
        let errorMessage = error.message;
          dispatch({ type: SIGN_IN_FAILD, payload: error.message })

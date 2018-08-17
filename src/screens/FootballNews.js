@@ -4,7 +4,7 @@ import {
   Text,
   ScrollView,
   ActivityIndicator,
-  FlatList, TouchableHighlight, Alert, Image } from 'react-native';
+  FlatList, TouchableHighlight, Alert, Image, StyleSheet } from 'react-native';
 import { List, Icon } from 'react-native-elements';
 import { connect } from 'react-redux'
 import * as actions from '../actions'
@@ -36,7 +36,6 @@ class FootballNews extends Component {
   }
 
   _signUserOut = () => {
-    // this.props.signUserOut()
     Alert.alert(
       'SignOut',
       'Are You Sure That You Want To Sign Out',
@@ -78,11 +77,10 @@ class FootballNews extends Component {
     />
   )
   render(){
-    // console.log(this.props.footballArticles)
     if(this.props.footballArticles.length === 0) {
       return (
         <View
-         style={{ alignItems: 'center', justifyContent: 'center', flex: 1}}
+         style={styles.loadingContainer}
         >
 
          {this.renderError()}
@@ -95,7 +93,7 @@ class FootballNews extends Component {
     }
     return (
       <View
-        style={{ flex: 1, backgroundColor: '#fff' }}
+        style={styles.containerStyle}
       >
       {this.renderError()}
 
@@ -106,11 +104,22 @@ class FootballNews extends Component {
        keyExtractor={this._keyExtractor}
        renderItem={this._renderItem}
        />
-
       </View>
     )
   }
 }
+const styles = StyleSheet.create({
+  containerStyle: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  loadingContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1
+  },
+})
+
 const mapStateToProps = state => {
   return {
     footballArticles: state.football.footballArticles,

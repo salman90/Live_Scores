@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import { View, Text, Dimensions } from 'react-native';
+import { View, Text, Dimensions, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
@@ -22,7 +22,6 @@ class LiveFootballMatchDetails extends Component{
 
   renderMatchDetails = () => {
     const { liveMatch } = this.props
-    // console.log(liveMatch)
     const matchInfo =  liveMatch.sport_event
     const tournamentName = matchInfo.season.name
     const matchCompetitors = matchInfo.competitors
@@ -40,49 +39,46 @@ class LiveFootballMatchDetails extends Component{
     if(matchStatus == 'live'){
       const gameTime = matchStatusInfo.clock.match_time
     }
-    // console.log(matchStatus)
     const homeScore = matchStatusInfo.home_score
     const matchPeriod = matchStatusInfo.period
-    // console.log(matchPeriod)
-
-    // console.log(matchStatus)
     if(matchStatus === 'live' || matchStatus === 'closed'){
       return (
         <View
-         style={{ width: width * 0.95, height: 300, backgroundColor: '#fff', borderRadius: 8, alignItems: 'center', justifyContent: 'center'}}
+         style={styles.cardContainerStyle}
         >
         <View
-         style={{ marginBottom: 10 }}
+         style={styles.cardTitleContainerStyle}
         >
           <Text
-           style={{ fontSize: 25, fontWeight: 'bold' }}
+           style={styles.cardTitleStyle}
            selectable={true}
            numberOfLines={1}
-          >{tournamentName}</Text>
+          >{tournamentName}
+          </Text>
         </View>
           <View
-           style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 20 }}
+           style={styles.teamContainerStyle}
           >
             <View
-             style={{ flexDirection: 'row', justifyContent: 'space-between',  width: 100}}
+             style={styles.awayTeamRowStyle}
             >
               <Text
-              style={{ fontSize: 20, letterSpacing: 2, fontWeight: 'bold' }}
+              style={styles.teamNameStyle}
               selectable={true}
               numberOfLines={1}
               >{awayTeamAb}</Text>
               <Text
-              style={{ fontWeight: 'bold', marginTop: 2 }}
+              style={styles.teamsScoreStyle}
               >{awayScore}-</Text>
             </View>
             <View
-            style={{ flexDirection: 'row', justifyContent: 'space-between', width: 100}}
+            style={styles.homeTeamRowStyle}
             >
               <Text
-              style={{ fontWeight: 'bold', marginTop: 2 }}
+              style={styles.teamsScoreStyle}
               >{homeScore}</Text>
               <Text
-              style={{ fontSize: 20, letterSpacing: 2, fontWeight: 'bold' }}
+              style={styles.teamNameStyle}
               selectable={true}
               numberOfLines={1}
               >{homeTeamAb}</Text>
@@ -127,16 +123,13 @@ renderMatchPeriod = (matchPeriod, matchStatusInfo, home, away) => {
     const secondHalfInfo =  PeriodScores[1]
     const secondHalfAwayTeamScore = secondHalfInfo.away_score
     const secondHalfhomeTeamScore = secondHalfInfo.home_score
-    // let awayTamefirstHalfGoals = new Object();
-    // let homeTamefirstHalfGoals =  new Object();
     const  awayTeamData = []
     const homeTeamData = []
-    // let firstHalfGoals = []
     awayTeamData.push(away, firstHalfAwayTeamScore, secondHalfAwayTeamScore)
     homeTeamData.push(home, firstHalfHomeTeamScore,  secondHalfhomeTeamScore )
     return (
     <Table
-      borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}
+      borderStyle={styles.borderTableStyle}
     >
      <Row data={this.state.tableHead} style={styles.head} textStyle={styles.text} />
      <Row data={awayTeamData}   />
@@ -149,7 +142,7 @@ renderMatchPeriod = (matchPeriod, matchStatusInfo, home, away) => {
   render(){
     return (
       <View
-       style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+       style={styles.mainContainerStyle}
       >
        {this.renderMatchDetails()}
       </View>
@@ -157,11 +150,59 @@ renderMatchPeriod = (matchPeriod, matchStatusInfo, home, away) => {
   }
 }
 
-const styles = {
+const styles = StyleSheet.create({
   container: {padding: 16, paddingTop: 30, backgroundColor: '#fff' },
   head: { height: 40, backgroundColor: '#f1f8ff' },
-  text: { margin: 6 }
-}
+  text: { margin: 6 },
+  mainContainerStyle: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center' ,
+  },
+  cardContainerStyle: {
+    width: width * 0.95,
+    height: 300,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  cardTitleContainerStyle: {
+    marginBottom: 10,
+  },
+  cardTitleStyle: {
+    fontSize: 25,
+    fontWeight: 'bold'
+  },
+  teamContainerStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 20
+  },
+  awayTeamRowStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 100
+  },
+  homeTeamRowStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 100
+  },
+  teamsScoreStyle: {
+    fontWeight: 'bold',
+    marginTop: 2
+  },
+  teamNameStyle: {
+    fontSize: 20,
+    letterSpacing: 2,
+    fontWeight: 'bold'
+  },
+  borderTableStyle: {
+    borderWidth: 2,
+    borderColor: '#c8e1ff'
+  },
+})
 
 const mapStateToProps = state =>{
   return {

@@ -9,7 +9,10 @@ import ListItem from '../components/listItem';
 
 
 class BassballNews extends Component {
-
+  constructor(props) {
+    super(props);
+    this.clearError = this.clearError.bind(this)
+  }
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Live Scores',
@@ -58,7 +61,7 @@ class BassballNews extends Component {
         'Error',
         'something went in wrong',
         [
-          {text: 'OK', onPress: this.clearError.bind(this)},
+          {text: 'OK', onPress: this.clearError},
         ]
       )
     }
