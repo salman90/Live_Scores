@@ -112,6 +112,5 @@ export const renderNBANews = () => async dispatch => {
 }
 
 export const clearErrorMessageForNBA = () => async dispatch => {
-  // console.log('keep it to yourself')
   dispatch({ type: CLEAR_ERROR_MESSAGE_FOR_NBA })
 }

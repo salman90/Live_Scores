@@ -27,13 +27,14 @@ class MatchDetailsForBassball extends Component {
   renderMatchDetails() {
     const { bassballMatchDetails } = this.props
     const gameStatus = bassballMatchDetails.game.status
+
     const awayTeamInfo =  bassballMatchDetails.game.away
     const homeTeamInfo = bassballMatchDetails.game.home
     const stadiumName = bassballMatchDetails.game.venue.name
     const city = bassballMatchDetails.game.venue.market
     let matchTime = bassballMatchDetails.game.scheduled
     let matchTimeNewFormat = moment(matchTime).format('LLLL')
-
+      console.log(gameStatus)
     if(gameStatus == 'scheduled') {
       return (
         <View
@@ -71,7 +72,7 @@ class MatchDetailsForBassball extends Component {
              </Text>
             </View>
              <Text
-             style={this.awayTeamScore}
+             style={styles.awayTeamScoreStyle}
              >
              {awayTeamInfo.runs}
              </Text>
@@ -82,7 +83,7 @@ class MatchDetailsForBassball extends Component {
              style={styles.teamRowStyle}
             >
                 <Text
-                style={styles.homeTeamScore}
+                style={styles.homeTeamScoreStyle}
                 >{homeTeamInfo.runs}</Text>
               <View>
                 <Text
@@ -114,7 +115,6 @@ class MatchDetailsForBassball extends Component {
 
     }else if(gameStatus == 'inprogress'){
       const {homeTeamScores, bassballMatchDetails, awayTeamScores } = this.props
-      console.log(bassballMatchDetails)
 
       // console.log(this.props.homeTeamScores)
       // if(this.props.homeTeamScores.length)
@@ -466,7 +466,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent:
     'space-between',
-    width: 100
+    width: 150,
   },
   homeTeamScoreStyle: {
     marginRight: 15,

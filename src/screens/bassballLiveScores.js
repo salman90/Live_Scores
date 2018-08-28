@@ -7,12 +7,30 @@ import {
   TouchableWithoutFeedback,
   StyleSheet } from 'react-native';
 import {connect} from 'react-redux';
-import { Card } from 'react-native-elements'
+import { Card, Icon } from 'react-native-elements'
 import * as actions from '../actions';
 import moment from 'moment';
 
 
 class BassballLiveScores extends Component {
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Live Scores',
+      headerStyle: {
+        backgroundColor: '#fff'
+      },
+      headerRight: (
+        <Icon
+          type='font-awesome'
+           size={25}
+           onPress={navigation.getParam('SignOut')}
+           name='sign-out'
+        />
+      ),
+    }
+  }
+
   constructor(props) {
     super(props);
     this.renderLiveGameInfo = this.renderLiveGameInfo.bind(this)
@@ -28,6 +46,7 @@ class BassballLiveScores extends Component {
     const { bassballGames } = this.props
     return bassballGames.map((game, i) => {
       const gameStatus =  game.game.status
+      console.log(gameStatus === 'inprogress')
       if(gameStatus == 'inprogress') {
         const homeTeamName = game.game.home.name
         const gameID = game.game.id
