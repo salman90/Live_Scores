@@ -19,12 +19,6 @@ import NBAScores from './screens/NBAScores';
 import MatchDetailsForBassball from './screens/MatchDetailsForBassball';
 import NBAMatchDetails  from './screens/NBAMatchDetails';
 import MatchDetailsForFootball from './screens/MatchDetailsForFootball';
-import NBANews from './screens/NBANews';
-import FootballNews from './screens/FootballNews';
-import BassballNews from './screens/BassballNews';
-import footballArticleDetails from './screens/footballArticleDetails';
-import NBAArticleDetails from './screens/NBAArticleDetails';
-import BassballArticleDetails from './screens/BassballArticleDetails';
 import FootballLiveScores from './screens/footballLiveScores';
 import BassballLiveScores from './screens/bassballLiveScores';
 import LiveFootballMatchDetails from './screens/liveFootballMatchDetails';
@@ -83,10 +77,7 @@ class App extends Component {
        title: `Live Scores`,
      })
    })
-   const stackNavForFootballNews = createStackNavigator({
-     FootballNews: {screen: FootballNews},
-     footballArticleDetails: {screen: footballArticleDetails}
-   })
+
    const stackNavForFootballLive = createStackNavigator({
      FootballLiveScores: {screen: FootballLiveScores},
      LiveFootballMatchDetails: {screen: LiveFootballMatchDetails}
@@ -94,9 +85,6 @@ class App extends Component {
    const tabNavForFootball = createBottomTabNavigator({
      FootballScores: {
        screen: stackNavFootball
-     },
-     footballnews: {
-       screen: stackNavForFootballNews
      },
      footballLiveScores: {
        screen: stackNavForFootballLive
@@ -141,10 +129,7 @@ class App extends Component {
      })
 
    })
-   const stackNavForNBANews = createStackNavigator({
-     NBANews: {screen: NBANews},
-     NBAArticleDetails: {screen: NBAArticleDetails}
-   })
+
    const stackNavforNBA = createStackNavigator({
      NBAScores: {screen: NBAScores},
      NBAMatchDetails: {screen: NBAMatchDetails}
@@ -155,9 +140,6 @@ class App extends Component {
    const tabNavForNBA =  createBottomTabNavigator({
      NBAScores: {
        screen: stackNavforNBA
-     },
-     NBANews: {
-       screen: stackNavForNBANews
      },
      NBALiveMatches: {
        screen: NBALiveMatches
@@ -212,12 +194,6 @@ class App extends Component {
        screen: MatchDetailsForBassball
      },
    })
-   const StackNavForBassballNews = createStackNavigator({
-     BassballNews: {screen: BassballNews},
-     BassballArticleDetails: {screen: BassballArticleDetails}
-   }, {
-   })
-
    const stackNavForLiveBassballMatches = createStackNavigator({
      BassballLiveScores: { screen: BassballLiveScores },
      BassballLiveMatchDetails: { screen: BassballLiveMatchDetials }
@@ -226,9 +202,6 @@ class App extends Component {
    const tabNavForBassBall = createBottomTabNavigator({
      BassBallScores: {
        screen: StackNavForBassBall
-     },
-     BassballNews: {
-       screen: StackNavForBassballNews
      },
      bassballLiveScores: {
        screen: stackNavForLiveBassballMatches

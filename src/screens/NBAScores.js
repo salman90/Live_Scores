@@ -49,6 +49,7 @@ this.onMatchPress = this.onMatchPress.bind(this)
 
   componentDidMount() {
     const date = '2018/06/08'
+    // const date = moment().format('YYYY/MM/DD')
     this.props.renderNBAMatches(date)
     this.props.navigation.setParams({ SignOut: this._signUserOut });
   }
