@@ -7,6 +7,7 @@ import {
   SIGNING_IN_USER,
   SIGN_IN_FAILD,
   CLEAR_ERROR_IN_AUTH,
+  USER_IS_LOGGED_IN,
 } from '../actions/types'
 
 const INITIAL_STATE = {
@@ -21,7 +22,7 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
   // console.log(action)
   switch (action.type) {
-    case UPDATE_EMAIL:
+   case UPDATE_EMAIL:
      return { ...state, email: action.payload }
    case UPDATE_PASS:
     return { ...state, password: action.payload}
@@ -37,6 +38,9 @@ export default (state = INITIAL_STATE, action) => {
    return {...state, error: action.payload, loading: false, email: '', password: '' }
   case CLEAR_ERROR_IN_AUTH:
    return { ...state, error: '' }
+ case USER_IS_LOGGED_IN:
+  // console.log(action.payload, 'user')
+  return { ...state, user: action.payload}
     default:
    return state;
   }

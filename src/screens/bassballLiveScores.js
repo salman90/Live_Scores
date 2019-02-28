@@ -5,7 +5,7 @@ import {
   ScrollView,
   ActivityIndicator,
   TouchableWithoutFeedback,
-  StyleSheet } from 'react-native';
+  StyleSheet, Image } from 'react-native';
 import {connect} from 'react-redux';
 import { Card, Icon } from 'react-native-elements'
 import * as actions from '../actions';
@@ -118,7 +118,27 @@ class BassballLiveScores extends Component {
 
 
   render(){
-
+    console.log(this.props.bassballGames, 'bassball games')
+      if(this.props.bassballGames.length === 0 ){
+        return (
+          <View
+           style={{
+             flex:1,
+             alignItems: 'center',
+             justifyContent: 'center',
+             backgroundColor: '#ab372b',
+           }}
+          >
+           <Image
+            style={{
+              width: 250,
+              height: 150
+            }}
+            source={require('../images/logo.jpg')}
+           />
+          </View>
+        )
+      }
     return (
       <View
       style={styles.container}

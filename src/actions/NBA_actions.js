@@ -9,7 +9,8 @@ import {
   ERROR_IN_SENDING_REQUEST,
   CLEAR_ERROR_MESSAGE_FOR_NBA,
   ERROR_IN_FETCHING_NBA_NEWS,
-  No_NBA_MATCHES
+  No_NBA_MATCHES,
+  LIVE_NBA_GAMES_INFO,
 } from './types';
 import { NBA_API_KEY, NBA_NEWS_API_KEY } from 'react-native-dotenv';
 import moment from 'moment';
@@ -20,11 +21,13 @@ export const renderNBAMatches = (date) => async dispatch => {
   // console.log(date)
   // const TodaysDate = moment().format('YYYY-MM-DD')
   // console.log(date)
+
   const url = `http://api.sportradar.us/nba/trial/v5/en/games/${date}/schedule.json?api_key=${NBA_API_KEY}`
   axios.get(url)
    .then(res => {
-     // console.log(res.data.games)
+     // console.log(res.data)
      const matches = res.data.games
+     // console.log()
      dispatch({ type: FETCHED_NBA_MATCHES, payload: matches })
    })
    .catch((error) => {
@@ -37,53 +40,92 @@ export const renderNBAMatches = (date) => async dispatch => {
 
 export const showMatchDetails = (game, callback) => async dispatch => {
   // console.log(game)
+  // console.log(game)
   const gameId = game.id
+  // console.log(gameId, 'gameId')
   dispatch({ type: NBA_GAME_DATA, payload: game  })
   const url2 = `http://api.sportradar.us/nba/trial/v5/en/games/${gameId}/summary.json?api_key=${NBA_API_KEY}`
   axios.get(url2)
    .then(res => {
+     // console.log(res, 'response from url2')
+     // console.log(res.data.home, 'home data')
+     // console.log(res.data.away, 'away data')
      const homeCoaches = res.data.home.coaches
-     const homTeamCoache = homeCoaches[0]
-      let obj = {}
-     obj['coache'] = homeCoaches[0]
+     console.log(homeCoaches, 'homeCoaches')
+     if(homeCoaches.length !== 0){
+       console.log(res.data.home, 'home')
+       const homTeamCoache = homeCoaches[0]
+        let obj = {}
+       obj['coache'] = homeCoaches[0]
 
-     const homePlayers = res.data.home.players
-     // const mainArray = []
-     let multiArray = new Array
+       const homePlayers = res.data.home.players
+       // console.log(homePlayers, 'home players')
+       // const mainArray = []
+       let multiArray = new Array
 
-       homePlayers.map((player, i) => {
-         // console.log(player.points)
-         multiArray[i] = new Array
-           let playerName = player.full_name
-           let playerPosition = player.primary_position
-           let playerStat = player.statistics
-           let  playerPoints =  playerStat.points
-           let playerAssits = playerStat.assists
-           let playerBlocks = playerStat.blocks
-         multiArray[i].push(playerName, playerPoints ,playerAssits, playerBlocks)
-       })
-       // console.log(multiArray)
-     dispatch({ type: HOME_TEAM_INFO_FOR_NBA, payload: multiArray})
+         homePlayers.map((player, i) => {
+           // console.log(player.points)
+           multiArray[i] = new Array
+             let playerName = player.full_name
+             let playerPosition = player.primary_position
+             let playerStat = player.statistics
+             let  playerPoints =  playerStat.points
+             let playerAssits = playerStat.assists
+             let playerBlocks = playerStat.blocks
+           multiArray[i].push(playerName, playerPoints ,playerAssits, playerBlocks)
+         })
+         dispatch({ type: HOME_TEAM_INFO_FOR_NBA, payload: multiArray})
+     }
+     const awayCoaches = res.data.away.coaches
+     if(awayCoaches.length !== 0){
 
-     // const awayCoaches = res.data.away.coaches
+       const awayPlayers = res.data.away.players
 
-     const awayPlayers = res.data.away.players
+       let multiArrayAway = new Array
+        awayPlayers.map((player, i) => {
+          multiArrayAway[i] = new Array
+          let playerName = player.full_name
+          let playerPosition = player.primary_position
+          let playerStat = player.statistics
+          let  playerPoints =  playerStat.points
+          let playerAssits = playerStat.assists
+          let playerBlocks = playerStat.blocks
+          multiArrayAway[i].push(playerName, playerPoints, playerAssits, playerBlocks)
+        })
+        dispatch({ type: AWAY_TEAM_INFO_FOR_NBA, payload: multiArrayAway })
+     }
 
-     let multiArrayAway = new Array
-      awayPlayers.map((player, i) => {
-        multiArrayAway[i] = new Array
-        let playerName = player.full_name
-        let playerPosition = player.primary_position
-        let playerStat = player.statistics
-        let  playerPoints =  playerStat.points
-        let playerAssits = playerStat.assists
-        let playerBlocks = playerStat.blocks
-        multiArrayAway[i].push(playerName, playerPoints, playerAssits, playerBlocks)
-      })
-      dispatch({ type: AWAY_TEAM_INFO_FOR_NBA, payload: multiArrayAway })
-     // console.log(players)
      callback()
    })
+}
+
+export const fetchMatchScrores = (games) => async dispatch => {
+  // console.log(games, 'games')
+  const matchPromises = []
+  games.map(async (game, index) => {
+    const gameId = game.id
+    const gameStatus = game.status
+    // console.log(gameStatus, 'game status')
+    // console.log(gameStatus === 'inprogress')
+    if(gameStatus === 'inprogress'){
+      console.log(game.away_points)
+      console.log(game.home_points)
+      // console.log('in progresss ]')
+      const url = `http://api.sportradar.us/nba/trial/v5/en/games/${gameId}/summary.json?api_key=${NBA_API_KEY}`
+      matchPromises.push(axios.get(url))
+    }
+  })
+  // console.log(matchPromises,'matchPromises')
+  axios.all(matchPromises)
+  .then(res => {
+    // console.log(res, 'response')
+    dispatch({ type: LIVE_NBA_GAMES_INFO, payload: res })
+    // let homeTeamData = res
+    // let awayTeamData = res
+    // console.log(homeTeamData, 'homeTeamData')
+    // console.log(awayTeamData, 'awayTeamData')
+  })
+
 }
 
 

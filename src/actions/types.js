@@ -41,3 +41,6 @@ export const No_NBA_MATCHES = 'no_nba_matches';
 export const FECHING_FOOTBALL_MATCH_DETAILS = 'fetching_football_match_details';
 export const LIVE_MATCH_DETAILS_FOR_BASSBALL = 'live_match_details_for_bassball';
 export const CLEAR_ERROR_IN_AUTH = 'clear_error_in_auth';
+export const NO_BASSBALL_MATCHES = 'no_bassball_matches';
+export const LIVE_NBA_GAMES_INFO = 'live_nba_games_info';
+export const USER_IS_LOGGED_IN = 'user_is_logged_in';

@@ -10,6 +10,7 @@ import {
 } from 'react-navigation';
 import { FIREBASE_API_KEY } from 'react-native-dotenv';
 import store from './store'
+import AppNavigator from './navigation/AppNavigator';
 import { Provider } from 'react-redux'
 import { Icon, Button  } from 'react-native-elements'
 import NBALiveMatches from './screens/NBALiveMatches';
@@ -28,8 +29,8 @@ import BassballArticleDetails from './screens/BassballArticleDetails';
 import FootballLiveScores from './screens/footballLiveScores';
 import BassballLiveScores from './screens/bassballLiveScores';
 import LiveFootballMatchDetails from './screens/liveFootballMatchDetails';
-import BassballLiveMatchDetials from './screens/bassballLiveMatchDetails';
-import Auth from './screens/Auth';
+// import BassballLiveMatchDetials from './screens/bassballLiveMatchDetails';
+// import Auth from './screens/Auth';
 import firebase from 'firebase';
 import { AppLoading, Asset } from 'expo';
 
@@ -95,9 +96,6 @@ class App extends Component {
      FootballScores: {
        screen: stackNavFootball
      },
-     footballnews: {
-       screen: stackNavForFootballNews
-     },
      footballLiveScores: {
        screen: stackNavForFootballLive
      },
@@ -155,9 +153,6 @@ class App extends Component {
    const tabNavForNBA =  createBottomTabNavigator({
      NBAScores: {
        screen: stackNavforNBA
-     },
-     NBANews: {
-       screen: stackNavForNBANews
      },
      NBALiveMatches: {
        screen: NBALiveMatches
@@ -220,15 +215,12 @@ class App extends Component {
 
    const stackNavForLiveBassballMatches = createStackNavigator({
      BassballLiveScores: { screen: BassballLiveScores },
-     BassballLiveMatchDetails: { screen: BassballLiveMatchDetials }
+     // BassballLiveMatchDetails: { screen: BassballLiveMatchDetials }
    })
 
    const tabNavForBassBall = createBottomTabNavigator({
      BassBallScores: {
        screen: StackNavForBassBall
-     },
-     BassballNews: {
-       screen: StackNavForBassballNews
      },
      bassballLiveScores: {
        screen: stackNavForLiveBassballMatches
@@ -324,7 +316,6 @@ class App extends Component {
    })
 
    const TabNavigator = createStackNavigator({
-     auth: { screen: Auth},
      sports: {
        screen: drowerNav
      },
@@ -346,7 +337,7 @@ class App extends Component {
      }
    return (
      <Provider store={store}>
-       <TabNavigator />
+      <AppNavigator />
      </Provider>
    )
  }

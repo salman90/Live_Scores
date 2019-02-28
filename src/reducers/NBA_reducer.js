@@ -9,6 +9,7 @@ import {
   CLEAR_ERROR_MESSAGE_FOR_NBA,
   ERROR_IN_FETCHING_NBA_NEWS,
   No_NBA_MATCHES,
+  LIVE_NBA_GAMES_INFO,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -17,6 +18,7 @@ const INITIAL_STATE = {
   awayTeam: [],
   gameData: {},
   nbaArticles: [],
+  liveNBAMatches: [],
   error: '',
   loading: false,
   newsError: ''
@@ -43,6 +45,8 @@ export default (state = INITIAL_STATE, action) => {
      return { ...state, newsError: 'something went wrong' }
     case No_NBA_MATCHES:
      return { ...state, loading: false, NBAGames: [] }
+    case LIVE_NBA_GAMES_INFO:
+     return { ...state, loading: false, liveNBAMatches: action.payload }
     default:
      return state
   }

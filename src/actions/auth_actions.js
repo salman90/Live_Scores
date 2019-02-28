@@ -6,7 +6,8 @@ import {
   LOGED_IN_SUCCESSFULLY,
   SIGNING_IN_USER,
   SIGN_IN_FAILD,
-  CLEAR_ERROR_IN_AUTH
+  CLEAR_ERROR_IN_AUTH,
+  USER_IS_LOGGED_IN
 } from './types'
 import firebase from 'firebase'
 
@@ -50,10 +51,13 @@ export const signInWithEmail = (email, password, callback) => async dispatch => 
    })
 }
 
-export const logInUser = (callback) => async dispatch => {
+export const logInUser = () => async dispatch => {
+  // console.log('in logged in user')
   firebase.auth().onAuthStateChanged(user => {
     if(user){
-      callback()
+      // callback()
+      dispatch({ type: USER_IS_LOGGED_IN, payload: user})
+      // console.log(user)
     }
   })
 }
@@ -66,4 +70,8 @@ export const signUserOut = (callback) => async dispatch => {
 
 export const clearEroorInAuth = () => async dispatch => {
   dispatch({ type: CLEAR_ERROR_IN_AUTH })
+}
+
+export const testing = () => async dispatch => {
+  console.log('in testing')
 }

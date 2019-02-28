@@ -141,10 +141,18 @@ class FootballLiveScores extends Component {
     const { liveGames, loadingLiveMatches } = this.props
     if(loadingLiveMatches){
       return (
+      <View
+       style={{
+         alignItems: 'center',
+         justifyContent: 'center',
+         flex: 1,
+       }}
+      >
         <ActivityIndicator
          size='large'
          color="#0000ff"
         />
+      </View>
       )
     }
     if(liveGames.length === 0){

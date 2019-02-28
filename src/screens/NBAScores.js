@@ -48,7 +48,8 @@ this.onMatchPress = this.onMatchPress.bind(this)
 
 
   componentDidMount() {
-    const date = '2018/06/08'
+    // const date = '2018/06/09'
+    const date = moment().format('YYYY/MM/DD')
     this.props.renderNBAMatches(date)
     this.props.navigation.setParams({ SignOut: this._signUserOut });
   }
@@ -81,6 +82,7 @@ this.onMatchPress = this.onMatchPress.bind(this)
       return 0
     })
     return NBAGames.map((game, i) => {
+      // console.log(game)
       let awayTeamName = game.away.name
       let awayTeamScore = game.away_points
       let homeTeamName = game.home.name
@@ -88,6 +90,9 @@ this.onMatchPress = this.onMatchPress.bind(this)
       let gameStatus = game.status
       let gameTime = game.scheduled
       let gameTimeNewFormat = moment(game.scheduled).format('LLL')
+      // console.log(gameStatus, 'status')
+      // console.log(awayTeamScore, 'away team score')
+      // console.log(homeTeamScore, 'away team score')
       return (
         <View
         key={i}

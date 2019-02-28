@@ -10,6 +10,7 @@ import {
   ERROR_IN_FETCHING_BASSBALL_NEWS,
   NO_GAMES_THAT_DAY,
   LIVE_MATCH_DETAILS_FOR_BASSBALL,
+  NO_BASSBALL_MATCHES,
 } from '../actions/types'
 
 const INITIAL_STATE = {
@@ -28,6 +29,8 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case FETCHED_BASSBALL_MATCHES:
      return { ...state ,bassballGames: action.payload, loading: false }
+    case NO_BASSBALL_MATCHES:
+     return { ...state, bassballGames: [], loading: false }
     case MLB_ARTICLES:
      return { ...state, MLBNews: action.payload}
     case BASSBALL_MATCH_DETAILS:

@@ -16,7 +16,12 @@ const {height, width} = Dimensions.get('window');
 
 
 
-class Auth extends Component {
+class AuthScreen extends Component {
+  static navigationOptions = ({  navigation }) => {
+    return {
+      headerTransparent: true,
+    }
+  }
   constructor(props) {
     super(props);
     this.signUp = this.signUp.bind(this);
@@ -179,4 +184,4 @@ const mapStateToProps =  state => {
   }
 }
 
-export default connect(mapStateToProps, actions)(Auth);
+export default connect(mapStateToProps, actions)(AuthScreen);

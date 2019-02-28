@@ -197,6 +197,7 @@ class BassBallScores extends Component {
     }
   }
   render(){
+    // console.log(this.props.bassballGames, 'bassball games')
     if(this.props.loading){
        return(
          <View
