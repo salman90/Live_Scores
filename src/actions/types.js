@@ -44,3 +44,5 @@ export const CLEAR_ERROR_IN_AUTH = 'clear_error_in_auth';
 export const NO_BASSBALL_MATCHES = 'no_bassball_matches';
 export const LIVE_NBA_GAMES_INFO = 'live_nba_games_info';
 export const USER_IS_LOGGED_IN = 'user_is_logged_in';
+export const FETCHED_TEAM_SCORES = 'fetched_team_scores';
+export const FETCHED_LIVE_MATCHES_AND_SCORES = 'fetched_live_matches_and_scores';

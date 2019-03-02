@@ -28,6 +28,7 @@ class MatchDetailsForFootball extends Component {
   }
 
   renderMatchStages = () => {
+    console.log('in football match')
     const { footballMatchDetails } = this.props
     // console.log(footballMatchDetails)
     const eventInfo  = footballMatchDetails.sport_event
@@ -324,9 +325,9 @@ const styles = StyleSheet.create({
     width: 120
   },
   teamName: {
-    fontSize: 20,
-    letterSpacing: 2,
-    fontWeight: 'bold'
+    fontSize: 25,
+    // letterSpacing: 2,
+    // fontWeight: 'bold'
   },
   awayScoreStyle: {
     fontSize: 25,

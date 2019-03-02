@@ -9,8 +9,9 @@ import { Button, Card, Icon } from 'react-native-elements';
 class NBALiveMatches extends Component {
   componentDidMount(){
     const { NBAGames } = this.props
+
     // console.log(NBAGames, 'games')
-    this.props.fetchMatchScrores(NBAGames)
+    this.props.fetchLiveMatches(NBAGames)
   }
 
   renderLiveNBAGames(){

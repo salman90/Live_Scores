@@ -89,6 +89,12 @@ class FootballLiveScores extends Component {
          >
           <Card
           title={tournamentName}
+          containerStyle={{
+            backgroundColor: '#fff',
+            borderColor: '#000',
+            borderWidth: 2,
+            borderRadius: 2,
+          }}
           >
             <View>
               {status == 'closed' || status == 'ended' ? <Text>FT</Text>: null}

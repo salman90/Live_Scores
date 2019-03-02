@@ -113,7 +113,7 @@ class BassBallScores extends Component {
       const homeTeamScore = game.game.home.runs
       const awayTeamScore = game.game.away.runs
       const gameStatus =  game.game.status
-      console.log(gameStatus)
+      // console.log(gameStatus)
       const gameDate = game.game.scheduled
       const gameDateFormat = moment(gameDate).format("hh:mm a")
 

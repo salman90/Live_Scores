@@ -88,12 +88,15 @@ this.clearError = this.clearError.bind(this)
     return footballGames.map((game, i) => {
       // console.log(game)
       const homtTeamInfo = game.competitors[0]
+      // console.log(game, 'game')
       const homeTeamName =  homtTeamInfo.name
       const awayTeamInfo  = game.competitors[1]
       const awayTeamName = awayTeamInfo.name
       const matchTime = game.scheduled
       const matchStatus = game.status
-      console.log(matchStatus)
+      const matchCompleteStatus = game.sport_event_status
+      console.log(matchCompleteStatus, 'match complete status')
+      // console.log(matchStatus)
       const tournamentName = game.tournament.name
       const matchTimeNewFormat = moment(matchTime).format('LLL')
        return (
@@ -106,6 +109,12 @@ this.clearError = this.clearError.bind(this)
              >
                <Card
                title={tournamentName}
+               containerStyle={{
+                 backgroundColor: '#fff',
+                 borderColor: '#000',
+                 borderWidth: 2,
+                 borderRadius: 2,
+               }}
                >
                 <View>
                    {matchStatus == 'closed' || matchStatus == 'ended' ? <Text>FT</Text>: null}

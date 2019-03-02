@@ -157,7 +157,8 @@ const styles = StyleSheet.create({
   mainContainerStyle: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center' ,
+    justifyContent: 'center',
+    backgroundColor: '#ab372b'
   },
   cardContainerStyle: {
     width: width * 0.95,

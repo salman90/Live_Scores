@@ -25,22 +25,26 @@ import {
    dispatch({ type: FETCHING_FOOTBALL_SCORES })
    const TodaysDate = moment().format('YYYY/MM/DD')
    const url = `https://api.sportradar.us/soccer-xt3/eu/en/schedules/${date}/schedule.json?api_key=${FOOTBALL_API_KEY}`
+
+  // const url = `https://api.sportradar.us/soccer-xt3/eu/en/schedules/${date}/schedule.json?api_key=a4nbj7zwu8r7dzgeaw8yr23t`
+
    axios.get(url)
     .then(res => {
       const results = res.data
       const footballEvent  = results.sport_events
+      console.log(footballEvent, 'football event')
 
       dispatch({ type: FETCHED_FOOTBALL_MATCHES, payload: footballEvent })
       return  footballEvent
     })
    .catch((error) => {
      console.log(error)
-     if(error.response.status === 404){
+     // if(error.response.status === 404){
 
        dispatch({ type: NO_FOOTBALL_MATCHES_IN_THAT_DATE })
-     }else {
-       dispatch({ type: ERROR_IN_FETCHING_FOOTBALL_SCORES })
-     }
+     // }else {
+       // dispatch({ type: ERROR_IN_FETCHING_FOOTBALL_SCORES })
+     // }
    })
 }
 
@@ -97,9 +101,9 @@ export const getFootballLiveScores = () => async dispatch => {
      dispatch({ type: FETCHED_LIVE_SCORES_IN_FOOTBALL_SUCCESSFULLY, payload: matchInfo })
    })
    .catch((error) => {
-     if(error.response.status === 404){
+     // if(error.response.status === 404){
        dispatch({ type: NO_LIVE_MATCHES_ERROR })
-     }
+     // }
    })
 }
 

@@ -19,12 +19,14 @@ import {
 
 
 export const getTodaysMatches = (date) => async dispatch => {
+  // console.log('in get bassballscroes')
   dispatch({ type: FETCHING_BASSBALL_SCORES})
   const url  = `http://api.sportradar.us/mlb/trial/v6.5/en/games/${date}/boxscore.json?api_key=${BASSBALL_API_KEY}`
   axios.get(url)
    .then( res => {
-     console.log(res.data, 'data')
+     // console.log(res.data, 'data')
      const games = res.data.league.games
+     console.log(games, 'games')
      if(typeof games !== 'undefined'){
        dispatch({ type: FETCHED_BASSBALL_MATCHES, payload: games })
      }else{
@@ -32,7 +34,7 @@ export const getTodaysMatches = (date) => async dispatch => {
      }
    })
    .catch((error) => {
-     console.log(typeof error.response.status)
+     // console.log(typeof error.response.status)
      if(typeof error.response.status === 404){
        dispatch({ type: NO_GAMES_THAT_DAY })
      }else {

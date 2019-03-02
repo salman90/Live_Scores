@@ -61,6 +61,7 @@ class MatchDetailsForBassball extends Component {
              <Text
              style={styles.teamNameStyle}
              selectable={true}
+             adjustsFontSizeToFit={true}
              numberOfLines={1}
              >
              {awayTeamInfo.name}
@@ -89,6 +90,7 @@ class MatchDetailsForBassball extends Component {
                 <Text
                 selectable={true}
                 numberOfLines={1}
+                adjustsFontSizeToFit={true}
                 style={styles.teamNameStyle}
                 >{homeTeamInfo.name}</Text>
                 <Text
@@ -284,7 +286,7 @@ class MatchDetailsForBassball extends Component {
       )
 
     }
-    else if(gameStatus == 'closed') {
+    else if(gameStatus == 'closed' || gameStatus == 'complete' ) {
       return (
         <View
          style={styles.cardStyle}
@@ -438,6 +440,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ab372b'
   },
   cardStyle: {
+    width: width,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 10,

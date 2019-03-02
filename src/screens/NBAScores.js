@@ -48,7 +48,8 @@ this.onMatchPress = this.onMatchPress.bind(this)
 
 
   componentDidMount() {
-    // const date = '2018/06/09'
+    // const dateold = '2018/06/09'
+    // console.log(dateold)
     const date = moment().format('YYYY/MM/DD')
     this.props.renderNBAMatches(date)
     this.props.navigation.setParams({ SignOut: this._signUserOut });
@@ -103,6 +104,11 @@ this.onMatchPress = this.onMatchPress.bind(this)
         >
           <Card
           title='NBA'
+          containerStyle={{
+            borderColor: '#000',
+            borderWidth: 2,
+            borderWidth: 2,
+          }}
           >
             <View>
               {gameStatus == 'closed' || gameStatus == 'complete'? <Text>FT</Text>: null}
@@ -167,6 +173,7 @@ this.onMatchPress = this.onMatchPress.bind(this)
   }
 
   render(){
+    console.log(this.props.NBAGames)
     if(this.props.loading){
       return (
       <View

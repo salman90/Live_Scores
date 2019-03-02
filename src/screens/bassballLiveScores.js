@@ -37,8 +37,9 @@ class BassballLiveScores extends Component {
   }
 
   renderLiveGameInfo = (game) => () =>{
-    this.props.renderLiveMatchDetailsForBassball(game, () => {
-      this.props.navigation.navigate('BassballLiveMatchDetails')
+    // console.log('in live match details')
+    this.props.getMachInfo(game, () => {
+      this.props.navigation.navigate('MatchDetailsBassball')
     })
   }
 
@@ -46,7 +47,7 @@ class BassballLiveScores extends Component {
     const { bassballGames } = this.props
     return bassballGames.map((game, i) => {
       const gameStatus =  game.game.status
-      console.log(gameStatus === 'inprogress')
+      // console.log(gameStatus === 'inprogress')
       if(gameStatus == 'inprogress') {
         const homeTeamName = game.game.home.name
         const gameID = game.game.id

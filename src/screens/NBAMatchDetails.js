@@ -77,7 +77,11 @@ class NBAMatchDetails extends Component {
         <View
           style={{width: width * 0.95 , height: height * 0.80}}>
           <ScrollView>
-            <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}>
+            <Table borderStyle={{
+              borderWidth: 2,
+              borderColor: '#c8e1ff',
+               // backgroundColor: ''
+            }}>
              <Row data={this.state.tableHead} style={styles.head} textStyle={styles.text}/>
              <Rows data={this.props.homeTeam} textStyle={styles.text}/>
            </Table>
@@ -130,18 +134,30 @@ class NBAMatchDetails extends Component {
 
   render(){
     const {gameData} = this.props
+    let homeTeamDetails = this.props.homeTeam
+    // console.log(homeTeamDetails, 'home team details')
+    // console.log(homeTeam, 'home team')
+    // console.log(gameData)
+    // console.log(gameData)
     const gameDate =  gameData.scheduled
     const status = gameData.status
+    // console.log(status, 'game status')
+    // console.log(status)
     const awayTeamName = gameData.away.name
     let awayTeamScore = gameData.away_points
+    // console.log(awayTeamScore, 'away team score')
     const homeTeamName = gameData.home.name
     let homeTeamScore = gameData.home_points
+    // console.log(homeTeamScore)
     const stadium = gameData.venue.name
     const awayTeam = this.props.gameData.away.name
     const homeTeam = this.props.gameData.home.name
     const awayTeamAlis = this.props.gameData.away.alias
     const homeTeamAlis = this.props.gameData.home.alias
-
+    const city =  gameData.venue.city
+    // const homeTeamNameAndScore = `${homeTeamAlis} ${homeTeamScore}`
+    let gameTime = gameData.scheduled
+    let gameTimeNewFormat = moment(gameData.scheduled).format('LLL')
     if(status === 'closed'){
       return (
         <View
@@ -235,8 +251,396 @@ class NBAMatchDetails extends Component {
           </View>
         </View>
       )
-    }else {
+    }else if(status === 'scheduled'){
+      return (
+        <View
+         style={{
+           flex: 1, alignItems: 'center', justifyContent: 'center',
+           backgroundColor: '#ab372b',
+         }}
+        >
+         <View
+          style={{
+            width: width - 20,
+            height: 300,
+            backgroundColor: '#fff',
+            borderRadius: 8,
+          }}
+         >
+          <View
+           style={{
+             flex: 1,
+           }}
+          >
+          <View
+           style={{
+             flex: 1,
+             alignItems: 'center',
+             justifyContent: 'center',
+             // backgroundColor: 'blue'
+           }}
+          >
+          <Text
+           style={{
+             fontWeight: 'bold',
+           }}
+          >NBA</Text>
+          </View>
+          <View
+           style={{
+             alignItems: 'center',
+             justifyContent: 'flex-start',
+             marginLeft: 4,
+             flex: 1,
+           }}
+          >
+            <Text
+             style={{
+               fontWeight: 'bold',
+             }}
+            >{gameTimeNewFormat}</Text>
+           </View>
+          </View>
+          <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+          }}
+          >
+           <View
+            style={{
+              flex: 1,
+              // backgroundColor: 'yellow',
+              justifyContent: 'center'
+            }}
+           >
+           <View
+            style={{
+              alignItems: 'center'
+            }}
+           >
+             <Text
+              style={{
+                fontWeight: 'bold',
+                marginBottom: 4,
+              }}
+             >
+              Home
+             </Text>
+            </View>
+            <Text
+            style={{
+              marginLeft: 3,
+              fontWeight: 'bold'
+            }}
+            >{homeTeamName}</Text>
+           </View>
+           <View
+            style={{
+              flex:1,
+              // backgroundColor: 'red'
+              justifyContent: 'center',
+              flexDirection: 'column'
 
+            }}
+           >
+           <View
+            style={{
+              alignItems: 'center',
+              marginBottom: 4,
+            }}
+           >
+             <Text
+              style={{
+                fontWeight: 'bold'
+              }}
+             >
+              Away
+             </Text>
+           </View>
+           <Text
+           style={{
+             marginRight: 3,
+             fontWeight: 'bold'
+           }}
+           numberOfLines={1}
+           adjustsFontSizeToFit={true}
+           >
+            {awayTeamName}
+           </Text>
+           </View>
+
+          </View>
+          <View
+           style={{
+             flex: 1,
+             flexDirection: 'column'
+           }}
+          >
+           <View
+            style={{
+              alignItems: 'center',
+            }}
+           >
+            <Text
+             style={{
+               fontWeight: 'bold',
+             }}
+            >stadium</Text>
+           </View>
+           <View
+            style={{
+              alignItems: 'center',
+              marginTop: 2,
+            }}
+           >
+            <Text
+             adjustsFontSizeToFit={true}
+             numberOfLines={1}
+             style={{
+               fontWeight: 'bold',
+             }}
+            >
+             {stadium}
+            </Text>
+           </View>
+           <View
+            style={{
+              alignItems: 'center',
+            }}
+           >
+            <Text
+            adjustsFontSizeToFit={true}
+            numberOfLines={1}
+            style={{
+              fontWeight: 'bold',
+              marginTop: 5
+            }}
+            >City</Text>
+           </View>
+           <View
+            style={{
+              alignItems: 'center',
+              marginTop: 5,
+            }}
+           >
+            <Text
+             adjustsFontSizeToFit
+             numberOfLines={1}
+             style={{
+               fontWeight: 'bold'
+             }}
+            >
+             {city}
+            </Text>
+           </View>
+          </View>
+         </View>
+        </View>
+      )
+    }else if(status === 'inprogress'){
+      // const homeTeamAlisAndScore = `${this.props.gameData.home.alias} `
+      let awayScore = this.props.teamScores.awayTeamScore
+      let homeScore = this.props.teamScores.awayTeamScore
+      // console.log(awayScore, 'awayScore')
+      // console.log(homeScore, 'homeScore')
+      let homeTeamAlisAndScore = `${homeTeamAlis} ${homeScore}`
+      // console.log(homeTeamAlisAndScore, 'homeTeamScore')
+      let awayTeamAlisAndScore = `${awayScore} ${awayTeamAlis}`
+      // console.log(awayTeamAlisAndScore, 'awayTeamScore')
+      return (
+        <View
+         style={{
+           flex: 1, alignItems: 'center', justifyContent: 'center',
+           backgroundColor: '#ab372b',
+         }}
+        >
+         <View
+          style={{
+            width: width - 20,
+            height: 300,
+            backgroundColor: '#fff',
+            borderRadius: 8,
+          }}
+         >
+          <View
+           style={{
+             flex: 1,
+           }}
+          >
+          <View
+           style={{
+             flex: 1,
+             alignItems: 'center',
+             justifyContent: 'center',
+             // backgroundColor: 'blue'
+           }}
+          >
+          <Text
+           style={{
+             fontWeight: 'bold',
+           }}
+          >NBA</Text>
+          </View>
+          <View
+           style={{
+             alignItems: 'center',
+             justifyContent: 'flex-start',
+             marginLeft: 4,
+             flex: 1,
+           }}
+          >
+            <Text
+             style={{
+               fontWeight: 'bold',
+             }}
+            >{gameTimeNewFormat}</Text>
+           </View>
+          </View>
+          <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+          >
+           <View
+            style={{
+              flex: 1,
+              // backgroundColor: 'yellow',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+           >
+           <View
+            style={{
+              alignItems: 'center'
+
+            }}
+           >
+             <Text
+              style={{
+                fontWeight: 'bold',
+                marginBottom: 4,
+              }}
+             >
+              Home
+             </Text>
+            </View>
+            <Text
+            style={{
+              marginLeft: 3,
+              fontWeight: 'bold',
+              fontSize: 18,
+            }}
+            >{homeTeamAlisAndScore}</Text>
+           </View>
+           <View
+            style={{
+              flex:1,
+              // backgroundColor: 'red'
+              justifyContent: 'center',
+              flexDirection: 'column',
+              alignItems: 'center'
+            }}
+           >
+           <View
+            style={{
+              alignItems: 'center',
+              marginBottom: 4,
+            }}
+           >
+             <Text
+              style={{
+                fontWeight: 'bold'
+              }}
+             >
+              Away
+             </Text>
+           </View>
+             <Text
+             style={{
+               marginRight: 3,
+               fontWeight: 'bold',
+               fontSize: 18,
+             }}
+             numberOfLines={1}
+             adjustsFontSizeToFit={true}
+             >
+              {awayTeamAlisAndScore}
+             </Text>
+           </View>
+
+          </View>
+          <View
+           style={{
+             flex: 1,
+             flexDirection: 'column'
+           }}
+          >
+           <View
+            style={{
+              alignItems: 'center',
+            }}
+           >
+            <Text
+             style={{
+               fontWeight: 'bold',
+             }}
+            >stadium</Text>
+           </View>
+           <View
+            style={{
+              alignItems: 'center',
+              marginTop: 2,
+            }}
+           >
+            <Text
+             adjustsFontSizeToFit={true}
+             numberOfLines={1}
+             style={{
+               fontWeight: 'bold',
+             }}
+            >
+             {stadium}
+            </Text>
+           </View>
+           <View
+            style={{
+              alignItems: 'center',
+            }}
+           >
+            <Text
+            adjustsFontSizeToFit={true}
+            numberOfLines={1}
+            style={{
+              fontWeight: 'bold',
+              marginTop: 5
+            }}
+            >City</Text>
+           </View>
+           <View
+            style={{
+              alignItems: 'center',
+              marginTop: 5,
+            }}
+           >
+            <Text
+             adjustsFontSizeToFit
+             numberOfLines={1}
+             style={{
+               fontWeight: 'bold'
+             }}
+            >
+             {city}
+            </Text>
+           </View>
+          </View>
+         </View>
+        </View>
+      )
+    }else{
       return  (
         <View
          style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}
@@ -289,7 +693,8 @@ const mapStateToProps = state => {
   return {
     homeTeam: state.NBA.homeTeam,
     awayTeam: state.NBA.awayTeam,
-    gameData: state.NBA.gameData
+    gameData: state.NBA.gameData,
+    teamScores: state.NBA.teamScores
   }
 }
 
