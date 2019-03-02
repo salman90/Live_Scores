@@ -1,8 +1,0 @@
-class Meditation
-  def initialize
-    @name = "zazen"
-    @minutes = 40
-  end
-end
-
-m = Meditation.new

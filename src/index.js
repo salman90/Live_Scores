@@ -20,12 +20,6 @@ import NBAScores from './screens/NBAScores';
 import MatchDetailsForBassball from './screens/MatchDetailsForBassball';
 import NBAMatchDetails  from './screens/NBAMatchDetails';
 import MatchDetailsForFootball from './screens/MatchDetailsForFootball';
-import NBANews from './screens/NBANews';
-import FootballNews from './screens/FootballNews';
-import BassballNews from './screens/BassballNews';
-import footballArticleDetails from './screens/footballArticleDetails';
-import NBAArticleDetails from './screens/NBAArticleDetails';
-import BassballArticleDetails from './screens/BassballArticleDetails';
 import FootballLiveScores from './screens/footballLiveScores';
 import BassballLiveScores from './screens/bassballLiveScores';
 import LiveFootballMatchDetails from './screens/liveFootballMatchDetails';
@@ -84,10 +78,7 @@ class App extends Component {
        title: `Live Scores`,
      })
    })
-   const stackNavForFootballNews = createStackNavigator({
-     FootballNews: {screen: FootballNews},
-     footballArticleDetails: {screen: footballArticleDetails}
-   })
+
    const stackNavForFootballLive = createStackNavigator({
      FootballLiveScores: {screen: FootballLiveScores},
      LiveFootballMatchDetails: {screen: LiveFootballMatchDetails}
@@ -139,10 +130,7 @@ class App extends Component {
      })
 
    })
-   const stackNavForNBANews = createStackNavigator({
-     NBANews: {screen: NBANews},
-     NBAArticleDetails: {screen: NBAArticleDetails}
-   })
+
    const stackNavforNBA = createStackNavigator({
      NBAScores: {screen: NBAScores},
      NBAMatchDetails: {screen: NBAMatchDetails}
@@ -207,12 +195,6 @@ class App extends Component {
        screen: MatchDetailsForBassball
      },
    })
-   const StackNavForBassballNews = createStackNavigator({
-     BassballNews: {screen: BassballNews},
-     BassballArticleDetails: {screen: BassballArticleDetails}
-   }, {
-   })
-
    const stackNavForLiveBassballMatches = createStackNavigator({
      BassballLiveScores: { screen: BassballLiveScores },
      // BassballLiveMatchDetails: { screen: BassballLiveMatchDetials }
