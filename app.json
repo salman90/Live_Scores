@@ -26,7 +26,10 @@
       "icon": "./assets/Icon.png",
     },
     "android": {
-     "package": "com.uppercase.liveScore"
+     "package": "com.uppercase.liveScore",
+     "permissions": [],
+     "icon": "./assets/Icon.png",
+     "versionCode": 1,
    }
   }
 }
