@@ -10,7 +10,7 @@ class AuthLoadingScreen extends Component {
 
   componentDidMount(){
     this.props.logInUser()
-    console.log('in auth loading')
+    // console.log('in auth loading')
   }
 
   static navigationOptions = ({  navigation }) => {

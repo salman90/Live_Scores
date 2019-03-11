@@ -123,23 +123,24 @@ export const showMatchDetails = (game, callback) => async dispatch => {
 export const fetchMatchScrores = (games) => async dispatch => {
   // console.log(games, 'games')
   const matchPromises = []
-  games.map(async (garenderNBAMatchesme, index) => {
+  games.map(async (game, index) => {
     const gameId = game.id
     const gameStatus = game.status
     // console.log(gameStatus, 'game status')
     // console.log(gameStatus === 'inprogress')
     if(gameStatus === 'inprogress'){
-      console.log(game.away_points)
-      console.log(game.home_points)
+      console.log(gameStatus)
+      // console.log(game.away_points)
+      // console.log(game.home_points)
       // console.log('in progresss ]')
       const url = `http://api.sportradar.us/nba/trial/v5/en/games/${gameId}/summary.json?api_key=${NBA_API_KEY}`
       matchPromises.push(axios.get(url))
     }
   })
-  // console.log(matchPromises,'matchPromises')
+  console.log(matchPromises,'matchPromises')
   axios.all(matchPromises)
   .then(res => {
-    // console.log(res, 'response')
+    console.log(res, 'response')
     dispatch({ type: LIVE_NBA_GAMES_INFO, payload: res })
     // let homeTeamData = res
     // let awayTeamData = res
@@ -182,24 +183,36 @@ export const fetchLiveMatches = (NBAGames) => async dispatch => {
   // console.log(NBAGames, 'nbaGames')
   NBAGames.map((game, i) => {
     const status = game.status
+
     if(status === 'inprogress') {
+      console.log(status, 'status')
       const gameId = game.id
       console.log(game.id, 'id')
       const url = `http://api.sportradar.us/nba/trial/v5/en/games/${gameId}/summary.json?api_key=${NBA_API_KEY}`
       console.log(url, 'url')
       axios.get(url)
-       .then(res => {
-         let awayTeamPoints = res.data.away.points
-         let homeTeamPoints = res.data.home.points
-         console.log(awayTeamPoints, 'away team points')
-         console.log(homeTeamPoints, 'home team points')
-         const teamObj = {
-           awayTeamPoints: res.data.away.points,
-           awayTeamName: game.away.name,
-           homeTeamPoints: res.data.home.points,
-           homeTeamName: game.home.name,
-         }
-         dispatch({ type: FETCHED_LIVE_MATCHES_AND_SCORES, payload: teamObj })
+      .then(res => {
+
+        // console.log(res.data, 'data')
+      //   // console.log(res.data, 'response')
+          let awayTeamData = res.data
+      //     let homeTeamData = res.data.home
+      //     // console.log(res.data.status, 'data')
+      //     console.log(awayTeamData, 'awayTeamPoints')
+      //     // console.log(homeTeamData, 'home team points')
+      // })
+       // .then(res => {
+       //   let awayTeamPoints = res.data.away.points
+       //   let homeTeamPoints = res.data.home.points
+       //   console.log(awayTeamPoints, 'away team points')
+       //   console.log(homeTeamPoints, 'home team points')
+       //   const teamObj = {
+       //     awayTeamPoints: res.data.away.points,
+       //     awayTeamName: game.away.name,
+       //     homeTeamPoints: res.data.home.points,
+       //     homeTeamName: game.home.name,
+         // }
+       //   dispatch({ type: FETCHED_LIVE_MATCHES_AND_SCORES, payload: teamObj })
        })
 
     }

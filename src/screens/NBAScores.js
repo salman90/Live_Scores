@@ -17,7 +17,7 @@ import moment from 'moment';
 class NBAScores extends Component {
   constructor(props) {
     super(props);
-this.onMatchPress = this.onMatchPress.bind(this)
+  this.onMatchPress = this.onMatchPress.bind(this)
   }
   static navigationOptions = ({ navigation }) => {
     return {

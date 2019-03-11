@@ -17,12 +17,12 @@ import NBAScores from '../screens/NBAScores';
 import MatchDetailsForBassball from '../screens/MatchDetailsForBassball';
 import NBAMatchDetails  from '../screens/NBAMatchDetails';
 import MatchDetailsForFootball from '../screens/MatchDetailsForFootball';
-import NBANews from '../screens/NBANews';
-import FootballNews from '../screens/FootballNews';
-import BassballNews from '../screens/BassballNews';
-import footballArticleDetails from '../screens/footballArticleDetails';
-import NBAArticleDetails from '../screens/NBAArticleDetails';
-import BassballArticleDetails from '../screens/BassballArticleDetails';
+// import NBANews from '../screens/NBANews';
+// import FootballNews from '../screens/FootballNews';
+// import BassballNews from '../screens/BassballNews';
+// import footballArticleDetails from '../screens/footballArticleDetails';
+// import NBAArticleDetails from '../screens/NBAArticleDetails';
+// import BassballArticleDetails from '../screens/BassballArticleDetails';
 import FootballLiveScores from '../screens/footballLiveScores';
 import BassballLiveScores from '../screens/bassballLiveScores';
 import LiveFootballMatchDetails from '../screens/liveFootballMatchDetails';
@@ -180,18 +180,6 @@ export default createDrawerNavigator({
       />
     },
 },
-  NBAScores: {
-    screen: tabNavForNBA,
-    navigationOptions: {
-    title: 'NBA',
-    drawerIcon:
-    <Icon
-      name='ios-basketball'
-      type='ionicon'
-      size={25}
-    />
-  },
-},
  BassBallScores:{
    screen: tabNavForBassball,
    navigationOptions: {
@@ -204,6 +192,18 @@ export default createDrawerNavigator({
       />
   }
  },
+ NBAScores: {
+   screen: tabNavForNBA,
+   navigationOptions: {
+   title: 'NBA',
+   drawerIcon:
+   <Icon
+     name='ios-basketball'
+     type='ionicon'
+     size={25}
+   />
+ },
+},
 }, {
   initialRouteName: 'FootballScores',
 })
