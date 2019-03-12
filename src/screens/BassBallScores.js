@@ -73,7 +73,7 @@ class BassBallScores extends Component {
       'Are You Sure That You Want To Sign Out',
       [
         {text: 'Yes', onPress: () =>  this.props.signUserOut(() =>{
-          this.props.navigation.navigate('auth')
+          this.props.navigation.navigate('Auth')
         })},
         {text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel'},
       ]

@@ -17,12 +17,7 @@ import NBAScores from '../screens/NBAScores';
 import MatchDetailsForBassball from '../screens/MatchDetailsForBassball';
 import NBAMatchDetails  from '../screens/NBAMatchDetails';
 import MatchDetailsForFootball from '../screens/MatchDetailsForFootball';
-// import NBANews from '../screens/NBANews';
-// import FootballNews from '../screens/FootballNews';
-// import BassballNews from '../screens/BassballNews';
-// import footballArticleDetails from '../screens/footballArticleDetails';
-// import NBAArticleDetails from '../screens/NBAArticleDetails';
-// import BassballArticleDetails from '../screens/BassballArticleDetails';
+
 import FootballLiveScores from '../screens/footballLiveScores';
 import BassballLiveScores from '../screens/bassballLiveScores';
 import LiveFootballMatchDetails from '../screens/liveFootballMatchDetails';
@@ -92,9 +87,8 @@ stackNavforNBA.navigationOptions = ({ navigation }) => {
 }
 
 const stackNavForLiveNBAMatches = createStackNavigator({
-  NBALiveMatches: {
-    screen: NBALiveMatches
-  },
+  NBALiveMatches: {screen: NBALiveMatches},
+  NBAMatchDetails: {screen: NBAMatchDetails}
 })
 
 stackNavForLiveNBAMatches.navigationOptions = ({ navigation }) => {

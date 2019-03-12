@@ -6,4 +6,5 @@ import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 
 export default createStackNavigator({
   AuthLoading: AuthLoadingScreen,
+  
 })

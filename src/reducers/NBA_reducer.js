@@ -12,6 +12,7 @@ import {
   LIVE_NBA_GAMES_INFO,
   FETCHED_TEAM_SCORES,
   FETCHED_LIVE_MATCHES_AND_SCORES,
+  FETCHED_LIVE_NBA_MATCHES,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -26,6 +27,7 @@ const INITIAL_STATE = {
   newsError: '',
   teamScores: {},
   liveTeamScore: {},
+  liveMatchesArr: [],
 }
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -56,8 +58,11 @@ export default (state = INITIAL_STATE, action) => {
      // console.log(action.payload, 'payload')
      return { ...state, teamScores: action.payload}
     case FETCHED_LIVE_MATCHES_AND_SCORES:
-    console.log(action.payload, 'payload')
+    // console.log(action.payload, 'payload')
      return { ...state, liveTeamScore: action.payload}
+    case FETCHED_LIVE_NBA_MATCHES:
+    // console.log(action.payload, 'liveMatchesArr')
+     return { ...state, liveMatchesArr: action.payload }
     default:
      return state
   }

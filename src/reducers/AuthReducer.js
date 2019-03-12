@@ -8,14 +8,16 @@ import {
   SIGN_IN_FAILD,
   CLEAR_ERROR_IN_AUTH,
   USER_IS_LOGGED_IN,
+  USER_IS_NOT_SIGN_UP
 } from '../actions/types'
 
 const INITIAL_STATE = {
   email: '',
   password: '',
-  user: null,
+  user: {},
   loading: false,
   error: '',
+  signedUp: false,
 }
 
 
@@ -40,7 +42,10 @@ export default (state = INITIAL_STATE, action) => {
    return { ...state, error: '' }
  case USER_IS_LOGGED_IN:
   // console.log(action.payload, 'user')
-  return { ...state, user: action.payload}
+  return { ...state, user: action.payload, signedUp: true}
+ case USER_IS_NOT_SIGN_UP:
+ // console.log('in')
+  return { ...state, user: null, signedUp: false }
     default:
    return state;
   }

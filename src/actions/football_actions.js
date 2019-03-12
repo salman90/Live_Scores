@@ -32,7 +32,7 @@ import {
     .then(res => {
       const results = res.data
       const footballEvent  = results.sport_events
-      console.log(footballEvent, 'football event')
+      // console.log(footballEvent, 'football event')
 
       dispatch({ type: FETCHED_FOOTBALL_MATCHES, payload: footballEvent })
       return  footballEvent
@@ -56,7 +56,7 @@ export const getMatchDetails = (game,callback) => async dispatch => {
   axios.get(url)
    .then((res) => {
      let matchEvent =  res.data
-     console.log(matchEvent)
+     // console.log(matchEvent)
      dispatch({ type: FOOTBALL_MATCH_DETAILS, payload: matchEvent })
    })
 

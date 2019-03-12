@@ -21,6 +21,23 @@ class NBALiveMatches extends Component {
   this.onMatchPress = this.onMatchPress.bind(this)
   }
 
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Live Scores',
+      headerStyle: {
+        backgroundColor: '#fff'
+      },
+      headerRight: (
+        <Icon
+          type='font-awesome'
+           size={25}
+           onPress={navigation.getParam('SignOut')}
+           name='sign-out'
+        />
+      ),
+  }
+}
+
   onMatchPress = (game) => () => {
     this.props.showMatchDetails(game, ()=> {
       this.props.navigation.navigate('NBAMatchDetails')
@@ -31,94 +48,105 @@ class NBALiveMatches extends Component {
 
     // console.log(NBAGames, 'games')
     // this.props.fetchMatchScrores(NBAGames)
+    this.props.showLiveMatches(NBAGames)
   }
 
   renderLiveNBAGames(){
-    const { liveNBAMatches, NBAGames } = this.props
-    return NBAGames.map((game, i) => {
-      // console.log(game)
-      let awayTeamName = game.away.name
-      let awayTeamScore = game.away_points
-      let homeTeamName = game.home.name
-      let homeTeamScore = game.home_points
-      let gameStatus = game.status
-      let gameTime = game.scheduled
-      let gameTimeNewFormat = moment(game.scheduled).format('LLL')
-      // console.log(gameStatus, 'status')
-      // console.log(awayTeamScore, 'away team score')
-      // console.log(homeTeamScore, 'away team score')
-      return (
-        <View
-        key={i}
-        style={styles.cardContainerStyle}
-        >
-        <TouchableHighlight
-         onPress={this.onMatchPress(game)}
-        >
-          <Card
-          title='NBA'
-          containerStyle={{
-            borderColor: '#000',
-            borderWidth: 2,
-            borderWidth: 2,
-          }}
+    const { liveNBAMatches, NBAGames, liveMatchesArr } = this.props
+    console.log('in live match')
+    // console.log(liveMatchesArr, 'liveMachesArr')
+    // if(liveMatchesArr.length === 0 ){
+      return liveMatchesArr.map((game, i) => {
+        // console.log(game)
+        let awayTeamName = game.away.name
+        let awayTeamScore = game.away_points
+        let homeTeamName = game.home.name
+        let homeTeamScore = game.home_points
+        let gameStatus = game.status
+        let gameTime = game.scheduled
+        let gameTimeNewFormat = moment(game.scheduled).format('LLL')
+        console.log(gameStatus, 'status')
+        console.log(awayTeamScore, 'away team score')
+        console.log(homeTeamScore, 'home team score')
+        return (
+          <View
+          key={i}
+          style={styles.cardContainerStyle}
           >
-            <View>
-              {gameStatus == 'closed' || gameStatus == 'complete'? <Text>FT</Text>: null}
-              {gameStatus == 'inprogress'?
-              <View
-               style={styles.greendotStyle}
-              ></View>: null}
-                {gameStatus =='wdelay'? <Text>Delay</Text>: null}
-                {gameStatus == 'scheduled'? <Text>{gameTimeNewFormat}</Text>: null}
-            </View>
-            <View
-             style={styles.teamContainerStyle}
+          <TouchableHighlight
+           onPress={this.onMatchPress(game)}
+          >
+            <Card
+            title='NBA'
+            containerStyle={{
+              borderColor: '#000',
+              borderWidth: 2,
+              borderWidth: 2,
+            }}
             >
-              <Text
-               style={styles.teamNameStyle}
+              <View>
+
+                {gameStatus == 'inprogress'?
+                <View
+                 style={styles.greendotStyle}
+                ></View>: null}
+              </View>
+              <View
+               style={styles.teamContainerStyle}
               >
-              {awayTeamName}
+                <Text
+                 style={styles.teamNameStyle}
+                >
+                {awayTeamName}
+                </Text>
+                <Text
+                style={styles.teamScoreStyle}
+
+                >
+                  {awayTeamScore}
+                </Text>
+              </View>
+              <View
+               style={styles.teamContainerStyle}
+              >
+              <Text
+              style={styles.teamNameStyle}
+              >
+                {homeTeamName}
               </Text>
               <Text
               style={styles.teamScoreStyle}
-
               >
-                {awayTeamScore}
+                {homeTeamScore}
               </Text>
-            </View>
-            <View
-             style={styles.teamContainerStyle}
-            >
-            <Text
-            style={styles.teamNameStyle}
-            >
-              {homeTeamName}
-            </Text>
-            <Text
-            style={styles.teamScoreStyle}
-            >
-              {homeTeamScore}
-            </Text>
-            </View>
-          </Card>
-        </TouchableHighlight>
-        </View>
-      )
-    })
+              </View>
+            </Card>
+          </TouchableHighlight>
+          </View>
+        )
+      })
+    // }
 
   }
   render(){
-    // console.log(this.props.liveNBAMatches, 'live nba matches')
-    if(this.props.NBAGames.length === 0){
+    console.log(this.props.liveMatchesArr, 'live nba matches')
+    if(this.props.liveMatchesArr.length === 0){
       return (
         <View
-        style={styles.imageContianer}
+        style={styles.logoContainer}
         >
           <Image
-          style={styles.imageStyle}
+          style={styles.logoImageStyle}
           source={require('../images/logo.jpg')}
           />
+          <Text
+           style={{
+             fontSize: 20,
+             // color: '#fff',
+           }}
+          >
+           No Live Matches
+          </Text>
         </View>
       )
     }
@@ -185,6 +213,16 @@ const styles = StyleSheet.create({
     width: 250,
     height: 150
   },
+  logoContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ab372b'
+  },
+  logoImageStyle: {
+     width: 250,
+     height: 130
+  },
 })
 
 const mapStateToProps =  state => {
@@ -192,6 +230,7 @@ const mapStateToProps =  state => {
     NBAGames: state.NBA.NBAGames,
     loading: state.NBA.loading,
     liveNBAMatches: state.NBA.liveNBAMatches,
+    liveMatchesArr: state.NBA.liveMatchesArr,
   }
 }
 

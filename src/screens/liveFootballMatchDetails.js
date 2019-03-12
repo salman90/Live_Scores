@@ -31,12 +31,16 @@ class LiveFootballMatchDetails extends Component{
     const awayTeamName = awayTeamInfo.name
     const homeTeamAb = homeTeamInfo.abbreviation
     const awayTeamAb = awayTeamInfo.abbreviation
-    const matchVenue = matchInfo.venue
-    const staduimName = matchVenue.name
+    // console.log(matchInfo, 'matchInfo')
+    const matchVenue = matchInfo.venue || null
+    // console.log(matchVenue, 'matchVenue')
+    if(matchVenue !== null){
+      const staduimName = matchVenue.name || ''
+    }
     const matchStatusInfo = liveMatch.sport_event_status
     const awayScore = matchStatusInfo.away_score
     const matchStatus = matchStatusInfo.status
-    if(matchStatus == 'live'){
+    if(matchStatus === 'live'){
       const gameTime = matchStatusInfo.clock.match_time
     }
     const homeScore = matchStatusInfo.home_score

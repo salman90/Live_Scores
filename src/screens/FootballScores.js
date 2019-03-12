@@ -63,7 +63,7 @@ this.clearError = this.clearError.bind(this)
       [
         {text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel'},
         {text: 'Yes', onPress: () =>  this.props.signUserOut(() =>{
-          this.props.navigation.navigate('auth')
+          this.props.navigation.navigate('Auth')
         })},
       ]
     )
@@ -95,7 +95,7 @@ this.clearError = this.clearError.bind(this)
       const matchTime = game.scheduled
       const matchStatus = game.status
       const matchCompleteStatus = game.sport_event_status
-      console.log(matchCompleteStatus, 'match complete status')
+      // console.log(matchCompleteStatus, 'match complete status')
       // console.log(matchStatus)
       const tournamentName = game.tournament.name
       const matchTimeNewFormat = moment(matchTime).format('LLL')

@@ -43,7 +43,7 @@ class FootballLiveScores extends Component {
       [
         {text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel'},
         {text: 'Yes', onPress: () =>  this.props.signUserOut(() =>{
-          this.props.navigation.navigate('auth')
+          this.props.navigation.navigate('Auth')
         })},
       ]
     )
@@ -79,6 +79,9 @@ class FootballLiveScores extends Component {
         const homeTeamScore = matchCompleteStatus.home_score
         const matchPeriod = matchCompleteStatus.match_status
         const matchClock = matchCompleteStatus.clock
+        console.log(status, 'status')
+        console.log(matchClock, 'clock')
+        console.log(typeof matchClock !== 'undefined')
       return (
         <View
         key={i}
@@ -98,7 +101,8 @@ class FootballLiveScores extends Component {
           >
             <View>
               {status == 'closed' || status == 'ended' ? <Text>FT</Text>: null}
-              {status == 'live' ?
+              {
+                status == 'live' && typeof matchClock !== 'undefined'?
               <View
               style={{flexDirection: 'row'}}
               >

@@ -13,6 +13,7 @@ import {
   LIVE_NBA_GAMES_INFO,
   FETCHED_TEAM_SCORES,
   FETCHED_LIVE_MATCHES_AND_SCORES,
+  FETCHED_LIVE_NBA_MATCHES
 } from './types';
 import { NBA_API_KEY, NBA_NEWS_API_KEY } from 'react-native-dotenv';
 import moment from 'moment';
@@ -217,4 +218,19 @@ export const fetchLiveMatches = (NBAGames) => async dispatch => {
 
     }
   })
+}
+
+export const showLiveMatches = (NBAGames) => async dispatch => {
+  // console.log(NBAGames, 'nba games')
+  let liveMatchesArr = []
+  NBAGames.map((game, index) => {
+    let gameStatus = game.status
+    if(gameStatus === 'inprogress'){
+      // console.log(gameStatus, 'status')
+        liveMatchesArr.push(game)
+    }
+  })
+  // console.log(liveMatchesArr, 'liveMatchesArr')
+  dispatch({ type: FETCHED_LIVE_NBA_MATCHES, payload: liveMatchesArr })
+  // console.log(liveMatchesArr, 'liveMatchesArr')
 }

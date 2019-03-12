@@ -20,6 +20,12 @@ class AuthScreen extends Component {
   static navigationOptions = ({  navigation }) => {
     return {
       headerTransparent: true,
+      headerStyle: {
+        elevation: 0,
+        shadowColor: 'transparent',
+        // backgroundColor: '#fff',
+        borderBottomWidth: 0,
+      },
     }
   }
   constructor(props) {
@@ -28,15 +34,16 @@ class AuthScreen extends Component {
   }
 
   componentDidMount(){
-    this.props.logInUser(() => {
-      this.props.navigation.navigate('sports')
-    })
+    // this.props.logInUser(() => {
+    //   this.props.navigation.navigate('sports')
+    // })
+    console.log('in auth screen')
   }
 
   signUp() {
     const { email, password } = this.props
     this.props.signInWithEmail(email, password, () => {
-      this.props.navigation.navigate('sports')
+      this.props.navigation.navigate('Main')
     })
   }
 
@@ -180,7 +187,8 @@ const mapStateToProps =  state => {
     password: state.Auth.password,
     user: state.Auth.user,
     loading: state.Auth.loading,
-    error: state.Auth.error
+    error: state.Auth.error,
+    signedUp: state.Auth.signedUp,
   }
 }
 

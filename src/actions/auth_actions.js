@@ -7,7 +7,8 @@ import {
   SIGNING_IN_USER,
   SIGN_IN_FAILD,
   CLEAR_ERROR_IN_AUTH,
-  USER_IS_LOGGED_IN
+  USER_IS_LOGGED_IN,
+  USER_IS_NOT_SIGN_UP
 } from './types'
 import firebase from 'firebase'
 
@@ -58,6 +59,8 @@ export const logInUser = () => async dispatch => {
       // callback()
       dispatch({ type: USER_IS_LOGGED_IN, payload: user})
       // console.log(user)
+    }else {
+      dispatch({ type: USER_IS_NOT_SIGN_UP})
     }
   })
 }

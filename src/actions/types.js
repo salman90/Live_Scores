@@ -46,3 +46,5 @@ export const LIVE_NBA_GAMES_INFO = 'live_nba_games_info';
 export const USER_IS_LOGGED_IN = 'user_is_logged_in';
 export const FETCHED_TEAM_SCORES = 'fetched_team_scores';
 export const FETCHED_LIVE_MATCHES_AND_SCORES = 'fetched_live_matches_and_scores';
+export const USER_IS_NOT_SIGN_UP = 'user_is_not_sign_up';
+export const FETCHED_LIVE_NBA_MATCHES = 'fetched_live_nba_matches';

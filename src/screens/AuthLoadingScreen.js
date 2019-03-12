@@ -16,6 +16,12 @@ class AuthLoadingScreen extends Component {
   static navigationOptions = ({  navigation }) => {
     return {
       headerTransparent: true,
+      headerStyle: {
+        elevation: 0,
+        shadowColor: 'transparent',
+        // backgroundColor: '#fff',
+        borderBottomWidth: 0,
+      },
     }
   }
   constructor(){
@@ -28,11 +34,13 @@ class AuthLoadingScreen extends Component {
   // }
 
   componentWillReceiveProps(nextProps){
-    // console.log(nextProps.user)
+    console.log('should update')
+    // console.log(nextProps.user, 'user props')
     this.props.navigation.navigate(nextProps.user? 'Main': 'Auth')
   }
 
   render(){
+    console.log(this.props.signedUp, 'signedUp')
     return(
       <View
        style={{
@@ -53,7 +61,8 @@ class AuthLoadingScreen extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.Auth.user
+    user: state.Auth.user,
+    signedUp: state.Auth.signedUp,
   }
 }
 
