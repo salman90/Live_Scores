@@ -53,7 +53,7 @@ class NBALiveMatches extends Component {
 
   renderLiveNBAGames(){
     const { liveNBAMatches, NBAGames, liveMatchesArr } = this.props
-    console.log('in live match')
+    // console.log('in live match')
     // console.log(liveMatchesArr, 'liveMachesArr')
     // if(liveMatchesArr.length === 0 ){
       return liveMatchesArr.map((game, i) => {

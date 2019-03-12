@@ -95,7 +95,7 @@ this.clearError = this.clearError.bind(this)
       const matchTime = game.scheduled
       const matchStatus = game.status
       const matchCompleteStatus = game.sport_event_status
-    
+
       const tournamentName = game.tournament.name
       const matchTimeNewFormat = moment(matchTime).format('LLL')
        return (
@@ -210,7 +210,7 @@ this.clearError = this.clearError.bind(this)
        <DateScrollerForFootball
        />
        <ScrollView
-       contentContainerStyle={styles.crollViewStyle}
+       contentContainerStyle={styles.scrollViewStyle}
        >
         {this.renderFootBallGames()}
        </ScrollView>
