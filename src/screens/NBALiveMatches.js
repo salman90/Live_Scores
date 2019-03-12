@@ -65,9 +65,7 @@ class NBALiveMatches extends Component {
         let gameStatus = game.status
         let gameTime = game.scheduled
         let gameTimeNewFormat = moment(game.scheduled).format('LLL')
-        console.log(gameStatus, 'status')
-        console.log(awayTeamScore, 'away team score')
-        console.log(homeTeamScore, 'home team score')
+
         return (
           <View
           key={i}
@@ -129,7 +127,6 @@ class NBALiveMatches extends Component {
 
   }
   render(){
-    console.log(this.props.liveMatchesArr, 'live nba matches')
     if(this.props.liveMatchesArr.length === 0){
       return (
         <View

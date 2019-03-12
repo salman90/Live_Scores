@@ -14,6 +14,7 @@ import moment from 'moment';
 
 class BassballLiveScores extends Component {
 
+
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Live Scores',
@@ -36,6 +37,11 @@ class BassballLiveScores extends Component {
     this.renderLiveGameInfo = this.renderLiveGameInfo.bind(this)
   }
 
+  componentDidMount(){
+    const { bassballGames } = this.props
+    this.props.FetchBassballLiveMatches(bassballGames)
+  }
+
   renderLiveGameInfo = (game) => () =>{
     // console.log('in live match details')
     this.props.getMachInfo(game, () => {
@@ -44,8 +50,8 @@ class BassballLiveScores extends Component {
   }
 
   renderLiveMatches() {
-    const { bassballGames } = this.props
-    return bassballGames.map((game, i) => {
+    const { bassballGames, liveMatchesArr } = this.props
+    return liveMatchesArr.map((game, i) => {
       const gameStatus =  game.game.status
       // console.log(gameStatus === 'inprogress')
       if(gameStatus == 'inprogress') {
@@ -119,8 +125,8 @@ class BassballLiveScores extends Component {
 
 
   render(){
-    console.log(this.props.bassballGames, 'bassball games')
-      if(this.props.bassballGames.length === 0 ){
+    // console.log(this.props.liveMatchesArr, 'live matches arr')
+      if(this.props.liveMatchesArr.length === 0 ){
         return (
           <View
            style={{
@@ -137,6 +143,11 @@ class BassballLiveScores extends Component {
             }}
             source={require('../images/logo.jpg')}
            />
+           <Text
+            style={{
+              fontSize: 20,
+            }}
+           >No Live Matches</Text>
           </View>
         )
       }
@@ -202,6 +213,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     bassballGames: state.bassball.bassballGames,
+    liveMatchesArr: state.bassball.liveMatchesArr
   }
 }
 

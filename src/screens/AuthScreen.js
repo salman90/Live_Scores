@@ -63,7 +63,11 @@ class AuthScreen extends Component {
      if(this.props.loading) {
        return (
          <View
-          style={{ alignItems: 'center', justifyContent: 'center', flex:1 }}
+          style={{
+            alignItems: 'center', 
+          justifyContent: 'center',
+          flex:1,
+          backgroundColor: '#ab372b' }}
          >
            <ActivityIndicator
             size="large"
@@ -176,7 +180,8 @@ const styles = StyleSheet.create({
     width: 200,
     height: 50,
     borderRadius: 10,
-    backgroundColor: '#000'
+    backgroundColor: '#000',
+    marginBottom: 20,
   },
 })
 

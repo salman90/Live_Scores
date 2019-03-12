@@ -156,11 +156,12 @@ class FootballLiveScores extends Component {
          alignItems: 'center',
          justifyContent: 'center',
          flex: 1,
+         backgroundColor: '#ab372b',
        }}
       >
         <ActivityIndicator
          size='large'
-         color="#0000ff"
+         color="#000"
         />
       </View>
       )

@@ -52,7 +52,7 @@ class AuthLoadingScreen extends Component {
       >
        <ActivityIndicator
         size="large"
-        color="#0000ff"
+        color="#000"
        />
       </View>
     )

@@ -95,8 +95,7 @@ this.clearError = this.clearError.bind(this)
       const matchTime = game.scheduled
       const matchStatus = game.status
       const matchCompleteStatus = game.sport_event_status
-      // console.log(matchCompleteStatus, 'match complete status')
-      // console.log(matchStatus)
+    
       const tournamentName = game.tournament.name
       const matchTimeNewFormat = moment(matchTime).format('LLL')
        return (
@@ -175,7 +174,7 @@ this.clearError = this.clearError.bind(this)
         >
           <ActivityIndicator
           size="large"
-          color="#0000ff"
+          color="#000"
           />
         </View>
       )
@@ -228,7 +227,8 @@ const styles = StyleSheet.create({
   mainContainerStyle: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: '#ab372b',
   },
   imageStyle: {
     width: 250,

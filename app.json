@@ -29,7 +29,7 @@
      "package": "com.uppercase.liveScore",
      "permissions": [],
      "icon": "./assets/Icon.png",
-     "versionCode": 2,
+     "versionCode": 3,
    }
   }
 }

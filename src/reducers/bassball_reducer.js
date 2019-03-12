@@ -11,6 +11,7 @@ import {
   NO_GAMES_THAT_DAY,
   LIVE_MATCH_DETAILS_FOR_BASSBALL,
   NO_BASSBALL_MATCHES,
+  FETCHED_LIVE_BASSBALL_MATCHES,
 } from '../actions/types'
 
 const INITIAL_STATE = {
@@ -23,6 +24,7 @@ const INITIAL_STATE = {
   loading: false,
   NewsError: '',
   liveBassballMatchDetails: {},
+  liveMatchesArr: [],
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -51,6 +53,8 @@ export default (state = INITIAL_STATE, action) => {
      return { ...state, bassballGames: [], loading: false }
     case LIVE_MATCH_DETAILS_FOR_BASSBALL:
      return { ...state, liveBassballMatchDetails: action.payload }
+    case FETCHED_LIVE_BASSBALL_MATCHES:
+     return { ...state, liveMatchesArr: action.payload}
     default:
     return state;
   }

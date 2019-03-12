@@ -15,12 +15,13 @@ const {height, width} = Dimensions.get('window')
 class MatchDetailsForBassball extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
+      title: 'Match Details',
       headerLeft: (<Icon type='font-awesome' name='arrow-circle-left' size={25}
   containerStyle={{ paddingLeft: 15 }} color='#000' onPress={() => navigation.goBack()} />),
     }
   }
   state = {
-    tableHead: ['Team','1', '2', '3', '4', '5', '6', '7', '8', '9', 'R', 'H', 'E'],
+    tableHead: ['T','1', '2', '3', '4', '5', '6', '7', '8', '9', 'R', 'H', 'E'],
 
   }
 
@@ -278,8 +279,8 @@ class MatchDetailsForBassball extends Component {
               borderStyle={{borderWidth: 3, borderColor: '#c8e1ff'}}
             >
               <Row data={this.state.tableHead} style={styles.head} textStyle={styles.text} />
-              <Row data={this.props.awayTeamScores} />
-              <Row data={this.props.homeTeamScores} />
+              <Row data={this.props.awayTeamScores} textStyle={styles.rowText}/>
+              <Row data={this.props.homeTeamScores} textStyle={styles.rowText}/>
             </Table>
           </View>
         </View>
@@ -518,6 +519,9 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
     marginTop: 2
   },
+  rowText: {
+    textAlign: 'center'
+  }
 })
 
 

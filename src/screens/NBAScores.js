@@ -177,11 +177,11 @@ class NBAScores extends Component {
     if(this.props.loading){
       return (
       <View
-       style={{ alignItems: 'center', justifyContent: 'center', flex: 1}}
+       style={{ alignItems: 'center', justifyContent: 'center', flex: 1, backgroundColor: '#ab372b'}}
       >
         <ActivityIndicator
          size="large"
-         color="#0000ff"
+         color="#000"
         />
        </View>
       )
@@ -261,7 +261,8 @@ const styles = StyleSheet.create({
   loadingContainerStyle: {
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1
+    flex: 1,
+    backgroundColor: '#ab372b',
   },
   imageLogoStyle: {
     width: 250,

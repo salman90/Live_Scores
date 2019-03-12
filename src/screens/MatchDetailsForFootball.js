@@ -13,6 +13,7 @@ class MatchDetailsForFootball extends Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
+      title: 'Match Details',
       headerLeft: (<Icon type='font-awesome' name='arrow-circle-left' size={25}
   containerStyle={{ paddingLeft: 15 }} color='#000' onPress={() => navigation.goBack()} />),
     }
@@ -271,7 +272,7 @@ class MatchDetailsForFootball extends Component {
         >
           <ActivityIndicator
            size='large'
-           color="#0000ff"
+           color="#000"
           />
         </View>
       )

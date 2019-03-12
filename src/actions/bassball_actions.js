@@ -15,6 +15,7 @@ import {
   NO_GAMES_THAT_DAY,
   LIVE_MATCH_DETAILS_FOR_BASSBALL,
   NO_BASSBALL_MATCHES,
+  FETCHED_LIVE_BASSBALL_MATCHES,
 } from './types'
 
 
@@ -151,4 +152,17 @@ export const renderLiveMatchDetailsForBassball = (game, callback) => async dispa
   dispatch({ type: SCORING_RESULTS_FOR_HOME_TEAM, payload: homeRuns  })
 
   callback()
+}
+
+export const FetchBassballLiveMatches = (bassballGames) => async dispatch => {
+  // console.log(bassballGames, 'in action')
+  let liveMatchesArr = []
+  bassballGames.map((game, index) => {
+    const gameStatus =  game.game.status
+    if(gameStatus == 'inprogress'){
+      liveMatchesArr.push(game)
+    }
+  })
+  dispatch({ type: FETCHED_LIVE_BASSBALL_MATCHES, payload: liveMatchesArr})
+  // console.log(liveMatchesArr, 'liveMatchesArr')
 }

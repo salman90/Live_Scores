@@ -21,6 +21,7 @@ const {height, width} = Dimensions.get('window')
 class NBAMatchDetails extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
+      title: 'Match Details',
       headerLeft: (<Icon type='font-awesome' name='arrow-circle-left' size={25}
   containerStyle={{ paddingLeft: 15 }} color='#000' onPress={() => navigation.goBack()} />),
     }

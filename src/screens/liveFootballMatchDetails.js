@@ -10,6 +10,7 @@ const {height, width} = Dimensions.get('window')
 class LiveFootballMatchDetails extends Component{
   static navigationOptions = ({ navigation }) => {
     return {
+      title: 'Match Details',
       headerLeft: (<Icon type='font-awesome' name='arrow-circle-left' size={25}
   containerStyle={{ paddingLeft: 15 }} color='#000' onPress={() => navigation.goBack()} />),
     }
@@ -113,8 +114,12 @@ renderMatchPeriod = (matchPeriod, matchStatusInfo, home, away) => {
         borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}
       >
        <Row data={this.state.tableHead} style={styles.head} textStyle={styles.text} />
-       <Row data={awayTeamData}   />
-       <Row data={homeTeamData} />
+       <Row data={awayTeamData}
+       textStyle={styles.rowText}
+       />
+       <Row data={homeTeamData}
+       textStyle={styles.rowText}
+     />
       </Table>
 
     )
@@ -136,8 +141,12 @@ renderMatchPeriod = (matchPeriod, matchStatusInfo, home, away) => {
       borderStyle={styles.borderTableStyle}
     >
      <Row data={this.state.tableHead} style={styles.head} textStyle={styles.text} />
-     <Row data={awayTeamData}   />
-     <Row data={homeTeamData} />
+     <Row data={awayTeamData}
+     textStyle={styles.rowText}
+     />
+     <Row data={homeTeamData}
+     textStyle={styles.rowText}
+     />
     </Table>
     )
   }
@@ -206,6 +215,12 @@ const styles = StyleSheet.create({
   borderTableStyle: {
     borderWidth: 2,
     borderColor: '#c8e1ff'
+  },
+  row: {
+    height: 28
+  },
+  rowText: {
+    textAlign: 'center',
   },
 })
 

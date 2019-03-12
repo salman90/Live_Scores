@@ -48,3 +48,4 @@ export const FETCHED_TEAM_SCORES = 'fetched_team_scores';
 export const FETCHED_LIVE_MATCHES_AND_SCORES = 'fetched_live_matches_and_scores';
 export const USER_IS_NOT_SIGN_UP = 'user_is_not_sign_up';
 export const FETCHED_LIVE_NBA_MATCHES = 'fetched_live_nba_matches';
+export const FETCHED_LIVE_BASSBALL_MATCHES = 'fetched_live_bassball_matches';
