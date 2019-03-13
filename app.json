@@ -9,11 +9,7 @@
     "version": "1.2.1",
     "orientation": "portrait",
     "icon": "./assets/Icon.png",
-    "splash": {
-      "image": "./assets/liveScore.png",
-      "backgroundColor": "#a33636",
-      "resizeMode": "contain",
-    },
+
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -21,12 +17,28 @@
       "**/*"
     ],
     "ios": {
+      "splash": {
+        "image": "./assets/liveScore.png",
+        "backgroundColor": "#a33636",
+        "resizeMode": "contain",
+      },
       "supportsTablet": true,
       "buildNumber": "2",
       "bundleIdentifier": "com.uppercase.liveScore",
       "icon": "./assets/Icon.png",
     },
     "android": {
+      "splash": {
+        "backgroundColor": "#a33636",
+        "resizeMode": "contain",
+        "ldpi": "./assets/liveScore_LDPI.png",
+        "mdpi": "./assets/liveScore_MDPI.png",
+        "hdpi": "./assets/liveScore_HDPI.png",
+        "xhdpi": "./assets/liveScore_XHDPI.png",
+        "xxhdpi": "./assets/liveScore_XXHDPI.png",
+        "xxxhdpi": "./assets/liveScore_XXXHDPI.png",
+        "hideExponentText": true
+      },
      "package": "com.uppercase.liveScore",
      "permissions": [],
      "icon": "./assets/Icon.png",
