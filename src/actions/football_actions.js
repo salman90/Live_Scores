@@ -72,11 +72,7 @@ export const getFootballNews = () => async dispatch => {
     axios.get(URL)
      .then((res) =>{
         const europeanFootballNews =  res.data.articles
-        // europeanFootballNews.map((article, i) => {
-        //   console.l
-        // })
-        // console.log(res.data.articles)
-        // _.uniqBy(europeanFootballNews, 'title');
+      
         console.log(europeanFootballNews)
         dispatch({ type: FETCHED_FOOTBALL_ARTICLES, payload: europeanFootballNews })
      })

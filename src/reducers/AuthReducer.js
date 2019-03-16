@@ -29,9 +29,9 @@ export default (state = INITIAL_STATE, action) => {
    case UPDATE_PASS:
     return { ...state, password: action.payload}
    case SIGNED_IN_USER_SUCCESSFULLY:
-    return { ...state, user: action.payload, loading: false }
+    return { ...state, user: action.payload, loading: false, email: '', password: '' }
    case CREATED_USER_SUCCESSFULLY_IN_AUTH:
-    return { ...state, user: action.payload, loading: false}
+    return { ...state, user: action.payload, loading: false,  email: '', password: ''}
    case LOGED_IN_SUCCESSFULLY:
     return { ...state, user: action.payload }
   case SIGNING_IN_USER:

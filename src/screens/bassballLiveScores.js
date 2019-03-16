@@ -5,6 +5,7 @@ import {
   ScrollView,
   ActivityIndicator,
   TouchableWithoutFeedback,
+  Alert,
   StyleSheet, Image } from 'react-native';
 import {connect} from 'react-redux';
 import { Card, Icon } from 'react-native-elements'
@@ -40,7 +41,21 @@ class BassballLiveScores extends Component {
   componentDidMount(){
     const { bassballGames } = this.props
     this.props.FetchBassballLiveMatches(bassballGames)
+    this.props.navigation.setParams({ SignOut: this._signUserOut });
   }
+
+  _signUserOut = () => {
+    Alert.alert(
+      'SignOut',
+      'Are You Sure That You Want To Sign Out',
+      [
+        {text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel'},
+        {text: 'Yes', onPress: () =>  this.props.signUserOut(() =>{
+          this.props.navigation.navigate('Auth')
+        })},
+      ]
+    )
+  };
 
   renderLiveGameInfo = (game) => () =>{
     // console.log('in live match details')

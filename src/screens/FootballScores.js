@@ -12,9 +12,9 @@ import { Button, List, ListItem, Card, Icon  } from 'react-native-elements';
 import DateScroller from '../components/dateScroller';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import moment from 'moment'
+import moment from 'moment';
 import DateScrollerForFootball from '../components/dateScrollerForFootball'
-
+// import { CacheManager } from "react-native-expo-image-cache";
 
 
 class FootballScores extends Component {
@@ -49,7 +49,8 @@ this.clearError = this.clearError.bind(this)
       )
     }
   }
-  componentDidMount(){
+  async componentDidMount(){
+    // await CacheManager.clearCache();
     const TodaysDate = moment().format('YYYY-MM-DD')
     this.props.getTodaysMatchesForFootball(TodaysDate)
     this.props.navigation.setParams({ SignOut: this._signUserOut });

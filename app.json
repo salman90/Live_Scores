@@ -42,7 +42,7 @@
      "package": "com.uppercase.liveScore",
      "permissions": [],
      "icon": "./assets/Icon.png",
-     "versionCode": 4,
+     "versionCode": 7,
    }
   }
 }

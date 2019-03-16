@@ -21,6 +21,13 @@ import MatchDetailsForFootball from '../screens/MatchDetailsForFootball';
 import FootballLiveScores from '../screens/footballLiveScores';
 import BassballLiveScores from '../screens/bassballLiveScores';
 import LiveFootballMatchDetails from '../screens/liveFootballMatchDetails';
+import BassballNewsScreen from  '../screens/BassballNewsScreen';
+import FootballNewsScreen  from '../screens/FootballNewsScreen';
+import NBANewsScreen from '../screens/NBANewsScreen';
+import BassballArticleDetails from '../screens/BassballArticleDetails';
+import FootballArticaleDetailsScreen from '../screens/FootballArticaleDetailsScreen';
+import NBAArticleDetailsScreen from '../screens/NBAArticleDetailsScreen'
+
 
 
 const  stackNavFootball = createStackNavigator({
@@ -50,6 +57,24 @@ const stackNavForFootballLive = createStackNavigator({
   }
 })
 
+const stackNavFootballNews = createStackNavigator({
+  FootballNewsScreen: { screen: FootballNewsScreen },
+  FootballArticaleDetailsScreen: { screen: FootballArticaleDetailsScreen }
+})
+
+stackNavFootballNews.navigationOptions = ( {navigation }) => {
+  return {
+    tabBarIcon: () => (
+      <Icon
+        name='ios-paper'
+        type='ionicon'
+        size={25}
+      />
+    ),
+    tabBarLabel: 'football News',
+  }
+}
+
 stackNavForFootballLive.navigationOptions = ({ navigation }) => {
   return {
     tabBarIcon: () => (
@@ -65,6 +90,7 @@ stackNavForFootballLive.navigationOptions = ({ navigation }) => {
 
 const tabNavForFootball = createBottomTabNavigator({
   stackNavFootball,
+  stackNavFootballNews,
   stackNavForFootballLive,
 })
 
@@ -82,7 +108,7 @@ stackNavforNBA.navigationOptions = ({ navigation }) => {
        size={25}
       />
     ),
-    tabBarLabel: 'NBA schudle',
+    tabBarLabel: 'NBA schedule',
   }
 }
 
@@ -104,9 +130,30 @@ stackNavForLiveNBAMatches.navigationOptions = ({ navigation }) => {
   }
 }
 
+const stackNavForNBANews = createStackNavigator({
+  NBANewsScreen: { screen: NBANewsScreen},
+  NBAArticleDetailsScreen: { screen: NBAArticleDetailsScreen }
+})
+
+stackNavForNBANews.navigationOptions = ({ navigation }) => {
+  return {
+    tabBarIcon: () => (
+      <Icon
+        name='ios-paper'
+        type='ionicon'
+        size={25}
+      />
+    ),
+    tabBarLabel: 'NBA News',
+ }
+}
+
 const tabNavForNBA = createBottomTabNavigator({
   NBAScores: {
     screen: stackNavforNBA
+  },
+  NBANewsScreen: {
+    screen: stackNavForNBANews
   },
   NBALiveMatches: {
     screen: stackNavForLiveNBAMatches
@@ -133,13 +180,32 @@ StackNavForBassBall.navigationOptions = ({ navigation }) => {
        size={25}
       />
     ),
-    tabBarLabel: 'Baseball schudle',
+    tabBarLabel: 'Baseball schedule',
   }
 }
 
 const stackNavForLiveBassballMatches = createStackNavigator({
-  BassballLiveScores: { screen: BassballLiveScores }
+  BassballLiveScores: { screen: BassballLiveScores },
+  MatchDetailsBassball: { screen: MatchDetailsForBassball },
 })
+
+const StackNavForBassballNews = createStackNavigator({
+  BassballNewsScreen: { screen: BassballNewsScreen },
+  BassballArticleDetails: { screen: BassballArticleDetails}
+})
+
+StackNavForBassballNews.navigationOptions = ({ navigation }) => {
+  return {
+    tabBarIcon: () => (
+      <Icon
+        name='ios-paper'
+        type='ionicon'
+        size={25}
+      />
+    ),
+    tabBarLabel: 'Baseball News',
+  }
+}
 
 stackNavForLiveBassballMatches.navigationOptions = ({ navigation }) =>{
   return {
@@ -154,8 +220,11 @@ stackNavForLiveBassballMatches.navigationOptions = ({ navigation }) =>{
   }
 }
 
+
+
 const tabNavForBassball = createBottomTabNavigator({
   StackNavForBassBall,
+  StackNavForBassballNews,
   stackNavForLiveBassballMatches,
 })
 

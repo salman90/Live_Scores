@@ -49,7 +49,22 @@ class NBALiveMatches extends Component {
     // console.log(NBAGames, 'games')
     // this.props.fetchMatchScrores(NBAGames)
     this.props.showLiveMatches(NBAGames)
+    this.props.navigation.setParams({ SignOut: this._signUserOut });
   }
+
+  _signUserOut = () => {
+    Alert.alert(
+      'SignOut',
+      'Are You Sure That You Want To Sign Out',
+      [
+        {text: 'No', onPress: () => console.log('No Pressed'), style: 'cancel'},
+        {text: 'Yes', onPress: () =>  this.props.signUserOut(() =>{
+          this.props.navigation.navigate('Auth')
+        })},
+      ]
+    )
+  };
+
 
   renderLiveNBAGames(){
     const { liveNBAMatches, NBAGames, liveMatchesArr } = this.props

@@ -9,14 +9,25 @@ class ListItem extends React.PureComponent {
     super(props);
     // this.renderArticleDetails
   }
-  componentDidMount(){
+  async componentDidMount(){
     const { item, pageName, navigation } = this.props
     const image = item.urlToImage
-    const path = CacheManager.get(image).getPath();
+    // console.log(image === , 'empty')
+    // console.log(image, 'image')
+    console.log(image)
+    if(image === ""){
+      console.log('no image')
+    }else {
+      try {
+        const path =  await CacheManager.get(image).getPath();
+      }catch(err) {
+        // console.log(err, 'error')
+       }
+    }
   }
   render(){
     const { item, pageName, navigation } = this.props
-    
+    // console.log(item.urlToImage, 'url to image')
       const preview = { uri: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" };
 
     return (

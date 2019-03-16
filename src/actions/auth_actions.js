@@ -43,11 +43,7 @@ export const signInWithEmail = (email, password, callback) => async dispatch => 
        let errorCode = error.code;
        let errorMessage = error.message;
          dispatch({ type: SIGN_IN_FAILD, payload: error.message })
-          // if (errorCode == 'auth/weak-password') {
-          //      alert('The password is too weak.');
-          //  }else {
-          //     alert(errorMessage);
-        // }
+        
      })
    })
 }

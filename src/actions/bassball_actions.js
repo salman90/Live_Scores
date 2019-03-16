@@ -100,6 +100,7 @@ export const getBassballNews = () => async dispatch => {
     axios.get(URL)
      .then((res) => {
        const articles = res.data.articles
+       // console.log(articles, 'articles')
        _.uniqBy(articles, 'urlToImage');
        dispatch({ type: MLB_ARTICLES, payload: articles })
      })
